@@ -1,0 +1,61 @@
+{% extends "user_profile/user_profile_base.html" %}
+
+<!-- TITLE -->
+{% block user_profile_title %} - Change Email{% endblock %}
+
+<!-- SIDEBAR -->
+{% block user_profile_sidebar %}
+{% include 'user_profile/include/user_profile_base_sidebar.html' with email_change_active='active' %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block user_profile_content %}
+
+<h2>Change Email</h2>
+
+
+<form method="post">
+    {% csrf_token %}
+
+    <fieldset disabled>
+        <div class="form-group">
+            <label for="disabledTextInput">現在のメールアドレス</label>
+            <input type="text" id="disabledTextInput" class="form-control" placeholder="{{ user.email }}">
+        </div>
+    </fieldset>
+
+
+    {{ form.non_field_errors }}
+
+    <div class="form-group">
+        <label for="{{ form.change_email.id_for_label }}">{{ form.change_email.label }}</label>
+        
+        <div class="input-group">
+            <input type="{{ form.change_email.field.widget.input_type }}"
+            class="form-control {% if form.change_email.errors %}is-invalid{% endif %}" 
+            name="{{ form.change_email.html_name }}" 
+            id="{{ form.change_email.id_for_label }}"
+            {% if form.change_email.field.required %}required{% endif %} />
+        
+            {% if form.change_email.errors %}
+                {% for error in form.change_email.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    
+        {% if form.change_email.help_text %}
+        <small class="form-text text-muted">{{ form.change_email.help_text }}</small>
+        {% endif %}
+    </div>
+
+    
+    <hr>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-primary" type="submit">save</button>
+    </div>
+
+</form>
+
+{% endblock %}
+

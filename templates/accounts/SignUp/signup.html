@@ -1,0 +1,157 @@
+{% extends "accounts/accounts_base.html" %}
+
+<!-- TITLE -->
+{% block accounts_title %} | Sign in{% endblock %}
+
+<!-- SCRIPT previous -->
+{% block account_js_previous %}
+    {% if USE_RECAPTCHA %}
+        {% include 'include/grecaptcha/grecaptcha_script.html' %}
+    {% endif %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block accounts_content %}
+
+<!-- PAGE MOVE ANNOUNCEMENT -->
+{% include 'include/page_move/page_move_announcement.html' %}
+
+<h2>Sign in</h2>
+<div class="container form-signin pt-4">
+    <div class="row m-0 p-0 mx-auto">
+        <div class="col-md-6 col-ms-12 m-0 p-0 mx-auto">
+            <form method="post" onSubmit="is_note_msg=false;">
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+                <div class="row m-0 p-0">
+                    <div class="col-12 m-0 p-0">
+
+                        <div class="form-group">
+                            <label for="{{ form.unique_account_id.id_for_label }}" class="sr-only">{{ form.unique_account_id.label }}</label>
+                            
+                            <div class="input-group">
+                                <input type="{{ form.unique_account_id.field.widget.input_type }}"
+                                class="form-control {% if form.unique_account_id.errors %}is-invalid{% endif %}" 
+                                name="{{ form.unique_account_id.html_name }}" 
+                                id="{{ form.unique_account_id.id_for_label }}"
+                                placeholder="{{ form.unique_account_id.label }}"
+                                autofocus
+                                {% if form.unique_account_id.field.required %}required{% endif %} />
+                            
+                                {% if form.unique_account_id.errors %}
+                                    {% for error in form.unique_account_id.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        
+                            {% if form.unique_account_id.help_text %}
+                            <small class="form-text text-muted">{{ form.unique_account_id.help_text }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="col-12 m-0 p-0">
+                        <div class="form-group">
+                            <label for="{{ form.email.id_for_label }}" class="sr-only">{{ form.email.label }}</label>
+                            
+                            <div class="input-group">
+                                <input type="{{ form.email.field.widget.input_type }}"
+                                class="form-control {% if form.email.errors %}is-invalid{% endif %}" 
+                                name="{{ form.email.html_name }}" 
+                                id="{{ form.email.id_for_label }}"
+                                placeholder="{{ form.email.label }}"
+                                {% if form.email.field.required %}required{% endif %} />
+                            
+                                {% if form.email.errors %}
+                                    {% for error in form.email.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        
+                            {% if form.email.help_text %}
+                            <small class="form-text text-muted">{{ form.email.help_text }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row m-0 p-0">
+                    <div class="col-md-6 col-ms-12 m-0 p-0">
+                        <div class="form-group">
+                            <label for="{{ form.password1.id_for_label }}" class="sr-only">{{ form.password1.label }}</label>
+                            
+                            <div class="input-group">
+                                <input type="{{ form.password1.field.widget.input_type }}"
+                                class="form-control {% if form.password2.errors %}is-invalid{% endif %}" 
+                                name="{{ form.password1.html_name }}" 
+                                id="{{ form.password1.id_for_label }}"
+                                placeholder="{{ form.password1.label }}"
+                                {% if form.password1.field.required %}required{% endif %} />
+                            
+                                {% if form.password1.errors %}
+                                    {% for error in form.password1.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-ms-12 m-0 p-0">
+                        <div class="form-group">
+                            <label for="{{ form.password2.id_for_label }}" class="sr-only">{{ form.password2.label }}</label>
+                            
+                            <div class="input-group">
+                                <input type="{{ form.password2.field.widget.input_type }}"
+                                class="form-control {% if form.password2.errors %}is-invalid{% endif %}" 
+                                name="{{ form.password2.html_name }}" 
+                                id="{{ form.password2.id_for_label }}"
+                                placeholder="{{ form.password2.label }}"
+                                {% if form.password2.field.required %}required{% endif %} />
+                            
+                                {% if form.password2.errors %}
+                                    {% for error in form.password2.errors %}
+                                        <div class="invalid-feedback">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% if USE_RECAPTCHA %}
+                    {% include 'include/grecaptcha/grecaptcha_btn.html' %}
+                {% endif %}
+
+                <hr>
+                <div class="d-flex justify-content-center">
+                    <button id="submit" class="process-btn btn btn-primary" type="submit">Create Account</button>
+                </div>
+
+            </form>
+            <!-- USE Spinner -->
+            
+        </div>
+
+        <div class="col-md-3 col-ms-12 m-0 p-0">
+            {% if USE_SOCIAL_LOGIN %}
+                <a href="{% url 'social:begin' 'google-oauth2' %}" class="text-decoration-none"><i class="bi bi-google mr-1"></i>Sign in with Google</a>
+                <hr>
+            {% endif %}
+            <a href="{% url 'login' %}" class="text-decoration-none"><i class="fas fa-sign-in-alt mr-1"></i>Log in</a>
+            <hr>
+        </div>
+        
+    </div>
+</div>
+
+{% endblock %}
+
+
+

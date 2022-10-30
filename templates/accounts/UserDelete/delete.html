@@ -1,0 +1,52 @@
+{% extends "user_profile/user_profile_base.html" %}
+
+<!-- TITLE -->
+{% block user_profile_title %} - Close account{% endblock %}
+
+<!-- SIDEBAR -->
+{% block user_profile_sidebar %}
+{% include 'user_profile/include/user_profile_base_sidebar.html' with delete_account_active='active' %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block user_profile_content %}
+
+<h2>Close account</h2>
+
+<h4>Are you sure you want to cancel your membership to the service?</h4>
+
+<form method="post">
+
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div class="form-group my-5">
+        
+        <div class="input-group">
+            <input type="{{ form.check_text.field.widget.input_type }}"
+            class="form-control {% if form.check_text.errors %}is-invalid{% endif %}" 
+            name="{{ form.check_text.html_name }}" 
+            id="{{ form.check_text.id_for_label }}"
+            placeholder="delete"
+            {% if form.check_text.field.required %}required{% endif %} />
+
+        {% if form.check_text.errors %}
+            {% for error in form.check_text.errors %}
+                <div class="invalid-feedback">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        </div>
+        {% if form.check_text.help_text %}
+            <div class="alert alert-danger" role="alert">{{ form.check_text.help_text }}</div>
+        {% endif %}
+    </div>
+
+    <hr>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-danger" type="submit">Close account</button>
+    </div>
+
+</form>
+
+{% endblock %}

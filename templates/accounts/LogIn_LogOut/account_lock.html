@@ -1,0 +1,25 @@
+{% extends "accounts/accounts_base.html" %}
+
+<!-- TITLE -->
+{% block accounts_title %} - Your account has been locked.{% endblock %}
+
+
+<!-- CONTENT -->
+{% block accounts_content %}
+
+<h1>Your account has been locked.</h1>
+<p>Please follow the link below to reset your password.</p>
+<a href="{% url 'password_reset' %}">Reset password</a>
+<p>Redirect after 5 seconds.</p>
+
+{% endblock %}
+
+
+<!-- SCRIPT rear -->
+{% block accounts_js_rear %}
+<script>
+  setTimeout(function(){
+    window.location.href = "{% url 'password_reset' %}";
+  }, 5*1000);
+  </script>
+{% endblock %}
