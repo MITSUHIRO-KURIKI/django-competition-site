@@ -1,0 +1,109 @@
+{% load date2remain_days_or_progress_days %}
+{% load object2uer_votes_situation %}
+{% load object2votes_sum %}
+{% load static %}
+
+
+{% if user.is_anonymous %}
+<script>
+    $(function () {
+        $('[data-bs-toggle="tooltip"]').tooltip();
+    })
+</script>
+{% endif %}
+
+<div class="list-group text-break">
+    <div class="list-group-item mt-0 mb-3 p-0">
+        <div class="row m-0 p-0">
+            <div class="col-1 text-center mt-3 mb-0 p-0 d-none d-sm-none d-md-block">
+                {% if object.use_bot_icon %}
+                    <img src="{% static 'discussions_and_notebooks/bot_icon/bot_icon.png' %}" alt="bot_icon"
+                        style="width:60px; height:60px;" class="rounded-circle border border-secondary" />
+                    <div class="d-flex justify-content-center badge text-muted m-0 p-0">bot</div>
+                {% else %}
+                    <a class="" href="{% url 'accounts:user_profile:user_profile' unique_account_id=object.post_user.unique_account_id %}">
+                        <img src="{{ object.post_user.related_custom_user_profile_model.user_icon.url }}" alt="user_icon"
+                            style="width:60px; height:60px;" class="rounded-circle border border-secondary" />
+                    </a>
+                    {% if object.post_user.is_superuser %}
+                        <div class="d-flex justify-content-center badge text-muted m-0 p-0">admin</div>
+                    {% elif object.post_user.is_staff %}
+                        <div class="d-flex justify-content-center badge text-muted m-0 p-0">staff</div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="col m-0 p-0">
+                <div class="d-flex flex-nowrap justify-content-between m-0 p-0">
+                    <div class="text-body text-left flex-grow-1 m-0 p-0">
+                        {% if object.use_bot_icon %}
+                            <small class="text-muted">bot</small>
+                        {% else %}
+                            <small><a class="text-decoration-none text-muted" href="{% url 'accounts:user_profile:user_profile' unique_account_id=object.post_user.unique_account_id %}">{{ object.post_user.username }}</a></small>
+                        {% endif %}
+                        <small>&nbsp;in {% if object.post_competition_or_none %}<a class="text-decoration-none text-muted" href="{% url 'competitions:competition_detail' unique_competition_id=object.post_competition_or_none.unique_competition_id %}">{{ object.post_competition_or_none.title | truncatechars:30 }}</a>{% else %}GENERAL{% endif %}</small>
+                        <small class="text-decoration-none text-muted">&nbsp;/ create at {{ object.date_create | date2remain_days_or_progress_days }}</small>
+                        <small>&nbsp;- <a class="text-decoration-none text-muted" href="{% url 'user_inquiry:user_inquiry_form' %}?discussion_pk={{ object.pk }}">Report</a></small>
+                    </div>
+                    <div class="text-right d-flex flex-nowrap m-0 px-1 pt-2 pb-0">
+                        <div class="badge">
+                            {% object2uer_votes_situation object.id 'discussion' user.id as situation %}
+                            {% object2votes_sum object.id 'discussion' as votes_sum %}
+                            <div class="input-group input-group-sm flex-nowrap m-0 p-0">
+                                {% if user.is_authenticated %}
+                                    <div class="input-group-prepend">
+                                        <button class="vote btn btn-sm btn-outline-secondary m-0 px-2 py-0 {% if situation == 'up_vote' %}btn-secondary text-white{% endif %}" object_type="discussion" object_id="{{ object.id }}" vote_action="up_vote" data-id='{{ object.id }}' type="button"><i class="bi bi-arrow-up"></i></button>
+                                    </div>
+                                    <div class="vote-sum text-monospace border border-secondary lead text-muted m-0 px-3 py-1" object_type="discussion" data-id='{{ object.id }}'>{{ votes_sum }}</div>
+                                    <div class="input-group-append">
+                                        <button class="vote btn btn-sm btn-outline-secondary m-0 px-2 py-0 {% if situation == 'down_vote' %}btn-secondary text-white{% endif %}" object_type="discussion" object_id="{{ object.id }}" vote_action="down_vote" data-id='{{ object.id }}' type="button"><i class="bi bi-arrow-down"></i></button>
+                                    </div>
+                                {% else %}
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-sm btn-outline-secondary m-0 px-2 py-0" type="button" disabled><i class="bi bi-arrow-up"></i></button>
+                                    </div>
+                                    <div class="text-monospace border border-secondary lead text-muted m-0 px-3 py-1">{{ votes_sum }}</div>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-sm btn-outline-secondary m-0 px-2 py-0" type="button" disabled><i class="bi bi-arrow-down"></i></button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="badge">
+                            {% if user.is_authenticated %}
+                                <a class="bookmark btn btn-sm mx-1 my-0 p-0" object_type='discussion' object_id='{{ object.id }}' data-id='{{ object.id }}' type="button">
+                                    {% if object.id in BOOKMARK_DISCUSSIONS_ID_LIST %}
+                                        <i class="bi bi-bookmark-check-fill"></i>
+                                    {% else %}
+                                        <i class="bi bi-bookmark-check"></i>
+                                    {% endif %}
+                                </a>
+                            {% else %}
+                                <div class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-custom-class="ml-1" title="Must be <u><b>LOGIN<b></u>">
+                                    <a class="btn btn-sm mx-1 my-0 p-0 disabled" type="button" aria-disabled="true"><i class="bi bi-bookmark-check"></i></a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap justify-content-between mr-5 ml-0 my-0 pr-5 pl-0 py-0">
+                    <h5 class="text-body text-left">{{ object.title }}</h5>
+                </div>
+                <div class="mr-3 ml-1 mt-0 mb-3 p-0">
+                    {% autoescape off %}
+                    <div id="SummernoteText" class="text-break">
+                        {{ object.text }}
+                    </div>
+                    {% endautoescape %}
+                </div>
+                {% if edit_area %}
+                    {% if object.post_user == user %}
+                        <div class="text-right border-top m-0 p-0">
+                            <a class="btn btn-sm mx-1 my-0 p-0" type="button" href="{% url 'discussions:discussion_edit' pk=object.pk %}"><i class="bi bi-pencil"></i></a>
+                            <a class="btn btn-sm mx-1 my-0 p-0" type="button" href="{% url 'discussions:discussion_delete' pk=object.pk %}{% if object.post_competition_or_none %}?redirect_competition_pk={{ object.post_competition_or_none.unique_competition_id }}{% endif %}"><i class="bi bi-trash"></i></a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

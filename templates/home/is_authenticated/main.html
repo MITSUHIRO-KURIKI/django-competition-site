@@ -1,0 +1,41 @@
+{% load static %}
+
+<!-- Message -->
+{% if messages %}
+<div class="col-12 d-flex justify-content-end m-0 p-0">
+    <div class="position-absolute mt-5 pt-4">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %} alert-dismissible m-1 p-1" role="alert">
+                {{ message | linebreaksbr }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="d-flex align-items-center vh-100" style="background: rgba(0, 0, 0, 0.8);">
+    <div id="particles-js" class="m-0 p-0 vh-100" style="position: absolute; z-index: 0;"></div>
+    <div class="row d-flex justify-content-center mx-0 mt-5 mb-0 p-0">
+        <div class="col-md-9 text-md-left col-sm-12 text-sm-center mx-3 my-0 p-0">
+            <h1 class="hero-title lead text-white">{% include 'title.html' %}</h1>
+        </div>
+        <div class="col-md-8 text-md-left col-sm-12 text-sm-center mx-3 my-0 p-0">
+            <p class="hero-text lead text-white">テクノロジーは日々進化し、アップデートしています
+                <br>あなたもここで競争を楽しみ、そして他者と学び合いましょう
+            </p>
+        </div>
+        <div class="col-md-10 text-md-left col-sm-12 mx-0 mt-4 mb-0 p-0">
+            <div class="command_line m-0 p-0"><code class="text-white-50 lh-1 m-0 p-0">>>SITE DATA info</code></div>
+            <div class="command_line m-0 p-0"><code class="text-white-50 lh-1 m-0 p-0">>>USER {{ USER_COUNT }}</code></div>
+            <div class="command_line m-0 p-0"><code class="text-white-50 lh-1 m-0 p-0">>>COMPETITION {{ COMPETITION_COUNT }} / DISCUSSION {{ DISCUSSION_COUNT }} / NOTEBOOK {{ NOTEBOOK_COUNT }}</code></div>
+            <div class="command_line m-0 p-0"><code class="text-white-50 lh-1 m-0 p-0">>></code></div>
+            <div class="command_line m-0 p-0"><code class="text-white-50 lh-1 m-0 p-0">>>{{ user.username }} info</code></div>
+            <div class="command_line m-0 p-0"><code class="text-white-50 lh-1 m-0 p-0">>>JOIN COMPETITION {{ USER_JOIN_COMPETITION_COUNT }} / SUBMISSION {{ USER_SUBMISSION_COUNT }}</code></div>
+            <div class="command_line m-0 p-0"><code class="text-white-50 lh-1 m-0 p-0">>>POST DISCUSSION {{ USER_POST_DISCUSSION_COUNT }} / POST NOTEBOOK {{ USER_POST_NOTEBOOK_COUNT }} / POST COMMENT {{ USER_POST_COMMENT_COUNT }}</code></div>
+            <div class="command_line m-0 p-0"><code class="text-white-50 lh-1 m-0 p-0">>>VOTE LIKE {{ USER_VOTE_LIKE_COUNT }} / BOOKMARK {{ USER_BOOKMARK_COUNT }}</code></div>
+            <div class="command_line m-0 p-0"><code class="text-white-50 lh-1 m-0 p-0">>><div class="command_line_end"></div></code></div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'templates/include/particles/particles.min.js' %}"></script>
+<script src="{% static 'templates/include/particles/particles_settings.js' %}"></script>

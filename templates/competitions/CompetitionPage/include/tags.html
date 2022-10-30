@@ -1,0 +1,11 @@
+{% if COMPETITION_DATA.tags.all %}
+<div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+    <hr>
+    <div class="row m-0 p-0">
+        <p class="fs-2 m-0 p-1">Tags: </p>
+        {% for tag in COMPETITION_DATA.tags.all %}
+            <a class="btn btn-outline-info btn-sm mx-2 p-1" href="{% url 'competitions:home' %}?tag={{ tag.name }}" role="button">{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

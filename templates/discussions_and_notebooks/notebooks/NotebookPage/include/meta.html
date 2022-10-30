@@ -1,0 +1,12 @@
+{% load static %}
+
+<!-- Custom styles for nbconvert -->
+<link rel="stylesheet" href="{% static 'templates/discussions_and_notebooks/notebooks/custom.css' %}" />
+
+<!-- Notebook style -->
+{% autoescape off %}
+  {{ object.notebook_style }}
+{% endautoescape %}
+
+<!-- Loading mathjax macro -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/mathjax.html' %}

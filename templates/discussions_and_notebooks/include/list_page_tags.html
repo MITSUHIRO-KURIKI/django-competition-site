@@ -1,0 +1,61 @@
+{% if OBJECT_TYPE == 'discussions' %}
+    <div class="container-fluid mx-0 mt-1 mb-0 p-0 bg-white" id="InfoModal-DiscussionNotebookTags">
+        <div class="col-md-12 col-sm-12 mx-0 mt-0 mb-1 p-0 overflow-auto" style="height: 13vh;">
+            <ul class="nav nav-pills m-0 p-0">
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link mx-0 my-1 px-2 py-0 {% if IS_ALL %}active{% endif %}" aria-current="page" href="{% url 'discussions:discussions' %}">All</a>
+                </li>
+                {% if IS_ALL %}
+                    <li class="nav-item m-0 p-0">
+                        <a class="nav-link mx-0 my-1 px-2 py-0" href="{% url 'discussions:general_discussions' %}">General</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item m-0 p-0">
+                        <a class="nav-link mx-0 my-1 px-2 py-0 active" aria-current="page" href="{% url 'discussions:discussions' %}">General</a>
+                    </li>
+                {% endif %}
+                {% for tag in TAGS %}
+                    {% if tag.name == SELECT_TAG %}
+                        <li class="nav-item m-0 p-0">
+                            <a class="nav-link mx-0 my-1 px-2 py-0 active" aria-current="page" href="{% if IS_ALL %}{% url 'discussions:discussions' %}{% else %}{% url 'discussions:general_discussions' %}{% endif %}">{{ tag.name }}</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item m-0 p-0">
+                            <a class="nav-link mx-0 my-1 px-2 py-0" href="?tag={{ tag.name }}">{{ tag.name }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% elif OBJECT_TYPE == 'notebooks' %}
+    <div class="container-fluid mx-0 mt-1 mb-0 p-0 bg-white" id="InfoModal-DiscussionNotebookTags">
+        <div class="col-md-12 col-sm-12 mx-0 mt-0 mb-1 p-0 overflow-auto" style="height: 13vh;">
+            <ul class="nav nav-pills m-0 p-0">
+                <li class="nav-item m-0 p-0">
+                    <a class="nav-link mx-0 my-1 px-2 py-0 {% if IS_ALL %}active{% endif %}" aria-current="page" href="{% url 'notebooks:notebooks' %}">All</a>
+                </li>
+                {% if IS_ALL %}
+                    <li class="nav-item m-0 p-0">
+                        <a class="nav-link mx-0 my-1 px-2 py-0" href="{% url 'notebooks:general_notebooks' %}">General</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item m-0 p-0">
+                        <a class="nav-link mx-0 my-1 px-2 py-0 active" aria-current="page" href="{% url 'notebooks:notebooks' %}">General</a>
+                    </li>
+                {% endif %}
+                {% for tag in TAGS %}
+                    {% if tag.name == SELECT_TAG %}
+                        <li class="nav-item m-0 p-0">
+                            <a class="nav-link mx-0 my-1 px-2 py-0 active" aria-current="page" href="{% if IS_ALL %}{% url 'notebooks:notebooks' %}{% else %}{% url 'notebooks:general_notebooks' %}{% endif %}">{{ tag.name }}</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item m-0 p-0">
+                            <a class="nav-link mx-0 my-1 px-2 py-0" href="?tag={{ tag.name }}">{{ tag.name }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}

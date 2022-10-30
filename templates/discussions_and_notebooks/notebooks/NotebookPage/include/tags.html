@@ -1,0 +1,9 @@
+{% if object.tags_or_none.all.0 != None %}
+    <hr>
+    <div class="row m-0 p-0">
+        <p class="fs-2 m-0 p-1">Tags: </p>
+        {% for tag in object.tags_or_none.all %}
+            <a class="btn btn-outline-info btn-sm mx-2 p-1" href="{% url 'notebooks:notebooks' %}?tag={{ tag.name }}" role="button">{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+{% endif %}

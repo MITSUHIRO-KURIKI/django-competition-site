@@ -1,0 +1,22 @@
+{% load date2remain_days %}
+{% load humanize %}
+
+
+<div class="card col-md-10 col-sm-11 mx-auto mt-0 mb-3 p-0">
+    <img src="{{ COMPETITION_DATA.overall.url }}" class="card-img w-100 m-0 p-0" alt="overall">
+    <div class="card-img-overlay m-0 p-0" style="background: rgba(0, 0, 0, 0.3);"></div>
+    <div class="card-img-overlay m-0 pr-0 pl-4">
+        <div class="row m-0 pt-1 pb-0 px-0">
+            <div class="col-md-12 text-md-left col-sm-12 text-sm-center m-0 p-0">
+                <p class="h3 lead lh-0 text-white">{{ COMPETITION_DATA.title }}</p>
+            </div>
+            <div class="col-md-10 text-md-left col-sm-12 text-sm-center m-0 p-0">
+                <p class="h5 lead lh-0 text-white">{{ COMPETITION_DATA.subtitle }}</p>
+            </div>
+            <div class="col-12 m-0 p-0 d-none d-sm-none d-md-block">
+                <p class="display-6 text-white pr-4 text-right m-0 p-0"><i class="bi bi-people-fill"></i> {{ User_JOINED_COUNT | intcomma }} members joined</p>
+                <p class="display-6 text-white pr-4 text-right m-0 p-0"><i class="bi bi-calendar2-event-fill"></i> {{ COMPETITION_DATA.date_close | date2remain_days }}</p>
+            </div>
+        </div>
+    </div>
+</div>

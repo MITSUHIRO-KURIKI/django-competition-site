@@ -1,0 +1,33 @@
+{% extends "discussions_and_notebooks/notebooks/notebooks_base.html" %}
+
+
+<!-- META -->
+{% block discussions_and_notebooks_meta %}
+    <!-- Notebook style -->
+    {% include 'discussions_and_notebooks/notebooks/NotebookPage/include/meta.html' with object=NOTEBOOK_META_DATA %}
+{% endblock %}
+
+<!-- TITLE -->
+{% block notebooks_title %} - {{ NOTEBOOK_DATA.0.title }}{% endblock %}
+
+
+<!-- CONTENT -->
+{% block notebooks_content %}
+
+
+<!-- Overall -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/overall.html' with object=NOTEBOOK_DATA.0 edit_area=True %}
+<!-- Navs -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/navs.html' with object=NOTEBOOK_DATA.0 active='notebook' %}
+
+
+<!-- Notebook body -->
+{% autoescape off %}
+    {{ NOTEBOOK_META_DATA.notebook_body  }}
+{% endautoescape %}
+
+<!-- Tags -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/tags.html' with object=NOTEBOOK_DATA.0 active='notebook' %}
+
+
+{% endblock %}

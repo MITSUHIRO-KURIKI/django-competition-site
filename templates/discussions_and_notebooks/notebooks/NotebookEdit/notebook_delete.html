@@ -1,0 +1,53 @@
+{% extends "discussions_and_notebooks/notebooks/notebooks_base.html" %}
+
+<!-- CONTENT -->
+{% block notebooks_content %}
+
+
+<!-- back botton -->
+<a type="button" class="btn btn-outline-danger btn-sm mb-3" href="{% url 'notebooks:notebook_page' pk=object.id %}"><i class="bi bi-skip-backward mr-2"></i>戻る</a>
+
+
+<h2 class="my-2 p-2">Delete Notebook</h2>
+<hr>
+<!-- Overall -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/overall.html' with edit_area=True %}
+
+<div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="form-group my-5">
+            
+            <div class="input-group">
+                <input type="{{ form.check_text.field.widget.input_type }}"
+                class="form-control {% if form.check_text.errors %}is-invalid{% endif %}" 
+                name="{{ form.check_text.html_name }}" 
+                id="{{ form.check_text.id_for_label }}"
+                placeholder="delete"
+                {% if form.check_text.field.required %}required{% endif %} />
+
+            {% if form.check_text.errors %}
+                {% for error in form.check_text.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            </div>
+            {% if form.check_text.help_text %}
+                <div class="alert alert-danger" role="alert">{{ form.check_text.help_text }}</div>
+            {% endif %}
+        </div>
+
+        <hr>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-danger" type="submit">Delete Notebook</button>
+        </div>
+
+    </form>
+</div>
+
+
+{% endblock %}

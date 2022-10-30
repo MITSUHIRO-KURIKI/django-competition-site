@@ -1,0 +1,31 @@
+{% extends "discussions_and_notebooks/discussions/discussions_base.html" %}
+
+<!-- TITLE -->
+{% block discussions_title %} - Discussion{% endblock %}
+
+
+<!-- CONTENT -->
+{% block discussions_content %}
+
+
+<!-- InfoModal -->
+{% include 'include/imfomation_modal/btn.html' %}
+{% include 'include/imfomation_modal/object.html' %}
+{% include 'discussions_and_notebooks/infomation_modal/infomation_modal_script.html' %}
+<!-- タグ一覧 -->
+{% include 'discussions_and_notebooks/include/list_page_tags.html' with IS_ALL=False OBJECT_TYPE='discussions' %}
+<!-- Discussions and NewPost -->
+<div class="d-flex flex-nowrap justify-content-between m-0 p-0">
+    <h5 class="text-left flex-grow-1">
+        <a name="discussions"></a>
+        <p class="fs-2">Discussions</p>
+    </h5>
+    <div class="text-right">
+        <a class="btn btn-primary" type="button" href="{% url 'discussions:discussion_create' %}"><i class="bi bi-cloud-arrow-up-fill mr-2"></i>Create New Discussion</a>
+    </div>
+</div>
+<!-- Discussions一覧 -->
+{% include 'discussions_and_notebooks/discussions/DiscussionsList/include/discussions_list.html' with IS_ALL=False TOP_EXCLUDE_COMPETITION=True %}
+
+
+{% endblock %}

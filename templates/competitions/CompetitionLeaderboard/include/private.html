@@ -1,0 +1,32 @@
+{% load humanize %}
+
+<table class="table table-striped table-hover table-sm">
+    <thead class="">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col" class="text-center">Name</th>
+          <th scope="col" class="text-center">Score</th>
+          <th scope="col" class="text-center">Date Submit</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if private_score_list %}
+          {% for object in private_score_list %}
+            <tr 
+              {% if user.unique_account_id == object.unique_account_id %}
+              class="table-primary"
+              {% endif %}
+              >
+              <th scope="row">{{ forloop.counter | intcomma }}</th>
+              <td><a href="{% url 'accounts:user_profile:user_profile' unique_account_id=object.unique_account_id %}">{{object.username }}</a></td>
+              <td class="text-center">{{ object.score | intcomma | floatformat:5 }}</td>
+              <td class="text-center">{{ object.date_submission | date:'Y/m/d' }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td class ="text-center" colspan="4">プライベートスコアはコンペティション終了後に公開されます</td>
+          </tr>
+        {% endif %}
+      </tbody>
+</table>

@@ -1,0 +1,17 @@
+{% load humanize %}
+
+<div class="sticky-top container-fluid pt-3 bg-white">
+    <div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+        <ul class="nav">
+            <li class="nav-item">
+            <a class="nav-link {% if active == 'notebook' %}border-bottom border-4 border-primary{% endif %}" aria-current="page" href="{% url 'notebooks:notebook_page' pk=object.pk %}">Notebook</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link {% if active == 'data' %}border-bottom border-4 border-primary{% endif %}" href="{% url 'notebooks:notebook_file_data' pk=object.pk %}">Data</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link {% if active == 'comments' %}border-bottom border-4 border-primary{% endif %}" href="{% url 'notebooks:notebook_page_comments' pk=object.pk %}">Comments ({% if object.comments_count %}{{ object.comments_count | intcomma }}{% else %}0{% endif %})</a>
+            </li>
+        </ul>
+    </div>
+</div>

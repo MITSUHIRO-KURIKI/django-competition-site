@@ -1,0 +1,88 @@
+<script>
+    function SCROLL_TOP() {
+        var speed = 400; var position = 0;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function SCROLL_ATTENTION_POINT(a_name) {
+        var speed = 400; var adjust = 200;
+        var position = $('a[name="'+a_name+'"]').offset().top - adjust;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function GET_INITIAL(USE_NEXT_BTN=false) {
+        // 初回表示 Context
+        const init_html = 'タイトルをクリックすると投稿内容の詳細画面に遷移します';
+        // 初回表示
+        $('#InfoModal-DiscussionNotebookItem').addClass('infomation_modal_attention');
+        // 初回表示 Scroll
+        try { SCROLL_ATTENTION_POINT('discussions'); } catch {};
+        try { SCROLL_ATTENTION_POINT('notebooks'); } catch {};
+        if (USE_NEXT_BTN) {
+            // 複数ページ表示の場合使用
+            $('#InfoModal_NEXT').css('display', '');
+        };
+        page = 1;
+        $('#InfoModalBody').html(init_html);
+        return page;
+    };
+    function GET_PAGE_2() {
+        $('#InfoModal-DiscussionNotebookItem').removeClass('infomation_modal_attention');
+        $('#InfoModal-DiscussionNotebookVote').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('ここから1ユーザー1票 投票で内容を評価できます');
+    };
+    function GET_PAGE_3() {
+        $('#InfoModal-DiscussionNotebookVote').removeClass('infomation_modal_attention');
+        $('#InfoModal-DiscussionNotebookBookmark').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('ブックマークするとユーザーページに保存されます');
+    };
+    function GET_PAGE_4() {
+        $('.modal-dialog').css({'margin-top':'50vh','margin-right': '1vw'});
+        $('#InfoModal-DiscussionNotebookBookmark').removeClass('infomation_modal_attention');
+        $('#InfoModal-DiscussionNotebookTags').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('投稿はタグから絞り込めます<br>Genaral はコンペティションに関連しないものを表示します');
+    };
+    function MODAL_END() {
+        // 変更したものを初期化
+        $('#InfoModal-InfoModal-DiscussionNotebookItem').removeClass('infomation_modal_attention');
+        $('#InfoModal-DiscussionNotebookBookmark').removeClass('infomation_modal_attention');
+        $('#InfoModal-DiscussionNotebookVote').removeClass('infomation_modal_attention');
+        $('#InfoModal-DiscussionNotebookTags').removeClass('infomation_modal_attention');
+        $('.modal-dialog').css({'margin-top':'1vh','margin-right': '1vw'});
+    };
+    $(window).on('load', function(){
+
+        let page = 1;
+        {% if DiscussionNotebookTags %}
+        let final_page = 4;
+        {% else %}
+        let final_page = 3;
+        {% endif %}
+
+        document.getElementById("InfoModalBtn").addEventListener("click", function () {
+            page = GET_INITIAL(true);
+        });
+        // 複数ページ表示の場合
+        document.getElementById("InfoModal_NEXT").addEventListener("click", function () {
+            page += 1
+            if (page == 2) {
+                GET_PAGE_2();
+            } else if (page == 3) {
+                GET_PAGE_3();
+            } else {
+                GET_PAGE_4();
+            };
+            if (page == final_page) {
+                $(this).css('display', 'none');
+            };
+        });
+        if (page == final_page) {
+                $('#InfoModal_NEXT').css('display', 'none');
+        };
+        document.getElementById("InfoModalClose").addEventListener("click", function () {
+            $('#InfoModal').modal('hide');
+        });
+        $('#InfoModal').on('hidden.bs.modal', function (e) {
+            MODAL_END();
+            SCROLL_TOP();
+        });
+    });
+</script>

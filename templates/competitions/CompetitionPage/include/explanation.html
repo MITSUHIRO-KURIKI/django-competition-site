@@ -1,0 +1,103 @@
+<div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+    <ul class="nav nav-tabs mb-4" id="CompetitionsTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="Overview-tab" data-bs-toggle="tab"
+                data-bs-target="#Overview" type="button" role="tab" aria-controls="Overview"
+                aria-selected="true">
+                Overview
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="Evaluation-tab" data-bs-toggle="tab"
+                data-bs-target="#Evaluation" type="button" role="tab" aria-controls="Evaluation"
+                aria-selected="false">
+                Evaluation
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="Data-tab" data-bs-toggle="tab"
+                data-bs-target="#Data" type="button" role="tab" aria-controls="Data"
+                aria-selected="false">
+                Data
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="Rule-tab" data-bs-toggle="tab"
+                data-bs-target="#Rule" type="button" role="tab" aria-controls="Rule"
+                aria-selected="false">
+                Rule
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content text-break" id="CompetitionsTabContent">
+        <div class="tab-pane fade show active" id="Overview" role="tabpanel" aria-labelledby="Overview-tab">
+            {% autoescape off %}
+                <div id="SummernoteText">
+                {{ COMPETITION_DATA.overview_text }}
+                </div>
+            {% endautoescape %}
+        </div>
+        <div class="tab-pane fade" id="Evaluation" role="tabpanel" aria-labelledby="Evaluation-tab">
+            {% autoescape off %}
+                <div id="SummernoteText">
+                {{ COMPETITION_DATA.evaluation_text }}
+                </div>
+            {% endautoescape %}
+        </div>
+        <div class="tab-pane fade" id="Data" role="tabpanel" aria-labelledby="Data-tab">
+            {% autoescape off %}
+                <div id="SummernoteText">
+                {{ COMPETITION_DATA.data_text }}
+                </div>
+            {% endautoescape %}
+            {% if user.is_superuser or user.is_staff %}
+                {% if COMPETITION_DATA.data_file %}
+                    <hr>
+                    <a class="btn btn-outline-success" href="{{ COMPETITION_DATA.data_file.url }}" role="button">
+                        <i class="bi bi-folder-fill"></i> DOWNLOAD DATA FILE
+                    </a>
+                {% endif %}
+            {% elif IS_USER_COMPETITION_JOINED %}
+                {% if COMPETITION_DATA.data_file %}
+                    {% if DATE_NOW > COMPETITION_DATA.date_open %}
+                        <hr>
+                        <a class="btn btn-outline-success" href="{{ COMPETITION_DATA.data_file.url }}" role="button">
+                            <i class="bi bi-folder-fill"></i> DOWNLOAD DATA FILE
+                        </a>
+                    {% else %}
+                        <script>
+                            $(function () {
+                                $('[data-bs-toggle="tooltip"]').tooltip();
+                            })
+                        </script>
+                        <hr>
+                        <div class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-custom-class="ml-1" title="Can't download <u><b>until start<b></u>">
+                            <a class="btn btn-outline-success disabled" href="" role="button" aria-disabled="true">
+                                <i class="bi bi-folder-fill"></i> DOWNLOAD DATA FILE
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <script>
+                    $(function () {
+                        $('[data-bs-toggle="tooltip"]').tooltip();
+                    })
+                </script>
+                <hr>
+                <div class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-custom-class="ml-1" title="must be this competition <u><b>JOIN</b></u>">
+                    <a class="btn btn-outline-success disabled" href="" role="button" aria-disabled="true">
+                        <i class="bi bi-folder-fill"></i> DOWNLOAD DATA FILE
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="tab-pane fade" id="Rule" role="tabpanel" aria-labelledby="Rule-tab">
+            {% autoescape off %}
+                <div id="SummernoteText">
+                {{ COMPETITION_DATA.rule_text }}
+                </div>
+            {% endautoescape %}
+        </div>
+    </div>
+</div>

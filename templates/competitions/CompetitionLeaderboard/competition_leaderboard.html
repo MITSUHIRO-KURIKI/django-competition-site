@@ -1,0 +1,27 @@
+{% extends "competitions/competitions_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block competitions_title %} - {{ COMPETITION_DATA.title }} - Leaderboard{% endblock %}
+
+<!-- CONTENT -->
+{% block competitions_content %}
+
+<!-- InfoModalBtn -->
+{% include 'include/imfomation_modal/btn.html' %}
+{% include 'include/imfomation_modal/object.html' %}
+{% include 'competitions/CompetitionLeaderboard/infomation_modal/infomation_modal_script.html' %}
+<!-- Overall -->
+{% include 'competitions/CompetitionPage/include/overall.html' %}
+<!-- Navs -->
+{% include 'competitions/CompetitionPage/include/navs.html' with leaderboard_active='active'%}
+<!-- Leaderboard -->
+{% include 'competitions/CompetitionLeaderboard/include/leaderboard.html' with leaderboard_active='active'%}
+<!-- Timeline -->
+{% include 'competitions/CompetitionPage/include/timeline.html' %}
+<!-- Tags -->
+{% include 'competitions/CompetitionPage/include/tags.html' %}
+
+
+{% endblock %}

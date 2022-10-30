@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- TITLE -->
+{% block title %} | welcome!{% endblock %}
+
+{% block css_previous %}
+<link rel="stylesheet" href="{% static 'templates/home/hero.css' %}" />
+{% endblock %}
+
+<!-- HERO AREA -->
+{% block hero %}
+    {% if user.is_authenticated %}
+        <!-- main -->
+        {% include 'home/is_authenticated/main.html' %}
+    {% else %}
+        <!-- main -->
+        {% include 'home/not_authenticated/hero.html' %}
+    {% endif %}
+{% endblock %}
+
+
+<!-- FOOTER -->
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}

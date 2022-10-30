@@ -1,0 +1,56 @@
+{% load static %}
+
+{% load date2remain_days_or_progress_days %}
+{% load humanize %}
+
+
+<!-- <div class="row"> -->
+    <div class="col-md-4 col-sm-10 mb-3">
+        <div class="card card-hover m-0 p-0 h-100">
+            <img src="{{ object.overall.url }}" alt="overall"
+                    class="card-img-top" />
+            <div class="card-body">
+                <h5 class="card-title">{{ object.title }}</h5>
+                <p class="card-text mb-1">{{ object.subtitle | truncatechars:30 }}</p>
+            </div>
+            <div class="card-footer m-0 p-0 bg-transparent border-0">
+                <p class="card-text m-0 p-0">
+                    {% if object.tags.all %}
+                        <small class="text-muted px-2">Tags: </small>
+                        {% for names in object.tags.all %}
+                            <small class="text-muted m-0 p-0">{{ names.name }},</small>
+                        {% endfor %}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="card-footer m-0 p-0 bg-transparent border-0">
+                <p class="card-text m-0 p-0">
+                    <div class="text-right">
+                        <p class="card-text m-0 pr-2"><small class="text-muted">start: {{ object.date_open | date:'Y/m/d' }} - end: {{ object.date_close|date:'Y/m/d' }}</small></p>
+                    </div>
+                </p>
+            </div>
+            <div class="card-footer m-0 p-0 bg-transparent">
+                <div class="row">
+                    <div class="col-7 text-left">
+                        {% if object.join_user_count %}
+                            <p class="card-text m-0 p-0"><small class="text-muted pl-3">joined {{ object.join_user_count | intcomma }} users</small></p>
+                        {% elif join_user_count %}
+                            <p class="card-text m-0 p-0"><small class="text-muted pl-3">joined {{ join_user_count | intcomma }} users</small></p>
+                        {% else %}
+                        {% endif %}
+                    </div>
+                    <div class="col-5 text-right">
+                        <p class="card-text m-0 p-0"><small class="text-muted pr-2">{{ object.date_close | date2remain_days_or_progress_days }} </small></p>
+                    </div>
+                </div>
+            </div>
+            {% comment '不要' %}
+            <div class="card-footer text-center">
+                <a href="{% url 'competitions:competition_detail' unique_competition_id=object.unique_competition_id %}" class="btn btn-outline-info stretched-link">check this competition</a>
+            </div>
+            {% endcomment %}
+            <a href="{% url 'competitions:competition_detail' unique_competition_id=object.unique_competition_id %}" class="stretched-link"></a>
+        </div>
+    </div>
+<!-- </div> -->

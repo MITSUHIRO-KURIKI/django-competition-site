@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!-- Custom styles -->
+{% block css_previous %}
+    <!-- Custom styles for summernote -->
+    <link rel="stylesheet" href="{% static 'templates/include/summernote/custom.css' %}" />
+    {% block competitions_css_previous %}{% endblock %}
+{% endblock %}
+
+<!-- TITLE -->
+{% block title %}
+{% block competitions_title %}{% endblock %}
+{% endblock %}
+
+<!-- SCRIPT previous -->
+{% block js_previous %}
+{% block competitions_js_previous %}{% endblock %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+
+<!-- competitions CONTENT -->
+{% block competitions_content %}{% endblock %}
+
+{% endblock %}
+
+<!-- SCRIPT rear -->
+{% block js_rear %}
+{% block competitions_js_rear %}{% endblock %}
+{% endblock %}
+
+<!-- FOOTER -->
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

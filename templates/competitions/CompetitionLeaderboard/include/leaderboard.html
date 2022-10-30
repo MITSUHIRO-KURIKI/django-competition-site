@@ -1,0 +1,30 @@
+<div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+    <ul class="nav nav-tabs mb-4" id="CompetitionsTab" role="tablist">
+        <li class="nav-item" role="presentation" id="InfoModal-CompetitionLederboardPublic">
+            <a class="nav-link active" id="Public-tab" data-bs-toggle="tab"
+                data-bs-target="#Public" type="button" role="tab" aria-controls="Public"
+                aria-selected="true">
+                Public
+            </a>
+        </li>
+        <li class="nav-item" role="presentation" id="InfoModal-CompetitionLederboardPrivate">
+            <a class="nav-link" id="Private-tab" data-bs-toggle="tab"
+                data-bs-target="#Private" type="button" role="tab" aria-controls="Private"
+                aria-selected="false">
+                Private
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="CompetitionsTabContent">
+        <div class="tab-pane fade show active" id="Public" role="tabpanel" aria-labelledby="Public-tab">
+            <div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+                {% include 'competitions/CompetitionLeaderboard/include/public.html' %}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Private" role="tabpanel" aria-labelledby="Private-tab">
+            <div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+                {% include 'competitions/CompetitionLeaderboard/include/private.html' %}
+            </div>
+        </div>
+    </div>
+</div>

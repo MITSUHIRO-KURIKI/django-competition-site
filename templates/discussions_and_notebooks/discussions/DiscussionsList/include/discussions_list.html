@@ -1,0 +1,18 @@
+<!-- Discussion Item -->
+<div class="list-group mb-4">
+    <!-- sort -->
+    <div class="d-flex justify-content-end">
+        {% with sort_name='sort' use_page_tags=use_page_tags add_a_name='discussions' OBJECT_TYPE='discussions' %}
+            {% include 'discussions_and_notebooks/include/list_page_sort.html' %}
+        {% endwith %}
+    </div>
+    <!-- items -->
+    {% for object in DISCUSSIONS_DATA %}
+        {% include 'discussions_and_notebooks/include/discussion_notebook_item.html' with OBJECT_TYPE='discussions' %}
+    {% endfor %}
+</div>
+
+<!-- Pagination -->
+{% with pages=DISCUSSIONS_DATA page_tag='discussions_page' use_page_tags=use_page_tags add_a_name='discussions' %}
+    {% include 'include/pagination/pagination.html' %}
+{% endwith %}

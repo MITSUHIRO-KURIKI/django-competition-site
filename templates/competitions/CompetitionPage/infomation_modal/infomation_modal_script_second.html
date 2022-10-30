@@ -1,0 +1,109 @@
+<script>
+    function SCROLL_TOP() {
+        var speed = 400; var position = 0;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function SCROLL_ATTENTION_POINT(a_name) {
+        var speed = 400; var adjust = 200;
+        var position = $('a[name="'+a_name+'"]').offset().top - adjust;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function GET_INITIAL(USE_NEXT_BTN=false) {
+        // 初回表示 Context
+        const init_html = 'コンペティションに参加したらまずは1つSubmissionしてみましょう<br>提出はここからできます';
+        // 初回表示
+        $('#InfoModal-CompetitionNavsSticky').removeClass('sticky-top');
+        $('#InfoModal-CompetitionNavsSubmission').addClass('infomation_modal_attention');
+        // 初回表示 Scroll
+        SCROLL_ATTENTION_POINT('navs');
+        // 初回表示 Attention Hover
+        $('#InfoModal-CompetitionNavsDiscussion').removeClass('attention-hover');
+        $('#InfoModal-CompetitionNavsNotebook').removeClass('attention-hover');
+        $('#InfoModal-CompetitionNavsSubmission').removeClass('attention-hover');
+        if (USE_NEXT_BTN) {
+            // 複数ページ表示の場合使用
+            $('#InfoModal_NEXT').css('display', '');
+        };
+        page = 1;
+        $('#InfoModalBody').html(init_html);
+        return page;
+    };
+    function GET_PAGE_2() {
+        // AttentionPoint Scroll
+        SCROLL_ATTENTION_POINT('navs');
+
+        $('#InfoModal-CompetitionNavsSubmission').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsLeaderboard').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('他の参加者の提出結果はここからチェックできます');
+    };
+    function GET_PAGE_3() {
+        $('#InfoModal-CompetitionNavsLeaderboard').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsDetail').addClass('infomation_modal_attention');
+        $('#InfoModal-Explanation').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('提出に関しては概要（特にDataなど）をチェックしてみましょう');
+    };
+    function GET_PAGE_4() {
+        $('#InfoModal-CompetitionNavsDetail').removeClass('infomation_modal_attention');
+        $('#InfoModal-Explanation').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsNotebook').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('提出方法のサンプルがNotebookに投稿されていることもあります');
+    };
+    function GET_PAGE_5() {
+        $('#InfoModal-CompetitionNavsNotebook').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsDiscussion').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('わからないことはDiscussionで質問してみましょう');
+    };
+    function MODAL_END() {
+        // 変更したものを初期化
+        $('#InfoModal-CompetitionNavsSticky').addClass('sticky-top');
+        $('#InfoModal-CompetitionNavsSubmission').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsLeaderboard').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsDetail').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsNotebook').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsDiscussion').removeClass('infomation_modal_attention');
+        $('#InfoModal-Explanation').removeClass('infomation_modal_attention');
+        // Attention Hover
+        $('#InfoModal-CompetitionNavsDiscussion').addClass('attention-hover');
+        $('#InfoModal-CompetitionNavsNotebook').addClass('attention-hover');
+        $('#InfoModal-CompetitionNavsSubmission').addClass('attention-hover');
+    };
+    $(window).on('load', function(){
+        let page = 1;
+        let final_page = 5;
+
+        {% if IS_TUTORIAL %}
+        $('#InfoModal').modal('show'); // ON-OFF
+        page = GET_INITIAL(true);
+        {% endif %}
+
+        document.getElementById("InfoModalBtn").addEventListener("click", function () {
+            page = GET_INITIAL(true);
+        });
+        // 複数ページ表示の場合
+        document.getElementById("InfoModal_NEXT").addEventListener("click", function () {
+            page += 1
+            if (page == 2) {
+                GET_PAGE_2();
+            } else if (page == 3) {
+                GET_PAGE_3();
+            } else if (page == 4) {
+                GET_PAGE_4();
+            } else {
+                GET_PAGE_5();
+            };
+            if (page == final_page) {
+                $(this).css('display', 'none');
+            };
+        });
+        if (page == final_page) {
+                $('#InfoModal_NEXT').css('display', 'none');
+        };
+        document.getElementById("InfoModalClose").addEventListener("click", function () {
+            $('#InfoModal').modal('hide');
+        });
+        $('#InfoModal').on('hidden.bs.modal', function (e) {
+            MODAL_END();
+            SCROLL_TOP();
+        });
+    });
+</script>

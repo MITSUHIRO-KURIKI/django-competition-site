@@ -1,0 +1,104 @@
+<script>
+    function SCROLL_TOP() {
+        var speed = 400; var position = 0;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function SCROLL_ATTENTION_POINT(a_name) {
+        var speed = 400; var adjust = 200;
+        var position = $('a[name="'+a_name+'"]').offset().top - adjust;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function GET_INITIAL(USE_NEXT_BTN=false) {
+        // 初回表示 Context
+        const init_html = 'ここでは自分のスコアと他の参加者の提出スコアを確認できます';
+        // 初回表示
+        $('#InfoModal-CompetitionLederboardPublic').addClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionLederboardPrivate').addClass('infomation_modal_attention');
+        $('#CompetitionsTabContent').addClass('infomation_modal_attention');
+        // 初回表示 Scroll
+        SCROLL_ATTENTION_POINT('navs');
+        // 初回表示 Attention Hover
+        $('#InfoModal-CompetitionNavsMySubmission').removeClass('attention-hover');
+        if (USE_NEXT_BTN) {
+            // 複数ページ表示の場合使用
+            $('#InfoModal_NEXT').css('display', '');
+        };
+        page = 1;
+        $('#InfoModalBody').html(init_html);
+        return page;
+    };
+    function GET_PAGE_2() {
+        $('#InfoModal-CompetitionLederboardPrivate').removeClass('infomation_modal_attention');
+        $('#CompetitionsTabContent').removeClass('infomation_modal_attention');
+        $('#InfoModalBody').html('Publicスコアはコンペティション終了前でも確認することができます<br>ただし、最終順位には影響しません');
+    };
+    function GET_PAGE_3() {
+        $('#InfoModal-CompetitionLederboardPublic').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionLederboardPrivate').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('Privateスコアはコンペティション終了後に公開され、コンペティションの最終順位を決定します');
+    };
+    function GET_PAGE_4() {
+        $('#InfoModal-CompetitionLederboardPrivate').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsSticky').removeClass('sticky-top');
+        $('#InfoModal-CompetitionNavsDetail').addClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsDiscussion').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('評価方法については、DetailのEvaluationを確認するか、Discussionで質問してみましょう');
+    };
+    function GET_PAGE_5() {
+        $('#InfoModal-CompetitionNavsDetail').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsDiscussion').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsMySubmission').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('Privateスコアの最終結果はMySubmissionから最終評価提出物を選択する必要があります<br>はじめての方はMySubmissionを必ず確認してください');
+    };
+    function MODAL_END() {
+        // 変更したものを初期化
+        $('#InfoModal-CompetitionLederboardPublic').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionLederboardPrivate').removeClass('infomation_modal_attention');
+        $('#CompetitionsTabContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsSticky').addClass('sticky-top');
+        $('#InfoModal-CompetitionNavsDetail').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsDiscussion').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsMySubmission').removeClass('infomation_modal_attention');
+        // Attention Hover
+        $('#InfoModal-CompetitionNavsMySubmission').addClass('attention-hover');
+    };
+    $(window).on('load', function(){
+        let page = 1;
+        let final_page = 5;
+
+        {% if IS_TUTORIAL %}
+        $('#InfoModal').modal('show'); // ON-OFF
+        page = GET_INITIAL(true);
+        {% endif %}
+
+        document.getElementById("InfoModalBtn").addEventListener("click", function () {
+            page = GET_INITIAL(true);
+        });
+        // 複数ページ表示の場合
+        document.getElementById("InfoModal_NEXT").addEventListener("click", function () {
+            page += 1
+            if (page == 2) {
+                GET_PAGE_2();
+            } else if (page == 3) {
+                GET_PAGE_3();
+            } else if (page == 4) {
+                GET_PAGE_4();
+            } else {
+                GET_PAGE_5();
+            };
+            if (page == final_page) {
+                $(this).css('display', 'none');
+            };
+        });
+        if (page == final_page) {
+                $('#InfoModal_NEXT').css('display', 'none');
+        };
+        document.getElementById("InfoModalClose").addEventListener("click", function () {
+            $('#InfoModal').modal('hide');
+        });
+        $('#InfoModal').on('hidden.bs.modal', function (e) {
+            MODAL_END();
+            SCROLL_TOP();
+        });
+    });
+</script>

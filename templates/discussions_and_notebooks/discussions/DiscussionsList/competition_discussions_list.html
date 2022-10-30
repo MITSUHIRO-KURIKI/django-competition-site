@@ -1,0 +1,51 @@
+{% extends "discussions_and_notebooks/discussions/discussions_base.html" %}
+
+<!-- TITLE -->
+{% block discussions_title %} - {{ COMPETITION_DATA.title }} - Discussion{% endblock %}
+
+
+<!-- CONTENT -->
+{% block discussions_content %}
+
+
+<!-- InfoModal -->
+{% include 'include/imfomation_modal/btn.html' %}
+{% include 'include/imfomation_modal/object.html' %}
+{% include 'discussions_and_notebooks/infomation_modal/infomation_modal_script.html' %}
+<!-- Overall -->
+{% include 'competitions/CompetitionPage/include/overall.html' %}
+<!-- Navs -->
+{% include 'competitions/CompetitionPage/include/navs.html' with discussion_active='active' %}
+<!-- Discussions -->
+<div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+    <!-- Discussions and NewPost -->
+    <div class="d-flex flex-nowrap justify-content-between m-0 p-0">
+        <h5 class="text-left flex-grow-1">
+            <a name="discussions"></a>
+            <p class="fs-2">Discussions</p>
+        </h5>
+        {% if user.is_superuser or user.is_staff %}
+            <div class="text-right">
+                <a class="btn btn-primary" type="button" href="{% url 'discussions:discussion_create' %}?redirect_competition_id={{ COMPETITION_DATA.unique_competition_id }}"><i class="bi bi-cloud-arrow-up-fill mr-2"></i>Create New Discussion</a>
+            </div>
+        {% elif IS_USER_COMPETITION_JOINED %}
+            <div class="text-right">
+                <a class="btn btn-primary" type="button" href="{% url 'discussions:discussion_create' %}?redirect_competition_id={{ COMPETITION_DATA.unique_competition_id }}"><i class="bi bi-cloud-arrow-up-fill mr-2"></i>Create New Discussion</a>
+            </div>
+        {% else %}
+            <script>
+                $(function () {
+                    $('[data-bs-toggle="tooltip"]').tooltip();
+                })
+            </script>
+            <div class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true" data-bs-custom-class="mr-1" title="must be this competition <u><b>JOIN</b></u>">
+                <button type="button" class="btn btn-primary disabled"><i class="bi bi-cloud-arrow-up-fill mr-2"></i>Create New Discussion</button>
+            </div>
+        {% endif %}
+    </div>
+    <!-- Discussions一覧 -->
+    {% include 'discussions_and_notebooks/discussions/DiscussionsList/include/discussions_list.html' with TOP_EXCLUDE_COMPETITION=False %}
+</div>
+
+
+{% endblock %}

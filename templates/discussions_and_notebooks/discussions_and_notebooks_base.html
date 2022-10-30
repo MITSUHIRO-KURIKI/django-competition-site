@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- META -->
+{% block meta %}
+{% block discussions_and_notebooks_meta %}{% endblock %}
+{% endblock %}
+
+<!-- TITLE -->
+{% block title %}
+{% block discussions_and_notebooks_title %}{% endblock %}
+{% endblock %}
+
+<!-- CSS -->
+{% block css_previous %}
+    <!-- Custom styles for summernote -->
+    <link rel="stylesheet" href="{% static 'templates/include/summernote/custom.css' %}" />
+    {% block discussions_and_notebooks_css_previous %}{% endblock %}
+{% endblock %}
+
+<!-- SCRIPT previous -->
+{% block js_previous %}
+{% block discussions_and_notebooks_js_previous %}{% endblock %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+
+
+<!-- discussions_and_notebooks CONTENT -->
+{% block discussions_and_notebooks_content %}{% endblock %}
+
+
+{% endblock %}
+
+<!-- SCRIPT rear -->
+{% block js_rear %}
+    <!-- bookmark and vote ajax script -->
+    {% include 'include/Ajax/Ajax_script.html' %}
+    {% include 'include/Ajax/bookmark/bookmark_ajax_script.html' with ajax_click_class_name='bookmark' %}
+    {% include 'include/Ajax/vote/vote_ajax_script.html' with ajax_click_class_name='vote' %}
+{% block discussions_and_notebooks_js_rear %}{% endblock %}
+{% endblock %}
+
+<!-- FOOTER -->
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

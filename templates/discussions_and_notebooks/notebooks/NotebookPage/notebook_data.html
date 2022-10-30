@@ -1,0 +1,63 @@
+{% extends "discussions_and_notebooks/notebooks/notebooks_base.html" %}
+{% load split_slash_text %}
+
+
+<!-- TITLE -->
+{% block notebooks_title %} - {{ NOTEBOOK_DATA.0.title }} - Data{% endblock %}
+
+
+<!-- CONTENT -->
+{% block notebooks_content %}
+
+
+<!-- Overall -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/overall.html' with object=NOTEBOOK_DATA.0 edit_area=True %}
+
+<!-- Navs -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/navs.html' with object=NOTEBOOK_DATA.0 active='data' %}
+
+
+<!-- Notebook Data File body -->
+
+{% with object=NOTEBOOK_DATA.0 %}
+    <div class="row m-0 p-0">
+        <div class="col-md-6 col-sm-10">
+            <div class="col-12 p-4 text-center">
+                <div class="mb-2">
+                    <i class="bi bi-file-earmark-code" style="font-size:50px;"></i><br>
+                    <small class="text-muted">{{ object.notebook_file.name | split_slash_text | last  }}</small>
+                </div>
+                <a class="btn btn-outline-success mt-2" href="{{ object.notebook_file.url }}" role="button">
+                    <i class="bi bi-folder-fill"></i> THIS NOTEBOOK FILE
+                </a>
+            </div>
+        </div>
+        {% if object.notebook_data_file %}
+        <div class="col-md-6 col-sm-10">
+            <div class="col-12 p-4 text-center">
+                <div class="mb-2">
+                    <i class="bi bi-paperclip" style="font-size:50px;"></i><br>
+                    <small class="text-muted">{{ object.notebook_data_file.name | split_slash_text | last  }}</small>
+                </div>
+                <a class="btn btn-outline-success mt-2" href="{{ object.notebook_data_file.url }}" role="button">
+                    <i class="bi bi-folder-fill"></i> ATTACHMENT FILE
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endwith %}
+
+{% if NOTEBOOK_DATA.0.post_competition_or_none %}
+    {% with object=NOTEBOOK_DATA.0.post_competition_or_none join_user_count=NOTEBOOK_DATA.0.join_user_count %}
+        <hr>
+        <p class="fs-2">Associated Competition</p>
+        {% include 'competitions/CompetitionsList/include/competition_item.html' %}
+    {% endwith %}
+{% endif %}
+
+<!-- Tags -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/tags.html' with object=NOTEBOOK_DATA.0 active='notebook' %}
+
+
+{% endblock %}

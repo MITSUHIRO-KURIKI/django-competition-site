@@ -1,0 +1,58 @@
+<!-- NowPost -->
+<!-- edit_mode -->
+<div id="edit_mode_{{ form.text.id_for_label }}" style="display:none;">
+    <!-- mentions_list -->
+    {% with form_field_name=form.text submit_button_name='Post Comment' input_text_area_hight=150 placeholder='Comment here.' mentions_list=ALL_USER_NAME_LIST  %}
+        {% include 'comments/include/comment_form.html' %}
+    {% endwith %}
+</div>
+<!-- show_mode -->
+<div class="d-flex flex-nowrap mx-auto my-0 p-0">
+
+    {% if user.is_authenticated %}
+        <div class="text-center flex-grow-1" id="show_mode_{{ form.text.id_for_label }}">
+            {% if form.text.errors %}
+                {% for error in form.text.errors %}
+                    <div class="alert alert-warning m-0 p-0" role="alert">
+                        {{error}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="text-right flex-grow-2">
+            <!-- edit-button -->
+            <button id="edit_btn_{{ form.text.id_for_label }}" type="button" class="btn btn-info"><i
+                    class="bi bi-chat-fill mr-2"></i>Post Comment</button>
+        </div>
+    {% else %}
+        <div class="text-center flex-grow-1"></div>
+        <div class="text-right flex-grow-2">
+            <!-- edit-button -->
+            <script>
+                $(function () {
+                    $('[data-bs-toggle="tooltip"]').tooltip();
+                })
+            </script>
+            <div class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true" data-bs-custom-class="mr-1" title="must be <u><b>LOGIN</b></u>">
+                <button type="button" class="btn btn-info disabled"><i
+                    class="bi bi-chat-fill mr-2"></i>Post Comment</button>
+            </div>
+        </div>
+    {% endif %}
+</div>
+<!-- edit-show-script -->
+{% with form_controler=form.text %}
+    {% include 'include/edit_show_mode/edit_show_script.html' %}
+{% endwith %}
+
+<!-- sort -->
+<div class="d-flex justify-content-end mt-2 mb-0 p-0">
+    {% with sort_name='sort' use_page_tags=use_page_tags %}
+        {% include 'comments/include/sort.html' %}
+    {% endwith %}
+</div>
+
+<!-- Comments -->
+{% for object in COMMTNTS_DATA %}
+    {% include 'comments/include/comment_item.html' with edit_area=True %}
+{% endfor %}

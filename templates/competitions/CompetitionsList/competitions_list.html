@@ -1,0 +1,91 @@
+{% extends "competitions/competitions_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block competitions_title %} - Competitions{% endblock %}
+
+<!-- CONTENT -->
+{% block competitions_content %}
+
+<!-- InfoModal -->
+{% include 'include/imfomation_modal/btn.html' %}
+{% include 'include/imfomation_modal/object.html' %}
+{% include 'competitions/CompetitionsList/infomation_modal/infomation_modal_script.html' %}
+<!-- タグ一覧 -->
+{% include 'competitions/CompetitionsList/include/tags.html' %}
+
+<!-- 参加中のコンペティション -->
+{% if User_JOINED_COMPETITIONS %}
+    <a name="user-joined-competitions"></a>
+    <p class="fs-2">参加中のコンペティション</p>
+    <div class="row">
+        {% for object in User_JOINED_COMPETITIONS %}
+            {% include 'competitions/CompetitionsList/include/competition_item.html' %}
+        {% endfor %}
+    </div>
+    <!-- Pagination -->
+    {% with pages=User_JOINED_COMPETITIONS page_tag='join_page' use_page_tags=use_page_tags add_a_name='user-joined-competitions' %}
+        {% include 'include/pagination/pagination.html' %}
+    {% endwith %}
+    <hr>
+{% endif %}
+
+<!-- 開催中のコンペティション -->
+<a name="active-competitions"></a>
+{% if ACTIVE_COMPETITIONS_EXCLUDE_UserJoin %}
+<div id="InfoModal-ActiveCompetitions">
+    <p class="fs-2">開催中のコンペティション</p>
+    <div class="row">
+        {% for object in ACTIVE_COMPETITIONS_EXCLUDE_UserJoin %}
+            {% include 'competitions/CompetitionsList/include/competition_item.html' %}
+        {% endfor %}
+    </div>
+    <!-- Pagination -->
+    {% with pages=ACTIVE_COMPETITIONS_EXCLUDE_UserJoin page_tag='active_page' use_page_tags=use_page_tags add_a_name='active-competitions' %}
+        {% include 'include/pagination/pagination.html' %}
+    {% endwith %}
+    <hr>
+</div>
+{% endif %}
+
+<!-- 終了したコンペティション -->
+<a name="close-competitions"></a>
+{% if CLOSE_COMPETITIONS_EXCLUDE_UserJoin %}
+<div id="InfoModal-CloseCompetitions">
+    <p class="fs-2">終了したコンペティション</p>
+    <div class="row">
+        {% for object in CLOSE_COMPETITIONS_EXCLUDE_UserJoin %}
+            {% include 'competitions/CompetitionsList/include/competition_item.html' %}
+        {% endfor %}
+    </div>
+    <!-- Pagination -->
+    {% with pages=CLOSE_COMPETITIONS_EXCLUDE_UserJoin page_tag='close_page' use_page_tags=use_page_tags add_a_name='close-competitions'%}
+        {% include 'include/pagination/pagination.html' %}
+    {% endwith %}
+    <hr>
+</div>
+{% endif %}
+
+<!-- 非公開のコンペティション -->
+{% if user.is_superuser or user.is_staff %}
+    <a name="private-competitions"></a>
+    <div class="text-right">
+        <a class="btn btn-primary" type="button" href="{% url 'competitions:create_competitions' %}"><i class="bi bi-cloud-arrow-up-fill mr-2"></i>Create New Competition</a>
+    </div>
+{% endif %}
+{% if PRIVATE_COMPETITIONS %}
+    <p class="fs-2">非公開のコンペティション</p>
+    <div class="row">
+        {% for object in PRIVATE_COMPETITIONS %}
+            {% include 'competitions/CompetitionsList/include/competition_item.html' %}
+        {% endfor %}
+    </div>
+    <!-- Pagination -->
+    {% with pages=PRIVATE_COMPETITIONS page_tag='private_page' use_page_tags=use_page_tags add_a_name='private-competitions'%}
+        {% include 'include/pagination/pagination.html' %}
+    {% endwith %}
+    <hr>
+{% endif %}
+
+{% endblock %}

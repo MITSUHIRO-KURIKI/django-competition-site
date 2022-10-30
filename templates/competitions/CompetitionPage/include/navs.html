@@ -1,0 +1,38 @@
+<a name="navs"></a>
+<div class="sticky-top container-fluid pt-3 bg-white" id="InfoModal-CompetitionNavsSticky">
+    <div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+        <ul class="nav nav-pills">
+            <li class="nav-item" id="InfoModal-CompetitionNavsDetail">
+                <a class="nav-link {{ detail_active }}" aria-current="page" href="{% url 'competitions:competition_detail' unique_competition_id=COMPETITION_DATA.unique_competition_id %}">Detail</a>
+            </li>
+            <li class="nav-item" id="InfoModal-CompetitionNavsDiscussion">
+                <a class="nav-link {{ discussion_active }}" href="{% url 'discussions:competition_discussions' unique_competition_id=COMPETITION_DATA.unique_competition_id %}">Discussion</a>
+            </li>
+            <li class="nav-item" id="InfoModal-CompetitionNavsNotebook">
+                <a class="nav-link {{ notebook_active }}" href="{% url 'notebooks:competition_notebooks' unique_competition_id=COMPETITION_DATA.unique_competition_id %}">Notebook</a>
+            </li>
+            {% if COMPETITION_DATA.is_public %}
+                <li class="nav-item" id="InfoModal-CompetitionNavsLeaderboard">
+                    <a class="nav-link {{ leaderboard_active }}" href="{% url 'competitions:competition_leaderboard' unique_competition_id=COMPETITION_DATA.unique_competition_id %}">Leaderboard</a>
+                </li>
+                {% if IS_USER_COMPETITION_JOINED %}
+                    <li class="nav-item" id="InfoModal-CompetitionNavsMySubmission">
+                        <a class="nav-link {{ user_submissions_active }}" href="{% url 'submission:user_submissions' unique_competition_id=COMPETITION_DATA.unique_competition_id %}">My Submission</a>
+                    </li>
+                    <li class="nav-item"id="InfoModal-CompetitionNavsSubmission">
+                        <a class="nav-link {{ submission_active }}" href="{% url 'submission:submission' unique_competition_id=COMPETITION_DATA.unique_competition_id %}">Submission</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item col"></li>
+                <li class="nav-item text-right" id="InfoModal-CompetitionNavsJoin">
+                    {% if IS_USER_COMPETITION_JOINED %}
+                        <a class="nav-link {{ retirement_active }}"
+                            href="{% url 'competitions:retirement_competitions' unique_competition_id=COMPETITION_DATA.unique_competition_id %}">Retirement</a>
+                    {% else %}
+                        <a class="nav-link {{ join_active }}" href="{% url 'competitions:join_competitions' unique_competition_id=COMPETITION_DATA.unique_competition_id %}">Join This Competition</a>
+                    {% endif %}
+            {% endif %}
+            </li>
+        </ul>
+    </div>
+</div>

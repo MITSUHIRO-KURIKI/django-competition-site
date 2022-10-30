@@ -1,0 +1,44 @@
+{% extends "competitions/competitions_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block competitions_title %} - {{ COMPETITION_DATA.title }} - Retirement{% endblock %}
+
+<!-- CONTENT -->
+{% block competitions_content %}
+
+<!-- Overall -->
+{% include 'competitions/CompetitionPage/include/overall.html' %}
+
+<!-- Navs -->
+{% include 'competitions/CompetitionPage/include/navs.html' %}
+
+<!-- main -->
+<div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+    <form method="post">
+
+        {% csrf_token %}
+
+        <hr>
+        <p class="fs-2 m-0 p-0 text-break">「{{COMPETITION_DATA.title}}」をリタイアします</p>
+        <div class="d-flex justify-content-center py-4">
+            {% if COMPETITION_DATA.date_close > DATE_NOW %}
+                <button class="btn btn-danger" type="submit">Retirement</button>
+            {% else %}
+                <script>
+                    $(function () {
+                        $('[data-bs-toggle="tooltip"]').tooltip();
+                    })
+                </script>
+                <div class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" title="Retirement <u><b>after the competition</b></u> is not allowed">
+                    <button class="btn btn-danger disabled" type="button" aria-disabled="true">Retirement</button>
+                </div>
+            {% endif %}
+        </div>
+
+    </form>
+</div>
+
+
+{% endblock %}

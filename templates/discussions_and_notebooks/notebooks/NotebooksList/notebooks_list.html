@@ -1,0 +1,30 @@
+{% extends "discussions_and_notebooks/notebooks/notebooks_base.html" %}
+
+<!-- TITLE -->
+{% block notebooks_title %} - Notebook{% endblock %}
+
+
+<!-- CONTENT -->
+{% block notebooks_content %}
+
+<!-- InfoModal -->
+{% include 'include/imfomation_modal/btn.html' %}
+{% include 'include/imfomation_modal/object.html' %}
+{% include 'discussions_and_notebooks/infomation_modal/infomation_modal_script.html' %}
+<!-- タグ一覧 -->
+{% include 'discussions_and_notebooks/include/list_page_tags.html' with IS_ALL=True OBJECT_TYPE='notebooks' %}
+<!-- Notebooks and NewPost -->
+<div class="d-flex flex-nowrap justify-content-between m-0 p-0">
+    <h5 class="text-left flex-grow-1">
+        <a name="notebooks"></a>
+        <p class="fs-2">Notebooks</p>
+    </h5>
+    <div class="text-right">
+        <a class="btn btn-primary" type="button" href="{% url 'notebooks:notebook_create' %}"><i class="bi bi-cloud-arrow-up-fill mr-2"></i>Upload New Notebook</a>
+    </div>
+</div>
+<!-- Notebooks一覧 -->
+{% include 'discussions_and_notebooks/notebooks/NotebooksList/include/notebooks_list.html' with IS_ALL=True TOP_EXCLUDE_COMPETITION=True %}
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "competitions/competitions_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block competitions_title %} - {{ COMPETITION_DATA.title }} - Join{% endblock %}
+
+<!-- CONTENT -->
+{% block competitions_content %}
+
+
+<!-- Overall -->
+{% include 'competitions/CompetitionPage/include/overall.html' %}
+<!-- Navs -->
+{% include 'competitions/CompetitionPage/include/navs.html' %}
+
+<!-- main -->
+<div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+    <form method="post">
+
+        {% csrf_token %}
+
+        <hr>
+        <p class="fs-2 m-0 p-0 text-break">「{{COMPETITION_DATA.title}}」に参加します</p>
+        <div class="d-flex justify-content-center py-4">
+            <button class="btn btn-primary" type="submit">Join This Competition</button>
+        </div>
+
+    </form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,74 @@
+<script>
+    function SCROLL_TOP() {
+        var speed = 400; var position = 0;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function SCROLL_ATTENTION_POINT(a_name) {
+        var speed = 400; var adjust = 200;
+        var position = $('a[name="'+a_name+'"]').offset().top - adjust;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function GET_INITIAL(USE_NEXT_BTN=false) {
+        // 初回表示 Context
+        const init_html = 'まずは開催中のコンペティションを覗いてみましょう';
+        // 初回表示 Attention Point
+        $('#InfoModal-ActiveCompetitions').addClass('infomation_modal_attention');
+        $('#InfoModal-ActiveCompetitions .card-hover').removeClass('attention-hover');
+        // 初回表示 Scroll
+        SCROLL_ATTENTION_POINT('active-competitions');
+        if (USE_NEXT_BTN) {
+            // 複数ページ表示の場合使用
+            $('#InfoModal_NEXT').css('display', '');
+        };
+        page = 1;
+        $('#InfoModalBody').html(init_html);
+        return page;
+    };
+    function GET_PAGE_2() {
+        // AttentionPoint Scroll
+        SCROLL_ATTENTION_POINT('close-competitions');
+
+        $('#InfoModal-ActiveCompetitions').removeClass('infomation_modal_attention');
+        $('#InfoModal-CloseCompetitions').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('過去のコンペティションはここからチェックできます');
+    };
+    function MODAL_END() {
+        // 変更したものを初期化
+        $('#InfoModal-ActiveCompetitions').removeClass('infomation_modal_attention');
+        $('#InfoModal-CloseCompetitions').removeClass('infomation_modal_attention');
+        $('#InfoModal-ActiveCompetitions .card-hover').addClass('attention-hover');
+    };
+    $(window).on('load', function(){
+        let page = 1;
+        let final_page = 2;
+
+        {% if IS_TUTORIAL %}
+        $('#InfoModal').modal('show'); // ON-OFF
+        page = GET_INITIAL(true);
+        {% endif %}
+
+        document.getElementById("InfoModalBtn").addEventListener("click", function () {
+            page = GET_INITIAL(true);
+        });
+        // 複数ページ表示の場合
+        document.getElementById("InfoModal_NEXT").addEventListener("click", function () {
+            page += 1
+            if (page == 2) {
+                GET_PAGE_2();
+            };
+            if (page == final_page) {
+                $(this).css('display', 'none');
+            };
+        });
+        if (page == final_page) {
+                $('#InfoModal_NEXT').css('display', 'none');
+        };
+        document.getElementById("InfoModalClose").addEventListener("click", function () {
+            $('#InfoModal').modal('hide');
+        });
+        $('#InfoModal').on('hidden.bs.modal', function (e) {
+            MODAL_END();
+            SCROLL_TOP();
+        });
+    });
+</script>

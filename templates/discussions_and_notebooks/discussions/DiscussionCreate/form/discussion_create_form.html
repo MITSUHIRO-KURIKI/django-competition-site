@@ -1,0 +1,138 @@
+<!-- PAGE MOVE ANNOUNCEMENT -->
+{% include 'include/page_move/page_move_announcement.html' %}
+
+<form method="post" enctype="multipart/form-data" onSubmit="is_note_msg=false;">
+
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div class="form-group m-0 p-0">
+        <div class="col-12 mt-0 mb-2 p-0">
+            <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+            <div class="input-group">
+                <input type="{{ form.title.field.widget.input_type }}"
+                class="form-control {% if form.title.errors %}is-invalid{% endif %}" 
+                name="{{ form.title.html_name }}" 
+                id="{{ form.title.id_for_label }}"
+                {% if form.title.value %}
+                    value="{{ form.title.value }}"
+                {% else %}
+                    placeholder="title"
+                {% endif %}
+                {% if form.title.field.required %}required{% endif %} />
+
+            {% if form.title.errors %}
+                {% for error in form.title.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            </div>
+            {% if form.title.help_text %}
+            <small class="form-text text-muted">{{ form.title.help_text }}</small>
+            {% endif %}
+        </div>
+
+        <!-- Summernote text -->
+        {% with form_field_name=form.text input_text_area_hight=250 placeholder='Content here.' mentions_list=ALL_USER_NAME_LIST %}
+            {% include 'include/summernote/summernote_include_form.html' with LOAD_SUMMERNOTE_CSS_AND_BASE_SCRIPT=True %}
+        {% endwith %}
+
+        <h6 class="text-left flex-grow-1">
+            {% if form.text.help_text %}
+                {% autoescape off %}
+                    <small class="text-muted">{{ form.text.help_text }}</small>
+                {% endautoescape %}
+            {% endif %}
+        </h6>
+
+
+        <!-- SELECT TAG MULTIPLE TYPE -->
+        <div class="col-12 mt-0 mb-2 p-0">
+            <label for="{{ form.tags_or_none.id_for_label }}">{{ form.tags_or_none.label }}</label>
+            <select name="{{ form.tags_or_none.html_name }}"
+                    id="{{ form.tags_or_none.id_for_label }}"
+                    data-placeholder="Choose anything"
+                    data-allow-clear="1" multiple>
+                    {% for choice in form.tags_or_none.field.widget.choices %}
+                        <option value="{{ choice.0 }}" {% if choice.0 in form.tags_or_none.value %}selected{% endif %}>{{ choice.1 }}</option>
+                    {% endfor %}
+            </select>
+            {% if form.tags_or_none.errors %}
+                {% for error in form.tags_or_none.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            {% if form.tags_or_none.help_text %}
+            <small class="form-text text-muted">{{ form.tags_or_none.help_text }}</small>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- STAFF SETTINGS -->
+    {% if user.is_superuser or user.is_staff %}
+    <hr>
+    <div class="form-group m-0 p-0">
+        <h5 class="mb-2 mt-0 p-0">STAFF SETTINGS</h2>
+        <div class="form-group">
+            <!--  CHECK TYPE -->
+            <div class="form-check">
+                <input type="{{ form.is_top.field.widget.input_type }}"
+                class="form-check-input" 
+                name="{{ form.is_top.html_name }}" 
+                id="{{ form.is_top.id_for_label }}"
+                {% if form.is_top.value %}
+                checked="checked"
+                {% endif %}
+                {% if form.is_top.field.required %}required{% endif %} />
+                <label class="form-check-label" for="{{ form.is_top.id_for_label }}">
+                {{ form.is_top.label }}
+                </label>
+
+                {% if form.is_top.errors %}
+                    {% for error in form.is_top.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {% if form.is_top.help_text %}
+            <small class="form-text text-muted">{{ form.is_top.help_text }}</small>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <!--  CHECK TYPE -->
+            <div class="form-check">
+                <input type="{{ form.use_bot_icon.field.widget.input_type }}"
+                class="form-check-input" 
+                name="{{ form.use_bot_icon.html_name }}" 
+                id="{{ form.use_bot_icon.id_for_label }}"
+                {% if form.use_bot_icon.value %}
+                checked="checked"
+                {% endif %}
+                {% if form.use_bot_icon.field.required %}required{% endif %} />
+                <label class="form-check-label" for="{{ form.use_bot_icon.id_for_label }}">
+                {{ form.use_bot_icon.label }}
+                </label>
+
+                {% if form.use_bot_icon.errors %}
+                    {% for error in form.use_bot_icon.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {% if form.use_bot_icon.help_text %}
+            <small class="form-text text-muted">{{ form.use_bot_icon.help_text }}</small>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    <hr>
+    <div class="d-flex justify-content-center">
+        <button class="process-btn btn btn-primary" type="submit">{% if BUTTON_LABEL %}{{ BUTTON_LABEL }}{% else %}Create New Discussion{% endif %}</button>
+    </div>
+</form>
+
+<!-- USE Spinner -->
+{% include 'include/spinners/process.html' %}

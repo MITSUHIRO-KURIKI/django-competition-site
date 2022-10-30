@@ -1,0 +1,21 @@
+{% extends "discussions_and_notebooks/discussions/discussions_base.html" %}
+
+
+<!-- TITLE -->
+{% with object=DISCUSSION_DATA.0 %}
+    {% block discussions_title %} - {{ object.title }}{% endblock %}
+{% endwith %}
+
+<!-- CONTENT -->
+{% block discussions_content %}
+
+
+<!-- Overall -->
+{% include 'discussions_and_notebooks/discussions/DiscussionPage/include/overall.html' with object=DISCUSSION_DATA.0 edit_area=True %}
+
+
+<!-- Comments area -->
+{% include 'discussions_and_notebooks/include/comments_area.html' with OBJECT_TYPE='discussions' %}
+
+
+{% endblock %}

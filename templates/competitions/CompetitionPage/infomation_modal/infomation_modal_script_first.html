@@ -1,0 +1,92 @@
+<script>
+    function SCROLL_TOP() {
+        var speed = 400; var position = 0;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function SCROLL_ATTENTION_POINT(a_name) {
+        var speed = 400; var adjust = 200;
+        var position = $('a[name="'+a_name+'"]').offset().top - adjust;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function GET_INITIAL(USE_NEXT_BTN=false) {
+        // 初回表示 Context
+        const init_html = 'コンペティションの概要はここからチェックできます';
+        // 初回表示
+        $('#InfoModal-CompetitionNavsSticky').removeClass('sticky-top');
+        $('#InfoModal-CompetitionNavsDetail').addClass('infomation_modal_attention');
+        $('#InfoModal-Explanation').addClass('infomation_modal_attention');
+        // 初回表示 Scroll
+        SCROLL_ATTENTION_POINT('navs');
+        // 初回表示 Attention Hover
+        $('#InfoModal-CompetitionNavsJoin').removeClass('attention-hover');
+        if (USE_NEXT_BTN) {
+            // 複数ページ表示の場合使用
+            $('#InfoModal_NEXT').css('display', '');
+        };
+        page = 1;
+        $('#InfoModalBody').html(init_html);
+        return page;
+    };
+    function GET_PAGE_2() {
+        // AttentionPoint Scroll
+        SCROLL_ATTENTION_POINT('navs');
+
+        $('#InfoModal-CompetitionNavsDetail').removeClass('infomation_modal_attention');
+        $('#InfoModal-Explanation').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsDiscussion').addClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsNotebook').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('コンペティションのDiscussionやNotebookはここからチェックできます');
+    };
+    function GET_PAGE_3() {
+        $('#InfoModal-CompetitionNavsDiscussion').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsNotebook').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsJoin').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('興味があればコンペティションにはここから参加できます<br>まずは参加してみましょう！');
+    };
+    function MODAL_END() {
+        // 変更したものを初期化
+        $('#InfoModal-CompetitionNavsSticky').addClass('sticky-top');
+        $('#InfoModal-CompetitionNavsDetail').removeClass('infomation_modal_attention');
+        $('#InfoModal-Explanation').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsDiscussion').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsNotebook').removeClass('infomation_modal_attention');
+        $('#InfoModal-CompetitionNavsJoin').removeClass('infomation_modal_attention');
+        // Attention Hover
+        $('#InfoModal-CompetitionNavsJoin').addClass('attention-hover');
+    };
+    $(window).on('load', function(){
+        let page = 1;
+        let final_page = 3;
+        
+        {% if IS_TUTORIAL %}
+        $('#InfoModal').modal('show'); // ON-OFF
+        page = GET_INITIAL(true);
+        {% endif %}
+
+        document.getElementById("InfoModalBtn").addEventListener("click", function () {
+            page = GET_INITIAL(true);
+        });
+        // 複数ページ表示の場合
+        document.getElementById("InfoModal_NEXT").addEventListener("click", function () {
+            page += 1
+            if (page == 2) {
+                GET_PAGE_2();
+            } else {
+                GET_PAGE_3();
+            };
+            if (page == final_page) {
+                $(this).css('display', 'none');
+            };
+        });
+        if (page == final_page) {
+                $('#InfoModal_NEXT').css('display', 'none');
+        };
+        document.getElementById("InfoModalClose").addEventListener("click", function () {
+            $('#InfoModal').modal('hide');
+        });
+        $('#InfoModal').on('hidden.bs.modal', function (e) {
+            MODAL_END();
+            SCROLL_TOP();
+        });
+    });
+</script>

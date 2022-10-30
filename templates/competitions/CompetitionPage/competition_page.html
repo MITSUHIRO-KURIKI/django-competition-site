@@ -1,0 +1,39 @@
+{% extends "competitions/competitions_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block competitions_title %} - {{ COMPETITION_DATA.title }}{% endblock %}
+
+<!-- CONTENT -->
+{% block competitions_content %}
+
+<!-- InfoModal -->
+{% include 'include/imfomation_modal/btn.html' %}
+{% include 'include/imfomation_modal/object.html' %}
+{% if IS_INFO_MODAL_FIRST %}
+    {% include 'competitions/CompetitionPage/infomation_modal/infomation_modal_script_first.html' %}
+{% elif IS_INFO_MODAL_SECOND %}
+    {% include 'competitions/CompetitionPage/infomation_modal/infomation_modal_script_second.html' %}
+{% endif %}
+<!-- Overall -->
+{% include 'competitions/CompetitionPage/include/overall.html' %}
+<!-- Navs -->
+{% include 'competitions/CompetitionPage/include/navs.html' with detail_active='active'%}
+<!-- Explanation -->
+<div Id="InfoModal-Explanation">
+    <a name="explanation"></a>
+    {% include 'competitions/CompetitionPage/include/explanation.html' %}
+</div>
+<!-- Timeline -->
+{% include 'competitions/CompetitionPage/include/timeline.html' %}
+<!-- Tags -->
+{% include 'competitions/CompetitionPage/include/tags.html' %}
+<!-- 管理用 -->
+{% if user.is_superuser or user.is_staff %}
+    <hr>
+    <a class="btn btn-outline-success" href="{% url 'competitions:edit_competitions' unique_competition_id=COMPETITION_DATA.unique_competition_id %}" role="button">Competitionの編集</a>
+{% endif %}
+
+
+{% endblock %}

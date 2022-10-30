@@ -1,0 +1,44 @@
+{% extends "discussions_and_notebooks/notebooks/notebooks_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block notebooks_title %} - EditNotebook{% endblock %}
+
+<!-- notebooks CSS -->
+{% block notebooks_css_previous %}
+    <!-- USE select2-bootstrap4 css -->
+    <link rel="stylesheet" href="{% static 'templates/include/select2-bootstrap4/select2.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'templates/include/select2-bootstrap4/select2-bootstrap4.min.css' %}" />
+{% endblock %}
+
+<!-- SCRIPT rear -->
+{% block notebooks_js_rear %}
+    <!-- USE select2-bootstrap4 js -->
+    <script src="{% static 'templates/include/select2-bootstrap4/select2.min.js' %}"></script>
+    <script src="{% static 'templates/include/select2-bootstrap4/script.js' %}"></script>
+    <!-- USE bs-custom-file-input js -->
+    <script src="{% static 'templates/include/bs-custom-file-input/bs-custom-file-input.js' %}"></script>
+    {% include 'include/bs-custom-file-input/file-input-and-preview-multi.html' with NUM=1 %}
+    {% include 'include/bs-custom-file-input/file-input-and-preview-multi.html' with NUM=2 %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block notebooks_content %}
+
+
+<!-- back botton -->
+<a type="button" class="btn btn-outline-danger btn-sm mb-3" href="{% url 'notebooks:notebook_page' pk=object.id %}"><i class="bi bi-skip-backward mr-2"></i>戻る</a>
+
+<!-- Overall -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/overall.html' with edit_area=True %}
+
+<div class="col-md-10 col-sm-11 mx-auto my-2 p-2">
+    <h2 class="mb-2 mt-0 p-0">Edit Notebook</h2>
+    <hr>
+    <!-- update form -->
+    {% include 'discussions_and_notebooks/notebooks/NotebookCreate/form/notebook_create_form.html' with BUTTON_LABEL='Update Notebook' %}
+</div>
+
+
+{% endblock %}

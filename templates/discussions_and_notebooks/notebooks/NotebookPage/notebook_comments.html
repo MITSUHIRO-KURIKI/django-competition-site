@@ -1,0 +1,23 @@
+{% extends "discussions_and_notebooks/notebooks/notebooks_base.html" %}
+
+
+<!-- TITLE -->
+{% with object=NOTEBOOK_DATA.0 %}
+    {% block notebooks_title %} - {{ object.title }} - Comments{% endblock %}
+{% endwith %}
+
+<!-- CONTENT -->
+{% block notebooks_content %}
+
+
+<!-- Overall -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/overall.html' with object=NOTEBOOK_DATA.0 edit_area=True %}
+
+<!-- Navs -->
+{% include 'discussions_and_notebooks/notebooks/NotebookPage/include/navs.html' with object=NOTEBOOK_DATA.0 active='comments' %}
+
+<!-- Comments area -->
+{% include 'discussions_and_notebooks/include/comments_area.html' with OBJECT_TYPE='notebooks' %}
+
+
+{% endblock %}

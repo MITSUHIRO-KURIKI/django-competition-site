@@ -1,0 +1,54 @@
+{% extends "discussions_and_notebooks/notebooks/notebooks_base.html" %}
+{% load static %}
+
+<!-- TITLE -->
+{% block notebooks_title %} - Upload Notebook{% endblock %}
+
+<!-- notebooks CSS -->
+{% block notebooks_css_previous %}
+    <!-- USE select2-bootstrap4 css -->
+    <link rel="stylesheet" href="{% static 'templates/include/select2-bootstrap4/select2.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'templates/include/select2-bootstrap4/select2-bootstrap4.min.css' %}" />
+{% endblock %}
+
+
+<!-- SCRIPT rear -->
+{% block notebooks_js_rear %}
+    <!-- USE select2-bootstrap4 js -->
+    <script src="{% static 'templates/include/select2-bootstrap4/select2.min.js' %}"></script>
+    <script src="{% static 'templates/include/select2-bootstrap4/script.js' %}"></script>
+    <!-- USE bs-custom-file-input js -->
+    <script src="{% static 'templates/include/bs-custom-file-input/bs-custom-file-input.js' %}"></script>
+    {% include 'include/bs-custom-file-input/file-input-and-preview-multi.html' with NUM=1 %}
+    {% include 'include/bs-custom-file-input/file-input-and-preview-multi.html' with NUM=2 %}
+{% endblock %}
+
+
+<!-- CONTENT -->
+{% block notebooks_content %}
+
+
+{% if COMPETITION_DATA %}
+    <!-- Overall -->
+    {% include 'competitions/CompetitionPage/include/overall.html' %}
+    <!-- Navs -->
+    {% include 'competitions/CompetitionPage/include/navs.html' with notebook_active='active'%}
+{% else %}
+    <!-- back botton -->
+    <a type="button" class="btn btn-outline-danger btn-sm" href="{% if unique_competition_id %}{% url 'notebooks:competition_notebooks' unique_competition_id=redirect_competition_id %}{% else %}{% url 'notebooks:notebooks' %}{% endif %}"><i class="bi bi-skip-backward mr-2"></i>戻る</a>
+{% endif %}
+
+<div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+    {% if COMPETITION_DATA %}
+        <h5 class="mb-2 mt-0 p-0">Upload Notebook</h5>
+    {% else %}
+        <h2 class="mb-2 mt-0 p-0">Upload Notebook</h2>
+    {% endif %}
+    <hr>
+    <!-- create form -->
+    {% include 'discussions_and_notebooks/notebooks/NotebookCreate/form/notebook_create_form.html' %}
+</div>
+
+
+
+{% endblock %}

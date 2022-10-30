@@ -1,0 +1,39 @@
+{% extends "discussions_and_notebooks/discussions/discussions_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block discussions_title %} - EditDiscussion{% endblock %}
+
+<!-- discussions CSS -->
+{% block discussions_css_previous %}
+    <!-- USE select2-bootstrap4 css -->
+    <link rel="stylesheet" href="{% static 'templates/include/select2-bootstrap4/select2.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'templates/include/select2-bootstrap4/select2-bootstrap4.min.css' %}" />
+    <!-- Custom styles for summernote -->
+    <link rel="stylesheet" href="{% static 'templates/include/summernote/custom.css' %}" />
+{% endblock %}
+
+<!-- SCRIPT rear -->
+{% block discussions_js_rear %}
+    <!-- USE select2-bootstrap4 js -->
+    <script src="{% static 'templates/include/select2-bootstrap4/select2.min.js' %}"></script>
+    <script src="{% static 'templates/include/select2-bootstrap4/script.js' %}"></script>
+{% endblock %}
+
+<!-- CONTENT -->
+{% block discussions_content %}
+
+
+<!-- back botton -->
+<a type="button" class="btn btn-outline-danger btn-sm mb-3" href="{% url 'discussions:discussion_page' pk=object.id %}"><i class="bi bi-skip-backward mr-2"></i>戻る</a>
+
+<div class="col-md-10 col-sm-11 mx-auto my-2 p-2">
+    <h2 class="mb-2 mt-0 p-0">Edit Discussion</h2>
+    <hr>
+    <!-- update form -->
+    {% include 'discussions_and_notebooks/discussions/DiscussionCreate/form/discussion_create_form.html' with BUTTON_LABEL='Update Discussion' %}
+</div>
+
+
+{% endblock %}
