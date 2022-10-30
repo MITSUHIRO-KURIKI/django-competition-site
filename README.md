@@ -32,9 +32,11 @@ You can deploy it by making the necessary descriptions in the .env file.
 ## Other
 アプリケーションは日本語で作成されています。  
 オープンソースプログラムの実行と運用はすべて自己責任でお願い致します。  
-本アプリケーションで使われる各種ライブラリのライセンスは本ライセンスには含まれません。各種ライブラリのライセンスに従って利用してください。
+本アプリケーションで使われる各種ライブラリのライセンスは本ライセンスには含まれません。各種ライブラリのライセンスに従って利用してください。  
+本READMEの解釈は日本語が優先されます。  
 <small><blockquote>
 The application is written in Japanese.  
 Please run and operate all open source programs at your own risk.  
 Licenses for the various libraries used in this application are not included in this license. Please use them in accordance with the license of each library.  
+The interpretation of the README takes precedence over the Japanese language.  
 </blockquote></small>
