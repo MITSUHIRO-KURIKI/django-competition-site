@@ -200,7 +200,7 @@
                     data-placeholder="Choose anything"
                     data-allow-clear="1" multiple>
                     {% for choice in form.tags.field.widget.choices %}
-                        <option value="{{ choice.0 }}" {% if choice.0 in form.tags_or_none.value %}selected{% endif %}>{{ choice.1 }}</option>
+                        <option value="{{ choice.0 }}" {% if choice.0 in form.tags.value %}selected{% endif %}>{{ choice.1 }}</option>
                     {% endfor %}
             </select>
             {% if form.tags.errors %}
