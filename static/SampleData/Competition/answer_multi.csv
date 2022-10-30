@@ -1,0 +1,11 @@
+id,cat,dog,division_public_or_private
+1,1,1,public
+2,1,0,public
+3,0,1,public
+4,0,1,private
+5,0,1,private
+6,1,1,private
+7,1,0,private
+8,0,1,private
+9,1,1,private
+10,1,0,private

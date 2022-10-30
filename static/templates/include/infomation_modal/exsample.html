@@ -1,0 +1,52 @@
+<script>
+    $(window).on('load',function(){
+        $('#InfoModal').modal('show'); // ON-OFF
+
+        let page = 1
+        let final_page = 1
+
+        // 初回表示
+        $('#InfoModal-AttentionId').addClass('infomation_modal_attention')
+        const init_html = 'まずは開催中のコンペティションを覗いてみましょう'
+        // 初回表示 Scroll
+        var speed = 400; var position = 0;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+
+        $('#InfoModalBody').html(init_html)
+        document.getElementById("InfoModalBtn").addEventListener("click", function () {
+            page = 1
+            // 初回表示
+            $('#InfoModal-AttentionId').addClass('infomation_modal_attention')
+            $('#InfoModalBody').html(init_html)
+            // 複数ページ表示の場合使用
+            $('#InfoModal_NEXT').css('display', '');
+        });
+        複数ページ表示の場合
+        document.getElementById("InfoModal_NEXT").addEventListener("click", function () {
+            page += 1
+            if (page == 2){ 
+                $('#InfoModal-AttentionId').addClass('infomation_modal_attention')
+                $('#InfoModalBody').html('2page')
+            } else {
+                $('#InfoModal-AttentionId').addClass('infomation_modal_attention')
+                $('#InfoModalBody').html('3page')
+            }
+            if (page == final_page){
+                $(this).css('display', 'none');
+            }
+        });
+        if (page == final_page){
+                $('#InfoModal_NEXT').css('display', 'none');
+            }
+        document.getElementById("InfoModalClose").addEventListener("click", function () {
+            $('#InfoModal').modal('hide');
+        });
+        $('#InfoModal').on('hidden.bs.modal', function (e) {
+            // 変更したものを初期化
+            $('#InfoModal-AttentionId').removeClass('infomation_modal_attention')
+            // 上部へ戻る
+            var speed = 400; var position = 0;
+            $('html, body').animate({scrollTop: position}, speed, 'swing');
+        })
+    });
+</script>

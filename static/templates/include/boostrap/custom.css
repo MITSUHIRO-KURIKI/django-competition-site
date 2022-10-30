@@ -1,0 +1,29 @@
+/* FORM CONTROL */
+input[type="checkbox"] {
+    transform: scale(2);
+}
+
+input[type="radio"] {
+    transform: scale(2);
+}
+
+div.form-check {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+label.form-check-label {
+    margin-left: 12px;
+}
+
+/* CARD */
+.card.card-hover {
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+}
+
+.card.card-hover:hover {
+    box-shadow: 0 0 20px rgb(100, 191, 227, 0.6), 0 2px 5px rgba(64, 72, 85, 0.3) !important;
+    transform: scale(1.005) !important;
+}
+

@@ -1,0 +1,42 @@
+.pop-comment-left {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    margin-left: 15px;
+    padding: 0;
+    max-width: 90%;
+    border-radius: 14px;
+    background: #edf1ee;
+}
+.pop-comment-right {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    margin-right: 15px;
+    padding: 0;
+    max-width: 90%;
+    border-radius: 14px;
+    background: #edf1ee;
+}
+.pop-comment-left:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: -20px;
+    margin-top: -7px;
+    border: 14px solid transparent;
+    border-right: 14px solid #edf1ee;
+    -webkit-transform: rotate(25deg);
+    transform: rotate(25deg);
+}
+.pop-comment-right:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: -20px;
+    margin-top: -7px;
+    border: 14px solid transparent;
+    border-left: 14px solid #edf1ee;
+    -webkit-transform: rotate(-25deg);
+    transform: rotate(-25deg);
+  }

@@ -1,0 +1,70 @@
+#SummernoteText p {
+    line-height: 1;
+    margin: 0;
+}
+.CodeMirror-sizer>div {
+    background: #f5f5f5;
+    border: solid;
+    border-color: #e9ecef;
+}
+.CodeMirror-code div:hover {
+    background: #e9ecef;
+}
+.note-editable>pre {
+    background: #f5f5f5;
+    color: #212121;
+    padding: 0.3em;
+    border: solid;
+    border-color: #e9ecef;
+}
+.note-editable blockquote {
+    position: relative;
+    margin: 0px;
+    padding: 10px 15px 10px 60px;
+    line-height: 1;
+    box-sizing: border-box;
+    font-style: italic;
+    background: #efefef;
+    color: #555;
+}
+.note-editable blockquote:before {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    content: "\F6B0";
+    font-family: 'Bootstrap-icons';
+    color: #cfcfcf;
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 900;
+}
+#SummernoteText>pre {
+    background: #f5f5f5;
+    color: #212121;
+    padding: 0.3em;
+    border: solid;
+    border-color: #e9ecef;
+}
+#SummernoteText blockquote {
+    position: relative;
+    margin: 0px;
+    padding: 10px 15px 10px 60px;
+    line-height: 1;
+    box-sizing: border-box;
+    font-style: italic;
+    background: #efefef;
+    color: #555;
+}
+#SummernoteText blockquote:before{
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    content: "\F6B0";
+    font-family: 'Bootstrap-icons';
+    color: #cfcfcf;
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 900;
+}

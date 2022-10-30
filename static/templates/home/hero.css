@@ -1,0 +1,56 @@
+/* hero area play */
+.command_line {
+    line-height: 12px;
+}
+.command_line_end {
+    display: inline-flex;
+    animation: flash 1.1s linear infinite;
+    width: 5px;
+    height: 10px;
+    margin-left: 2px;
+    margin-bottom: -2px;
+    background: rgb(255, 255, 255, 0.5);
+}
+@keyframes flash {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+}
+
+/* hero area title and text */
+@media (min-width: 992px) {
+    .hero-title {
+        font-size: 3.0rem;
+    }
+    .hero-text {
+        font-size: 1.5rem;
+    }
+}
+@media (max-width: 991.98px) {
+    .hero-title {
+        font-size: 3.0rem;
+    }
+    .hero-text {
+        font-size: 1.5rem;
+    }
+}
+@media (max-width: 767.98px) {
+    .hero-title {
+        font-size: 2.0rem;
+    }
+    .hero-text {
+        font-size: 1.0rem;
+    }
+}
+@media (max-width: 575.98px) {
+    .hero-title {
+        font-size: 2.0rem;
+    }
+    .hero-text {
+        font-size: 1.0rem;
+    }
+}

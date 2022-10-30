@@ -1,0 +1,70 @@
+<!-- ################## -->
+<!-- radio-single-check -->
+<!-- ################## -->
+<div class="form-group">
+        
+    <!-- RADIO SINGLE CHECK TYPE -->
+    <div class="form-check">
+        <input type="radio"
+        class="form-check-input radio-single-check" 
+        name="{{ form.####.html_name }}" 
+        id="{{ form.####.id_for_label }}"
+        {% if ##user-model##.#### %}
+        checked="checked"
+        {% endif %}
+        {% if form.####.field.required %}required{% endif %} />
+        <label class="form-check-label" for="{{ form.####.id_for_label }}">
+        {{ form.####.label }}
+        </label>
+    </div>
+
+    {% if form.####.errors %}
+        {% for error in form.####.errors %}
+        <div class="alert alert-warning d-inline-flex align-items-center m-1 p-2" role="alert">
+            <i class="bi bi-exclamation-triangle-fill flex-shrink-0 me-3" width="24" height="24"></i>
+            <div>{{ error }}</div>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if form.####.help_text %}
+    <small class="form-text text-muted">{{ form.####.help_text }}</small>
+    {% endif %}
+</div>
+
+<!-- SCRIPT rear -->
+{% block user_settings_js_rear %}
+<script src="{% static 'templates/include/radio-check-control/radio-single-check.js' %}"></script>
+{% endblock %}
+
+
+
+
+
+<!-- ####################### -->
+<!-- Select / Cancel All btn -->
+<!-- ####################### -->
+
+<!-- SCRIPT INCLUDE CONTENT -->
+<script src="{% static 'templates/include/radio-check-control/check-all-control.js' %}"></script>
+
+
+<button class="check-all-control-btn" type="button">Select / Cancel All</button>
+
+
+<div class="form-group">
+    
+    <!--  CHECK TYPE -->
+    <div class="form-check">
+        <input type="{{ form.####.field.widget.input_type }}"
+        class="form-check-input check-all-control" 
+        name="{{ form.####.html_name }}" 
+        id="{{ form.####.id_for_label }}"
+        {% if ##user-model##.#### %}
+        checked="checked"
+        {% endif %}
+        {% if form.####.field.required %}required{% endif %} />
+        <label class="form-check-label" for="{{ form.####.id_for_label }}">
+        {{ form.####.label }}
+        </label>
+    </div>

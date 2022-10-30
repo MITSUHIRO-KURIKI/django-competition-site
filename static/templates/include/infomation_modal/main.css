@@ -1,0 +1,77 @@
+.infomation_modal_attention {
+    background-color: rgb(255, 255, 255) !important;
+    position: relative !important;
+    padding: 5px !important;
+    border-radius: 5px !important;
+    z-index: 1050 !important;
+}
+
+.attention-arrow {
+    display: inline-block;
+    position: relative;
+}
+.attention-arrow::before {
+    content: "";
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    width: 13px;
+    height: 13px;
+    border-top: 2px solid rgb(229, 3, 123);
+    border-right: 2px solid rgb(229, 3, 123);
+    transform: rotate(45deg);
+    animation: attention-arrow-slide 2s linear infinite;
+}
+@keyframes attention-arrow-slide {
+    0% {
+        opacity: 0;
+        left: -8px;
+    }
+    70% {
+        opacity: 1;
+        left: -5px;
+    }
+    100% {
+        opacity: 0;
+        left: -2px;
+    }
+}
+
+
+.attention-hover {
+    animation: attention-hover-effect 1.6s linear infinite !important;
+}
+@keyframes attention-hover-effect {
+    0% {
+        box-shadow: 0 0 0px rgb(229, 3, 123, 0.6), 0 0px 0px rgba(64, 72, 85, 0.3);
+        transform: scale(1.);
+    }
+    70% {
+        box-shadow: 0 0 20px rgb(229, 3, 123, 0.6), 0 2px 5px rgba(64, 72, 85, 0.3);
+        transform: scale(1.005);
+    }
+    100% {
+        box-shadow: 0 0 0px rgb(229, 3, 123, 0.6), 0 0px 0px rgba(64, 72, 85, 0.3);
+        transform: scale(1.);
+    }
+}
+
+.attention-hover-form-check {
+    animation: attention-hover-form-check-effect 1.6s linear infinite !important;
+}
+@keyframes attention-hover-form-check-effect {
+    0% {
+        box-shadow: 0 0 0px rgb(229, 3, 123, 0.6), 0 0px 0px rgba(64, 72, 85, 0.3);
+        transform: scale(2.);
+    }
+    70% {
+        box-shadow: 0 0 20px rgb(229, 3, 123, 0.6), 0 2px 5px rgba(64, 72, 85, 0.3);
+        transform: scale(2.1);
+    }
+    100% {
+        box-shadow: 0 0 0px rgb(229, 3, 123, 0.6), 0 0px 0px rgba(64, 72, 85, 0.3);
+        transform: scale(2.);
+    }
+}
+
