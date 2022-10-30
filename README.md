@@ -12,11 +12,13 @@ On the other hand, we believe that there is a need to hold such competitions in 
 ## way to use
 * リポジトリをクローンし、仮想環境上でrequirements.txt をインストールします。
 * .env ファイルの "SECRET_KEY" に任意のキーを入力します。（それ以外は必要に応じて記載します）
-* Djangoアプリケーションをマイグレーションします（付属の ProjectStartBat.bat で一括処理も可能です）
+* Djangoアプリケーションをマイグレーションします（付属の ProjectStartBat.bat で一括処理も可能です）  
+（使用には一般的なDjangoの経験が必要です。）
 <small><blockquote>
 * Clone the repository and install requirements.txt on the virtual environment.
 * Enter any key in "SECRET_KEY" in the .env file. (Otherwise, enter any other key as needed)
-* Migrate your Django application (you can also batch process with the included ProjectStartBat.bat)
+* Migrate your Django application (you can also batch process with the included ProjectStartBat.bat)  
+(General Django experience is required for use.)
 </blockquote></small>
 
 ## Running in the Cloud
