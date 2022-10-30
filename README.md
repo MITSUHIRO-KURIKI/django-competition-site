@@ -9,16 +9,36 @@ On the other hand, we believe that there is a need to hold such competitions in 
 **(The application has key features but is incomplete at this time.)**
 </blockquote></small>
 
+## Main Functions
+* 提出されたテーブルデータを評価指標にもとづきスコアを算定できます。評価はマルチラベルにも対応しています。  
+詳しくは /submission/evaluation/Evaluation.py をご覧ください。  
+評価の処理については、Evaluation.py の他、 submission/views/Submission_views.py で行われます。 
+* 評価は提出順で評価され、コンペティションの設定で最大を上位とするか、最小を上位とするか設定できます。  
+* Discussionでのトピック投稿とコメント投稿ができます。  
+* .ipynb からNotebookを作成でき、コメント投稿ができます。  
+* Discussion/Notebook/Comment には投票機能とブックマーク機能があります。  
+
+<small><blockquote>
+* Scores can be calculated for submitted table data based on evaluation indices. Multi-label evaluation is also supported.  
+See /submission/evaluation/Evaluation.py for details.  
+For more information on the evaluation process, see Evaluation.py and submission/views/Submission_views.py.  
+* The evaluations are graded in the order of submission, and the competition settings can be set to place the largest at the top or the smallest at the bottom.  
+* You can post topics and comments in Discussion.  
+* You can create a Notebook from .ipynb and post comments.  
+* Discussion/Notebook/Comment has voting and bookmarking functions.  
+</blockquote></small>
+
 ## way to use
 * リポジトリをクローンし、仮想環境上でrequirements.txt をインストールします。
 * .env ファイルの "SECRET_KEY" に任意のキーを入力します。（それ以外は必要に応じて記載します）
 * Djangoアプリケーションをマイグレーションします（付属の ProjectStartBat.bat で一括処理も可能です）  
 （使用には一般的なDjangoの経験が必要です。）
+
 <small><blockquote>
-* Clone the repository and install requirements.txt on the virtual environment.
-* Enter any key in "SECRET_KEY" in the .env file. (Otherwise, enter any other key as needed)
+* Clone the repository and install requirements.txt on the virtual environment.  
+* Enter any key in "SECRET_KEY" in the .env file. (Otherwise, enter any other key as needed)  
 * Migrate your Django application (you can also batch process with the included ProjectStartBat.bat)  
-(General Django experience is required for use.)
+(General Django experience is required for use.)  
 </blockquote></small>
 
 ## Running in the Cloud
