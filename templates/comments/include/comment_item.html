@@ -1,0 +1,91 @@
+{% load date2remain_days_or_progress_days %}
+{% load object2uer_votes_situation %}
+{% load object2votes_sum %}
+
+<div class="row mx-0 my-2 p-0">
+    <div class="col-1 my-0 ml-0 mr-1 p-0 clearfix text-right d-none d-sm-none d-md-block">
+        <a class="" href="{% url 'accounts:user_profile:user_profile' unique_account_id=object.post_user.unique_account_id %}">
+            <img src="{{ object.post_user.related_custom_user_profile_model.user_icon.url }}" alt="user_icon"
+                style="width:60px; height:60px;" class="rounded-circle border border-secondary" />
+        </a>
+        {% if object.post_user.is_superuser %}
+            <div class="d-flex justify-content-center ml-4 badge text-muted m-0 p-0">admin</div>
+        {% elif object.post_user.is_staff %}
+            <div class="d-flex justify-content-center ml-4 badge text-muted m-0 p-0">staff</div>
+        {% endif %}
+    </div>
+    <div class="col list-group-item m-0 p-0">
+        <div class="row justify-content-between align-items-center mx-2 my-1 p-0">
+            <div class="text-left">
+                <small><a class="text-decoration-none text-muted" href="{% url 'accounts:user_profile:user_profile' unique_account_id=object.post_user.unique_account_id %}">{{ object.post_user.username }}</a></small>
+                <small class="text-muted">&nbsp;/ Posted {{ object.date_create | date2remain_days_or_progress_days }}</small>
+                <small>&nbsp;- <a class="text-decoration-none text-muted" href="{% url 'user_inquiry:user_inquiry_form' %}?comment_pk={{ object.pk }}">Report</a></small>
+            </div>
+            <div class="text-right">
+                <div class="badge">
+                    {% object2uer_votes_situation object.id 'comment' user.id as situation %}
+                    {% object2votes_sum object.id 'comment' as votes_sum %}
+                    <div class="input-group input-group-sm flex-nowrap m-0 p-0">
+                        {% if user.is_authenticated %}
+                            <div class="input-group-prepend">
+                                <button class="vote btn btn-outline-secondary m-0 px-2 py-0 {% if situation == 'up_vote' %}btn-secondary text-white{% endif %}" object_type="comment" object_id="{{ object.id }}" vote_action="up_vote" data-id='{{ object.id }}' type="button"><i class="bi bi-arrow-up"></i></button>
+                            </div>
+                            <div class="vote-sum text-monospace border border-secondary lead text-muted m-0 px-3 py-0" object_type="comment" data-id='{{ object.id }}'>{{ votes_sum }}</div>
+                            <div class="input-group-append">
+                                <button class="vote btn btn-outline-secondary m-0 px-2 py-0 {% if situation == 'down_vote' %}btn-secondary text-white{% endif %}" object_type="comment" object_id="{{ object.id }}" vote_action="down_vote" data-id='{{ object.id }}' type="button"><i class="bi bi-arrow-down"></i></button>
+                            </div>
+                        {% else %}
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary m-0 px-2 py-0" object_type="notebook" type="button" disabled><i class="bi bi-arrow-up"></i></button>
+                            </div>
+                            <div class="text-monospace border border-secondary lead text-muted m-0 px-3 py-0">{{ votes_sum }}</div>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary m-0 px-2 py-0" type="button" disabled><i class="bi bi-arrow-down"></i></button>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="badge">
+                    {% if user.is_authenticated %}
+                        <a class="bookmark btn btn-sm mx-1 my-0 p-0" object_type='comment' object_id='{{ object.id }}' data-id='{{ object.id }}' type="button">
+                            {% if object.id in BOOKMARK_COMMENT_ID_LIST %}
+                                <i class="bi bi-bookmark-check-fill"></i>
+                            {% else %}
+                                <i class="bi bi-bookmark-check"></i>
+                            {% endif %}
+                        </a>
+                    {% else %}
+                        <script>
+                            $(function () {
+                                $('[data-bs-toggle="tooltip"]').tooltip();
+                            })
+                        </script>
+                        <div class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-html="true" data-bs-custom-class="ml-1" title="Must be <u><b>LOGIN<b></u>">
+                            <a class="btn btn-sm mx-1 my-0 p-0 disabled" type="button" aria-disabled="true"><i class="bi bi-bookmark-check"></i></a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="mx-4 mt-0 mb-3 p-0">
+            {% autoescape off %}
+                <div id="SummernoteText" class="text-break">
+                {{ object.text }}
+                </div>
+            {% endautoescape %}
+        </div>
+        {% if edit_area %}
+            {% if object.post_user == user %}
+                <div class="text-right border-top">
+                    {% if OBJECT_TYPE == 'discussions' %}
+                        <a class="btn btn-sm mx-1 my-0 p-0" type="button" href="{% url 'comments:comment_update' pk=object.pk %}?redirect_discussion_pk={{ object.post_discussion_theme.id }}"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-sm mx-1 my-0 p-0" type="button" href="{% url 'comments:comment_delete' pk=object.pk %}?redirect_discussion_pk={{ object.post_discussion_theme.id }}" ><i class="bi bi-trash"></i></a>
+                    {% elif OBJECT_TYPE == 'notebooks' %}
+                        <a class="btn btn-sm mx-1 my-0 p-0" type="button" href="{% url 'comments:comment_update' pk=object.pk %}?redirect_notebook_pk={{ object.post_notebook_theme.id }}"><i class="bi bi-pencil"></i></a>
+                        <a class="btn btn-sm mx-1 my-0 p-0" type="button" href="{% url 'comments:comment_delete' pk=object.pk %}?redirect_notebook_pk={{ object.post_notebook_theme.id }}" ><i class="bi bi-trash"></i></a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

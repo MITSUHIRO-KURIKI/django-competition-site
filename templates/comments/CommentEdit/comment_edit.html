@@ -1,0 +1,24 @@
+{% extends "comments/comments_base.html" %}
+
+
+<!-- TITLE -->
+{% block comments_title %} - Edit Comment{% endblock %}
+
+<!-- CONTENT -->
+{% block comments_content %}
+
+<!-- PAGE MOVE ANNOUNCEMENT -->
+{% include 'include/page_move/page_move_announcement.html' %}
+
+<!-- back botton -->
+<a type="button" class="btn btn-outline-danger btn-sm" href="{% if redirect_discussion_pk %}{% url 'discussions:discussion_page' pk=redirect_discussion_pk %}{% elif redirect_notebook_pk %}{% url 'notebooks:notebook_page_comments' pk=redirect_notebook_pk %}{% else %}{% url 'home' %}{% endif %}"><i class="bi bi-skip-backward mr-2"></i>戻る</a>
+<div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+    <h2 class="mb-2 mt-0 p-0">Edit Comment</h2>
+    <hr>
+
+    {% with form_field_name=form.text submit_button_name='Save' input_text_area_hight=250 mentions_list=ALL_USER_NAME_LIST %}
+        {% include 'comments/include/comment_form.html' %}
+    {% endwith %}
+</div>
+
+{% endblock %}

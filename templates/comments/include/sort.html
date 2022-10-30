@@ -1,0 +1,18 @@
+{% load access_dict %}
+{% load stringformat_s %}
+
+
+{% stringformat_s SELECT_SORT as select_sort %}
+<div class="row align-bottom mx-2 py-2">
+    <i class="bi bi-filter-right"></i>
+    <div class="dropdown m-0 p-0">
+        <a class="btn btn-sm dropdown-toggle m-0 p-0" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if select_sort == 'oldest' %}Oldest{% elif select_sort == 'latest' %}Latest{% elif select_sort == 'number_ot_votes' %}Number Of Votes{% else %}Sort by{% endif %}
+        </a>
+        <div class="dropdown-menu m-0 p-0" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item m-0 p-0 {% if select_sort == 'oldest' %}active{% endif %}" href="?{{ sort_name }}=oldest{% for use_page_tag in use_page_tags %}{% if sort_name != use_page_tag %}{% if use_page_tag == 'comments_page' %}&comments_page=1{% else %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">Oldest</a>
+            <a class="dropdown-item m-0 p-0 {% if select_sort == 'latest' %}active{% endif %}" href="?{{ sort_name }}=latest{% for use_page_tag in use_page_tags %}{% if sort_name != use_page_tag %}{% if use_page_tag == 'comments_page' %}&comments_page=1{% else %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">Latest</a>
+            <a class="dropdown-item m-0 p-0 {% if select_sort == 'number_ot_votes' %}active{% endif %}" href="?{{ sort_name }}=number_ot_votes{% for use_page_tag in use_page_tags %}{% if sort_name != use_page_tag %}{% if use_page_tag == 'comments_page' %}&comments_page=1{% else %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">Number Of Votes</a>
+        </div>
+    </div>
+</div>

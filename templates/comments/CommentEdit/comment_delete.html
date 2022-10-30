@@ -1,0 +1,50 @@
+{% extends "comments/comments_base.html" %}
+
+<!-- CONTENT -->
+{% block comments_content %}
+
+<a type="button" class="btn btn-outline-danger btn-sm" href="{% if redirect_discussion_pk %}{% url 'discussions:discussion_page' pk=redirect_discussion_pk %}{% elif redirect_notebook_pk %}{% url 'notebooks:notebook_page_comments' pk=redirect_notebook_pk %}{% else %}{% url 'home' %}{% endif %}"><i class="bi bi-skip-backward mr-2"></i>戻る</a>
+<h2 class="mb-2 mt-0 p-0">Delete Comment</h2>
+以下のコメントを削除します
+<hr>
+
+{% with object=COMMTNT_DATA %}
+    {% include 'comments/include/comment_item.html' with edit_area=False %}
+{% endwith %}
+
+<div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="form-group my-5">
+            
+            <div class="input-group">
+                <input type="{{ form.check_text.field.widget.input_type }}"
+                class="form-control {% if form.check_text.errors %}is-invalid{% endif %}" 
+                name="{{ form.check_text.html_name }}" 
+                id="{{ form.check_text.id_for_label }}"
+                placeholder="delete"
+                {% if form.check_text.field.required %}required{% endif %} />
+
+            {% if form.check_text.errors %}
+                {% for error in form.check_text.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+            </div>
+            {% if form.check_text.help_text %}
+                <div class="alert alert-danger" role="alert">{{ form.check_text.help_text }}</div>
+            {% endif %}
+        </div>
+
+        <hr>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-danger" type="submit">Delete Comment</button>
+        </div>
+
+    </form>
+</div>
+{% endblock %}

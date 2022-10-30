@@ -1,0 +1,14 @@
+{% comment 'include/summernote/summernote_form.html への引数例' %}
+    form_field_name=form.text
+    submit_button_name='Post Comment'
+    input_text_area_hight=150
+    placeholder='Comment here.' 
+     →placeholder は form_field_name.value(formの初期入力値) がある場合には指定しない
+    mentions_list=ALL_USER_NAME_LIST
+{% endcomment %}
+
+<div class="row m-2 p-0">
+    <div class="col list-group-item m-0 p-0">
+        {% include 'include/summernote/summernote_form.html' %}
+    </div>
+</div>

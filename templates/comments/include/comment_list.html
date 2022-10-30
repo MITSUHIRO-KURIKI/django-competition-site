@@ -1,0 +1,26 @@
+<!-- sort -->
+<div class="d-flex justify-content-end mt-2 mb-0 p-0">
+    {% with sort_name='sort' use_page_tags=use_page_tags add_a_name='comments' %}
+        {% include 'comments/include/sort.html' %}
+    {% endwith %}
+</div>
+{% for object in COMMENTS_DATA %}
+    {% include 'comments/include/comment_item.html' with edit_area=True %}
+    {% if object.post_discussion_theme %}
+        <div class="d-flex justify-content-end m-0 p-0">
+            <div class="badge rounded-pill bg-light mt-0 mb-2 px-2 py-0">
+                &nbsp;in <i class="bi bi-chat-left-text mr-1"></i><a class="text-decoration-none text-muted" href="{% url 'discussions:discussion_page' pk=object.post_discussion_theme.id %}">{{ object.post_discussion_theme.title | truncatechars:30 }}</a>
+            </div>
+        </div>
+    {% elif object.post_notebook_theme %}
+        <div class="d-flex justify-content-end m-0 p-0">
+            <div class="badge rounded-pill bg-light mt-0 mb-2 px-2 py-0">
+                &nbsp;in <i class="bi bi-code-slash mr-1"></i><a class="text-decoration-none text-muted" href="{% url 'notebooks:notebook_page' pk=object.post_notebook_theme.id %}">{{ object.post_notebook_theme.title | truncatechars:30 }}</a>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+<!-- Pagination -->
+{% with pages=COMMENTS_DATA page_tag='comments_page' use_page_tags=use_page_tags add_a_name='bookmarks' %}
+    {% include 'include/pagination/pagination.html' %}
+{% endwith %}
