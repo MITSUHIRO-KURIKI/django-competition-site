@@ -1,0 +1,158 @@
+{% load static %}
+
+{% if user.is_authenticated %}
+<nav class="navbar m-0 p-0 fixed-top navbar-expand-md navbar-light bg-dark" id="navbar">
+    <div class="container-fluid m-0 p-0">
+        <a class="navbar-brand ml-4 text-white" href="{% url 'home' %}">{% include 'title.html' %}</a>
+
+        <button class="navbar-toggler mr-4" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav mr-auto px-5 bg-dark">
+                <div class="dropdown-divider mt-3"></div>
+                <a class="nav-link text-white" href="{% url 'competitions:home' %}" id="InfoModal-Competition"><i class="bi bi-trophy-fill" style="font-size:12px;"></i> Competition</a>
+                <a class="nav-link text-white" href="{% url 'discussions:discussions' %}"><i class="bi bi-chat-left-text-fill"style="font-size:12px;"></i> Discussion</a>
+                <a class="nav-link text-white" href="{% url 'notebooks:notebooks' %}"><i class="bi bi-code-slash"style="font-size:12px;"></i> Notebook</a>
+
+                <!-- Displayed below md -->
+                <div class="dropdown-divider"></div>
+                <div class="pb-3
+                            d-none d-sm-block d-md-none
+                            d-block d-sm-none
+                            ">
+                    <a class="nav-link text-white" href="{% url 'accounts:user_profile:user_profile_edit' %}">Settings</a>
+                    <a class="nav-link text-white" href="{% url 'logout' %}">Log out</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Displayed at md or above -->
+        <div class="d-none d-xxl-block
+                    d-none d-xl-block d-xxl-none
+                    d-none d-lg-block d-xl-none
+                    d-none d-md-block d-lg-none
+                    ">
+        
+            <div class="dropdown">
+                <a class="btn mr-4" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <img src="{{ user.related_custom_user_profile_model.user_icon.url }}" alt="user_icon"
+                            style="width:40px; height:40px;" class="rounded-circle" />
+                </a>
+                
+                <div class="dropdown-menu dropdown-menu-right mr-4" aria-labelledby="navbarDropdown">
+                    <div class="container m-0 p-0" style="width: 25vw !important; min-width: 400px !important;">
+                        <div class="row m-0 p-0 mx-auto">
+                            <div class="col-12 m-0 p-0 mt-1 text-center">
+                                <img src="{{ user.related_custom_user_profile_model.user_icon.url }}" alt="user_icon"
+                                style="width:80px; height:80px;" class="rounded-circle border border-secondary" />
+                            </div>
+                            <div class="col-12 m-0 p-0 mt-2 text-center">
+                                {{ user.username }}
+                            </div>
+                            <div class="col-12 m-0 p-0 mb-2 text-center">
+                                {{ user.email }}
+                            </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'accounts:user_profile:user_profile' unique_account_id=user.unique_account_id %}"><i class="bi bi-person mr-2"></i>User page</a>
+                        {% if user.is_superuser or user.is_staff %}
+                            <a class="dropdown-item" href="{% url 'management:home' %}"><i class="bi bi-toggles mr-2"></i>Site Management</a>
+                        {% endif %}
+                        <div class="dropdown-divider"></div>
+                        <div class="text-center">
+                            <a class="dropdown-item" href="{% url 'accounts:user_profile:user_profile_edit' %}"><i class="bi bi-gear-fill mr-2"></i>Settings</a>
+                            <a class="dropdown-item" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt mr-2"></i>Log out</a>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="row m-0 p-0 mx-auto">
+                            <div class="col-12 m-0 p-0 text-center text-nowrap">
+                                <small><a class="m-0 p-0 small font-weight-light text-reset" href="{% url 'privacy' %}">プライバシーポリシー</a></small>
+                                &middot;
+                                <small><a class="m-0 p-0 small font-weight-light text-reset" href="{% url 'disclaimer' %}">免責事項</a></small>
+                                <br>
+                                <small><a class="m-0 p-0 small font-weight-light text-reset" href="{% url 'user_inquiry:user_inquiry_form' %}">お問い合わせ</a></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+{% else%}
+
+<nav class="navbar m-0 p-0 fixed-top navbar-expand-md navbar-light bg-dark" id="navbar">
+    <div class="container-fluid m-0 p-0">
+        <a class="navbar-brand ml-4 text-white" href="{% url 'home' %}">{% include 'title.html' %}</a>
+
+        <button class="navbar-toggler mr-4" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav mr-auto m-0 p-0 px-5 bg-dark">
+                <div class="dropdown-divider mt-3"></div>
+                <a class="nav-link text-white" href="{% url 'competitions:home' %}"><i class="bi bi-trophy-fill" style="font-size:12px;"></i> Competition</a>
+                <a class="nav-link text-white" href="{% url 'discussions:discussions' %}"><i class="bi bi-chat-left-text-fill"style="font-size:12px;"></i> Discussion</a>
+                <a class="nav-link text-white" href="{% url 'notebooks:notebooks' %}"><i class="bi bi-code-slash"style="font-size:12px;"></i> Notebook</a>
+
+                <!-- Displayed below md -->
+                <div class="dropdown-divider"></div>
+                <div class="pb-3
+                            d-none d-sm-block d-md-none
+                            d-block d-sm-none
+                            ">
+                    <a class="nav-link text-white" href="{% url 'accounts:signup' %}">Get Started</a>
+                    <a class="nav-link text-white" href="{% url 'login' %}">Log in</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Displayed at md or above -->
+        <div class="d-none d-xxl-block
+                    d-none d-xl-block d-xxl-none
+                    d-none d-lg-block d-xl-none
+                    d-none d-md-block d-lg-none
+                    ">
+            <div class="dropdown">
+                <a class="btn mr-4" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                    <img src="{% static 'user_profile/user_icon/default/default.png' %}" alt="user_icon"
+                        style="width:55px; height:55px;" class="rounded-circle" />
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right mr-4" aria-labelledby="navbarDropdown">
+                    <div class="container m-0 p-0" style="width: 20vw !important; min-width: 230px !important;">
+                        <div class="dropdown-divider"></div>
+                        <div class="text-left">
+                            <a class="dropdown-item" href="{% url 'login' %}"><i class="fas fa-sign-in-alt mr-2"></i>Log in</a>
+                            <a class="dropdown-item" href="{% url 'accounts:signup' %}"><i class="fas fa-user-plus mr-2"></i>Sign in</a>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="row m-0 p-0 mx-auto">
+                            <div class="col-12 m-0 p-0 text-center text-nowrap">
+                                <small><a class="m-0 p-0 small font-weight-light text-reset" href="{% url 'privacy' %}">プライバシーポリシー</a></small>
+                                &middot;
+                                <small><a class="m-0 p-0 small font-weight-light text-reset" href="{% url 'disclaimer' %}">免責事項</a></small>
+                                <br>
+                                <small><a class="m-0 p-0 small font-weight-light text-reset" href="{% url 'user_inquiry:user_inquiry_form' %}">お問い合わせ</a></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+{% endif%}
