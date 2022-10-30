@@ -11,18 +11,20 @@ On the other hand, we believe that there is a need to hold such competitions in 
 
 ## Main Functions
 * 提出されたテーブルデータを評価指標にもとづきスコアを算定できます。評価はマルチラベルにも対応しています。  
+* 評価は提出順で評価され、コンペティションの設定で最大スコアを上位とするか、最小スコアを上位とするか設定できます。  
 詳しくは /submission/evaluation/Evaluation.py をご覧ください。  
-評価の処理については、Evaluation.py の他、 submission/views/Submission_views.py で行われます。 
-* 評価は提出順で評価され、コンペティションの設定で最大を上位とするか、最小を上位とするか設定できます。  
+評価の処理については、Evaluation.py の他、 submission/views/Submission_views.py で行われます。  
+正解データと提出データのサンプルは static/SampleData/Competition/ および static/SampleData/Submission/ をご覧ください。  
 * Discussionでのトピック投稿とコメント投稿ができます。  
 * .ipynb からNotebookを作成でき、コメント投稿ができます。  
 * Discussion/Notebook/Comment には投票機能とブックマーク機能があります。  
 
 <small><blockquote>
 * Scores can be calculated for submitted table data based on evaluation indices. Multi-label evaluation is also supported.  
+* Evaluations are in the order of submission, and the competition settings can be set to give the maximum or minimum score as the top score.  
 See /submission/evaluation/Evaluation.py for details.  
 For more information on the evaluation process, see Evaluation.py and submission/views/Submission_views.py.  
-* The evaluations are graded in the order of submission, and the competition settings can be set to place the largest at the top or the smallest at the bottom.  
+See static/SampleData/Competition/ and static/SampleData/Submission/ for samples of correct answers and submission data.  
 * You can post topics and comments in Discussion.  
 * You can create a Notebook from .ipynb and post comments.  
 * Discussion/Notebook/Comment has voting and bookmarking functions.  
