@@ -26,7 +26,7 @@ Google Cloud Platform での実行に対応していますが、デプロイに�
 <small><blockquote>
 It supports running on Google Cloud, but requires experience to deploy.  
 Also, please check about security. Please run and operate open source programs at your own risk.  
-You can deploy it by making the necessary descriptions in the .env file.
+You can deploy it by making the necessary descriptions in the .env file.  
 </blockquote></small>
 
 ## Other
@@ -34,7 +34,7 @@ You can deploy it by making the necessary descriptions in the .env file.
 オープンソースプログラムの実行と運用はすべて自己責任でお願い致します。  
 本アプリケーションで使われる各種ライブラリのライセンスは本ライセンスには含まれません。各種ライブラリのライセンスに従って利用してください。
 <small><blockquote>
-The application is written in Japanese.
+The application is written in Japanese.  
 Please run and operate all open source programs at your own risk.  
 Licenses for the various libraries used in this application are not included in this license. Please use them in accordance with the license of each library.  
 </blockquote></small>
