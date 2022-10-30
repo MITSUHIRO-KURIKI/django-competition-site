@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- CSS -->
+{% block css_previous %}
+    <!-- Custom styles for summernote -->
+    <link rel="stylesheet" href="{% static 'templates/include/summernote/custom.css' %}" />
+    {% block comments_css_previous %}{% endblock %}
+{% endblock %}
+
+<!-- TITLE -->
+{% block title %}
+{% block comments_title %}{% endblock %}
+{% endblock %}
+
+<!-- SCRIPT previous -->
+{% block js_previous %}
+{% block comments_js_previous %}{% endblock %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+
+<!-- comments CONTENT -->
+{% block comments_content %}{% endblock %}
+
+{% endblock %}
+
+<!-- SCRIPT rear -->
+{% block js_rear %}
+    <!-- bookmark and vote ajax script -->
+    {% include 'include/Ajax/Ajax_script.html' %}
+    {% include 'include/Ajax/bookmark/bookmark_ajax_script.html' with ajax_click_class_name='bookmark' %}
+    {% include 'include/Ajax/vote/vote_ajax_script.html' with ajax_click_class_name='vote' %}
+{% block comments_js_rear %}{% endblock %}
+{% endblock %}
+
+<!-- FOOTER -->
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}
