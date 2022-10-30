@@ -1,0 +1,65 @@
+{% extends 'management/management_base.html' %}
+
+<!-- TITLE -->
+{% block management_title %} - タグ一覧{% endblock %}
+
+<!-- SIDEVER -->
+{% block management_sidebar %}
+    {% include 'management/include/sidebar.html' with management_tags_active='active' %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block management_content %}
+
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ formset.management_form }}
+    {{ discussion_formset.management_form }}
+    {{ notebook_formset.management_form }}
+    {{ create_tag_competition.non_field_errors }}
+    {{ create_tag_discussion.non_field_errors }}
+    {{ create_tag_notebook.non_field_errors }}
+
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary" type="submit">update</button>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-4">
+            <p class="fs-2 lead m-0 p-0">Competition</p>
+            <div class="list-group list-group-flush">
+                <div class="list-group-item d-flex align-items-center">
+                    {% include 'management/tags/include/add_form.html' with object=create_tag_competition %}
+                </div>
+                {% for form in formset %}
+                    {% include 'management/tags/include/form.html' with object_type='competition' %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <p class="fs-2 lead m-0 p-0">Discussion</p>
+            <div class="list-group list-group-flush">
+                <div class="list-group-item d-flex align-items-center">
+                    {% include 'management/tags/include/add_form.html' with object=create_tag_discussion %}
+                </div>
+                {% for form in discussion_formset %}
+                    {% include 'management/tags/include/form.html' with object_type='discussion' %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <p class="fs-2 lead m-0 p-0">Notebook</p>
+            <div class="list-group list-group-flush">
+                <div class="list-group-item d-flex align-items-center">
+                    {% include 'management/tags/include/add_form.html' with object=create_tag_notebook %}
+                </div>
+                {% for form in notebook_formset %}
+                    {% include 'management/tags/include/form.html' with object_type='notebook' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

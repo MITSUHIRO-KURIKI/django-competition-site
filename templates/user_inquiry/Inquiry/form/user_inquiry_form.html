@@ -1,0 +1,98 @@
+<!-- PAGE MOVE ANNOUNCEMENT -->
+{% include 'include/page_move/page_move_announcement.html' %}
+
+<form method="post" onSubmit="is_note_msg=false;">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    {% if comment_pk or discussion_pk or notebook_pk %}
+        <div class="form-group">
+            <label for="{{ form.fixed_subject.id_for_label }}">{{ form.fixed_subject.label }}</label>
+            
+            <div class="input-group">
+                <select type="{{ form.fixed_subject.field.widget.input_type }}"
+                class="form-control {% if form.fixed_subject.errors %}is-invalid{% endif %}" 
+                name="{{ form.fixed_subject.html_name }}" 
+                id="{{ form.fixed_subject.id_for_label }}"
+                {% if comment_pk or discussion_pk or notebook_pk %}required{% else %} {% endif %}>
+                {% for choice in form.fixed_subject.field.widget.choices %}
+                    <option value="{{ choice.0 }}"
+                        {% if choice.0 == form.fixed_subject.value %}selected{% endif %}>
+                        {{ choice.1 }}
+                    </option>
+                {% endfor %}
+                </select>
+
+                {% if form.fixed_subject.errors %}
+                    {% for error in form.fixed_subject.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {% if form.fixed_subject.help_text %}
+                <small class="form-text text-muted">{{ form.fixed_subject.help_text }}</small>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="form-group">
+        <label for="{{ form.subject_text.id_for_label }}">{{ form.subject_text.label }}</label>
+        
+        <div class="input-group">
+            <textarea type="{{ form.subject_text.field.widget.input_type }}"
+            class="form-control {% if form.subject_text.errors %}is-invalid{% endif %}" 
+            name="{{ form.subject_text.html_name }}" 
+            id="{{ form.subject_text.id_for_label }}"
+            rows="5"
+            {% if comment_pk or discussion_pk or notebook_pk %} {% else %}required{% endif %}
+            ></textarea>
+
+            {% if form.subject_text.errors %}
+                {% for error in form.subject_text.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.subject_text.help_text %}
+            <small class="form-text text-muted">{{ form.subject_text.help_text }}</small>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+        
+        <div class="input-group">
+            <input type="{{ form.email.field.widget.input_type }}"
+            class="form-control {% if form.email.errors %}is-invalid{% endif %}" 
+            name="{{ form.email.html_name }}" 
+            id="{{ form.email.id_for_label }}"
+            {% if user.email %}
+                value="{{ user.email }}"
+            {% else %}
+                placeholder="email address"
+            {% endif %}
+            {% if form.email.field.required %}required{% endif %} />
+
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.email.help_text %}
+            <small class="form-text text-muted">{{ form.email.help_text }}</small>
+        {% endif %}
+    </div>
+    {% if USE_RECAPTCHA %}
+        {% include 'include/grecaptcha/grecaptcha_btn.html' %}
+    {% endif %}
+    <hr>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-primary" type="submit">send form</button>
+    </div>
+    
+</form>

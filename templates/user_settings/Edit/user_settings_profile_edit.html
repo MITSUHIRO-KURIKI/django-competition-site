@@ -1,0 +1,22 @@
+{% extends "user_profile/user_profile_base.html" %}
+{% load static %}
+
+<!-- TITLE -->
+{% block user_profile_title %} - Profile disclosure range setting{% endblock %}
+
+<!-- SIDEBAR -->
+{% block user_profile_sidebar %}
+    {% include 'user_profile/include/user_profile_base_sidebar.html' with user_settings_profile_active='active' %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block user_profile_content %}
+
+
+<!-- SCRIPT INCLUDE CONTENT -->
+<script src="{% static 'templates/include/radio-check-control/check-all-control.js' %}"></script>
+
+{% include 'user_settings/Edit/form/edit_profile_form.html' %}
+
+
+{% endblock %}

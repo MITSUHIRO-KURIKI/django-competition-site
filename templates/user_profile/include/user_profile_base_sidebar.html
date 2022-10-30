@@ -1,0 +1,31 @@
+{% if user.is_authenticated %}
+    <div class="col-md-3 col-sm-12">
+        <div class="container m-0 p-0 mb-2">
+            <div class="row m-0 p-0 mx-auto">
+                <div class="col-12 m-0 p-0 mt-1 text-center">
+                    <img src="{{ user.related_custom_user_profile_model.user_icon.url }}" alt="user_icon"
+                    style="width:80px; height:80px;" class="rounded-circle border border-secondary" />
+                </div>
+                <div class="col-12 m-0 p-0 mt-2 text-center">
+                    {{ user.username }}
+                </div>
+                <div class="col-12 m-0 p-0 mb-2 text-center">
+                    {{ user.email }}
+                </div>
+            </div>
+        </div>
+        <div class="sticky-top container-fluid pt-3 bg-white">
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action list-group-item-light {{ user_profile_active }}"
+                    href="{% url 'accounts:user_profile:user_profile' unique_account_id=user.unique_account_id %}">User page</a>
+                <a class="list-group-item list-group-item-action list-group-item-light {{ user_profile_edit_active }}"
+                    href="{% url 'accounts:user_profile:user_profile_edit' %}">Profile</a>
+                <a class="list-group-item list-group-item-action list-group-item-light {{ user_settings_profile_active }}" href="{% url 'accounts:user_settings:user_settings_profile_edit' %}">Private settings</a>
+                <a class="list-group-item list-group-item-action list-group-item-light {{ user_settings_email_active }}" href="{% url 'accounts:user_settings:user_settings_email_edit' %}">Notice</a>
+                <a class="list-group-item list-group-item-action list-group-item-light {{ email_change_active }}" href="{% url 'accounts:email_change' %}">Email</a>
+                <a class="list-group-item list-group-item-action list-group-item-light {{ password_change_active }}" href="{% url 'accounts:password_change' %}">Password</a>
+                <a class="list-group-item list-group-item-action list-group-item-light {{ delete_account_active }}" href="{% url 'accounts:delete_account' %}">Close account</a>
+            </div>
+        </div>
+    </div>
+{% endif %}

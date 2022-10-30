@@ -1,0 +1,60 @@
+{% extends 'management/management_base.html' %}
+
+<!-- TITLE -->
+{% block management_title %} - 問い合わせ一覧{% endblock %}
+
+<!-- SIDEVER -->
+{% block management_sidebar %}
+    {% include 'management/include/sidebar.html' with management_inquiry_active='active' %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block management_content %}
+
+
+<div class="card border border-success my-3">
+    <div class="card-header text-white bg-success text-center m-0 p-0">
+        対応中
+    </div>
+    <div class="card-body m-0 p-0">
+        <p class="card-text m-0 p-0">subject_text:</p>
+        <p class="card-text m-0 p-0">With supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text m-0 p-0">fixed_subject:</p>
+    </div>
+    <ul class="list-group list-group-flush m-0 p-0">
+        <li class="list-group-item list-group-item-action m-0 p-0">inquirer_user:  ( username )</li>
+        <li class="list-group-item list-group-item-action m-0 p-0">email: </li>
+    </ul>
+    <ul class="list-group list-group-flush m-0 p-0">
+        <li class="list-group-item m-0 p-0">subject_comment:  ( pk:  )</li>
+        <li class="list-group-item m-0 p-0">subject_discussion:  ( pk:  )</li>
+        <li class="list-group-item m-0 p-0">subject_notebook:  ( pk:  )</li>
+    </ul>
+    <div class="card-footer text-muted m-0 p-0">
+        <p class="card-text text-center m-0 p-0">date_create: 2022/10/23 10:00</p>
+    </div>
+</div>
+<div class="card border border-danger my-3">
+    <div class="card-header text-white bg-danger text-center m-0 p-0">
+        対応中
+    </div>
+    <div class="card-body m-0 p-0">
+        <p class="card-text m-0 p-0">subject_text:</p>
+        <p class="card-text m-0 p-0">With supporting text below as a natural lead-in to additional content.</p>
+        <p class="card-text m-0 p-0">fixed_subject:</p>
+    </div>
+    <ul class="list-group list-group-flush m-0 p-0">
+        <li class="list-group-item list-group-item-action m-0 p-0">inquirer_user:  ( username )</li>
+        <li class="list-group-item list-group-item-action m-0 p-0">email: </li>
+    </ul>
+    <ul class="list-group list-group-flush m-0 p-0">
+        <li class="list-group-item m-0 p-0">subject_comment:  ( pk:  )</li>
+        <li class="list-group-item m-0 p-0">subject_discussion:  ( pk:  )</li>
+        <li class="list-group-item m-0 p-0">subject_notebook:  ( pk:  )</li>
+    </ul>
+    <div class="card-footer text-muted m-0 p-0">
+        <p class="card-text text-center m-0 p-0">date_create: 2022/10/23 10:00</p>
+    </div>
+</div>
+
+{% endblock %}

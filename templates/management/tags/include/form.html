@@ -1,0 +1,44 @@
+{{ form.non_field_errors }}
+<div class="list-group-item d-flex justify-content-between align-items-center h6">
+    <!-- edit_mode -->
+    <div id="edit_mode_{{ form.name.id_for_label }}" style="display:{% if form.name.errors %}{% else %}none{% endif %};">
+        <div class="input-group input-group-sm">
+            <input type="{{ form.name.field.widget.input_type }}"
+            class="form-control {% if form.name.errors %}is-invalid{% endif %}" 
+            name="{{ form.name.html_name }}" 
+            id="{{ form.name.id_for_label }}"
+            value="{{ form.name.value }}"
+            {% if form.name.field.required %}required{% endif %}
+            />
+
+            {% if form.name.errors %}
+                {% for error in form.name.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <!-- show_mode -->
+    <div class="ml-3" id="show_mode_{{ form.name.id_for_label }}" style="display:{% if form.name.errors %}none{% else %}{% endif %};">
+        <small class="text-muted lh-1">{{ form.name.value }}</small>
+    </div>
+    <div class="badge">
+        <!-- edit-button -->
+        <i id="edit_btn_{{ form.name.id_for_label }}" class="bi bi-pencil m-1" style="display:{% if form.name.errors %}none{% else %}{% endif %};"></i>
+        {% if object_type == 'competition' %}
+            <a class="text-decoration-none text-muted" href="{% url 'management:delete_competition_tags' pk=form.hidden_fields.0.value %}"><i class="bi bi-trash m-1"></i></a>
+        {% elif object_type == 'discussion' %}
+            <a class="text-decoration-none text-muted" href="{% url 'management:delete_discussion_tags' pk=form.hidden_fields.0.value %}"><i class="bi bi-trash m-1"></i></a>
+        {% else %}
+            <a class="text-decoration-none text-muted" href="{% url 'management:delete_notebook_tags' pk=form.hidden_fields.0.value %}"><i class="bi bi-trash m-1"></i></a>
+        {% endif %}
+    </div>
+    <!-- edit-show-script -->
+    {% with form_controler=form.name %}
+        {% include 'include/edit_show_mode/edit_show_script.html' %}
+    {% endwith %}
+</div>
+<!-- This field contains the ID -->
+{% for field in form.hidden_fields %}
+    {{ field }}
+{% endfor %}

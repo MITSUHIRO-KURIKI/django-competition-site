@@ -1,0 +1,18 @@
+<!-- edit_mode -->
+<div id="edit_mode_{{ object.name.id_for_label }}" style="display:none;">
+    <div class="input-group input-group-sm">
+        <input type="{{ object.name.field.widget.input_type }}"
+        class="form-control" 
+        name="{{ object.name.html_name }}" 
+        id="{{ object.name.id_for_label }}"
+        />
+    </div>
+</div>
+<!-- show_mode -->
+<div class="ml-3" id="edit_btn_{{ object.name.id_for_label }}" style="display:;">
+    <i class="bi bi-plus-square-dotted mr-2"></i>Add New Tag
+</div>
+<!-- edit-show-script -->
+{% with form_controler=object.name %}
+    {% include 'include/edit_show_mode/edit_show_script.html' %}
+{% endwith %}

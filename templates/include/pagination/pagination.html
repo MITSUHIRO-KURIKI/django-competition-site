@@ -1,0 +1,159 @@
+{% load access_dict %}
+{% load calculation_Add %}
+
+
+{% if pages.has_other_pages %}
+
+{% calculation_Add pages.paginator.num_pages -1 as num_pages_pre %}
+{% calculation_Add pages.paginator.num_pages -2 as num_pages_pre_2 %}
+{% calculation_Add pages.number -2 as pages_pre_2 %}
+{% calculation_Add pages.number 2 as pages_next_2 %}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+
+        {% if pages.number == 1 %}
+            <li class="page-item active">
+                <a class="page-link">{{ pages.number }}</a>
+            </li>
+            {% if pages.paginator.num_pages == 1 %}
+
+            {% elif pages.paginator.num_pages == 2 %}
+                <li class="page-item">
+                    <a class="page-link" href='?{{ page_tag }}={{ pages.paginator.num_pages }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}'>{{ pages.paginator.num_pages }}</a>
+                </li>
+            {% elif pages.paginator.num_pages == 3 %}
+                <li class="page-item">
+                    <a class="page-link" href='?{{ page_tag }}={{ pages.next_page_number }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}'>{{ pages.next_page_number }}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.paginator.num_pages }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.paginator.num_pages }}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href='?{{ page_tag }}={{ pages.next_page_number }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}'>{{ pages.next_page_number }}</a>
+                </li>
+                <li class="page-item">
+                    ...
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.paginator.num_pages }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.paginator.num_pages }}</a>
+                </li>
+            {% endif %}
+        {% elif pages.number == 2 %}
+            <li class="page-item">
+                <a class="page-link" href="?{{ page_tag }}={{ pages.previous_page_number }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.previous_page_number }}</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link">{{ pages.number }}</a>
+            </li>
+            {% if pages.paginator.num_pages == 2 %}
+
+            {% elif pages.paginator.num_pages == 3 %}
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.paginator.num_pages }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.paginator.num_pages }}</a>
+                </li>
+            {% elif pages.paginator.num_pages == 4 %}
+                <li class="page-item">
+                    <a class="page-link" href='?{{ page_tag }}={{ pages.next_page_number }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}'>{{ pages.next_page_number }}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.paginator.num_pages }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.paginator.num_pages }}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href='?{{ page_tag }}={{ pages.next_page_number }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}'>{{ pages.next_page_number }}</a>
+                </li>
+                <li class="page-item">
+                    ...
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.paginator.num_pages }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.paginator.num_pages }}</a>
+                </li>
+            {% endif %}
+        {% elif pages.number == pages.paginator.num_pages %}
+            {% if num_pages_pre_2 == 1 %}
+                <li class="page-item">
+                    <a class="page-link" href='?{{ page_tag }}=1{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}'>1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.previous_page_number }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.previous_page_number }}</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link">{{ pages.paginator.num_pages }}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href='?{{ page_tag }}=1{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}'>1</a>
+                </li>
+                <li class="page-item">
+                    ...
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.previous_page_number }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.previous_page_number }}</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link">{{ pages.paginator.num_pages }}</a>
+                </li>
+            {% endif %}
+        {% elif pages.number == num_pages_pre %}
+            {% if pages_pre_2 == 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}=1{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">1</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}=1{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">1</a>
+                </li>
+                <li class="page-item">
+                    ...
+                </li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link" href="?{{ page_tag }}={{ pages.previous_page_number }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.previous_page_number }}</a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link">{{ pages.number }}</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?{{ page_tag }}={{ pages.paginator.num_pages }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.paginator.num_pages }}</a>
+            </li>
+        {% else %}
+            {% if pages_pre_2 == 1 %}
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}=1{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">1</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}=1{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">1</a>
+                </li>
+                <li class="page-item">
+                    ...
+                </li>
+            {% endif %}
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.previous_page_number }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.previous_page_number }}</a>
+                </li>
+                <li class="page-item active">
+                    <a class="page-link">{{ pages.number }}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.next_page_number }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.next_page_number }}</a>
+                </li>
+            {% if pages.paginator.num_pages == pages_next_2 %}
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.paginator.num_pages }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.paginator.num_pages }}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    ...
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?{{ page_tag }}={{ pages.paginator.num_pages }}{% for use_page_tag in use_page_tags %}{% if page_tag != use_page_tag %}{% access_dict request.GET use_page_tag as request_get_tag_value %}{% if request_get_tag_value %}&{{ use_page_tag }}={{ request_get_tag_value }}{% endif %}{% endif %}{% endfor %}{% if add_a_name %}#{{ add_a_name }}{% endif %}">{{ pages.paginator.num_pages }}</a>
+                </li>
+            {% endif %}
+        {% endif %}
+    </ul>
+</nav>
+
+{% endif %}

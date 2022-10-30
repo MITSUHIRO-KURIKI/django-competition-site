@@ -1,0 +1,156 @@
+{% load static %}
+
+
+<form method="post">
+
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <h3>お知らせ</h3>
+    <div class="form-group">
+        <!-- RADIO SINGLE CHECK TYPE -->
+        <div class="form-check">
+            <input type="radio"
+            class="form-check-input radio-single-check" 
+            name="{{ form.email_receipt_permission_all.html_name }}" 
+            id="{{ form.email_receipt_permission_all.id_for_label }}"
+            {% if custom_user_settings.email_receipt_permission_all %}
+            checked="checked"
+            {% endif %}
+            {% if form.email_receipt_permission_all.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.email_receipt_permission_all.id_for_label }}">
+            {{ form.email_receipt_permission_all.label }}
+            </label>
+
+            {% if form.email_receipt_permission_all.errors %}
+                {% for error in form.email_receipt_permission_all.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.email_receipt_permission_all.help_text %}
+        <small class="form-text text-muted">{{ form.email_receipt_permission_all.help_text }}</small>
+        {% endif %}
+    </div>
+
+
+    <div class="form-group">
+        <!-- RADIO SINGLE CHECK TYPE -->
+        <div class="form-check">
+            <input type="radio"
+            class="form-check-input radio-single-check" 
+            name="{{ form.email_receipt_permission_important_notice.html_name }}"
+            id="{{ form.email_receipt_permission_important_notice.id_for_label }}"
+            {% if custom_user_settings.email_receipt_permission_important_notice %}
+            checked="checked"
+            {% endif %}
+            {% if form.email_receipt_permission_important_notice.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.email_receipt_permission_important_notice.id_for_label }}">
+            {{ form.email_receipt_permission_important_notice.label }}
+            </label>
+
+            {% if form.email_receipt_permission_important_notice.errors %}
+                {% for error in form.email_receipt_permission_important_notice.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.email_receipt_permission_important_notice.help_text %}
+        <small class="form-text text-muted">{{ form.email_receipt_permission_important_notice.help_text }}</small>
+        {% endif %}
+    </div>
+    
+    {% if USE_EMAIL_NOTIFICATION %}
+    <h3>通知</h3>
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.email_receipt_user_competition_notice.field.widget.input_type }}"
+            class="form-check-input check-all-control" 
+            name="{{ form.email_receipt_user_competition_notice.html_name }}" 
+            id="{{ form.email_receipt_user_competition_notice.id_for_label }}"
+            {% if form.email_receipt_user_competition_notice.value %}
+            checked="checked"
+            {% endif %}
+            {% if form.email_receipt_user_competition_notice.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.email_receipt_user_competition_notice.id_for_label }}">
+            {{ form.email_receipt_user_competition_notice.label }}
+            </label>
+
+            {% if form.email_receipt_user_competition_notice.errors %}
+                {% for error in form.email_receipt_user_competition_notice.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.email_receipt_user_competition_notice.help_text %}
+        <small class="form-text text-muted">{{ form.email_receipt_user_competition_notice.help_text }}</small>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.email_receipt_user_discussion_comment_notice.field.widget.input_type }}"
+            class="form-check-input check-all-control" 
+            name="{{ form.email_receipt_user_discussion_comment_notice.html_name }}" 
+            id="{{ form.email_receipt_user_discussion_comment_notice.id_for_label }}"
+            {% if form.email_receipt_user_discussion_comment_notice.value %}
+            checked="checked"
+            {% endif %}
+            {% if form.email_receipt_user_discussion_comment_notice.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.email_receipt_user_discussion_comment_notice.id_for_label }}">
+            {{ form.email_receipt_user_discussion_comment_notice.label }}
+            </label>
+
+            {% if form.email_receipt_user_discussion_comment_notice.errors %}
+                {% for error in form.email_receipt_user_discussion_comment_notice.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.email_receipt_user_discussion_comment_notice.help_text %}
+        <small class="form-text text-muted">{{ form.email_receipt_user_discussion_comment_notice.help_text }}</small>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.email_receipt_user_notebook_comment_notice.field.widget.input_type }}"
+            class="form-check-input check-all-control" 
+            name="{{ form.email_receipt_user_notebook_comment_notice.html_name }}" 
+            id="{{ form.email_receipt_user_notebook_comment_notice.id_for_label }}"
+            {% if form.email_receipt_user_notebook_comment_notice.value %}
+            checked="checked"
+            {% endif %}
+            {% if form.email_receipt_user_notebook_comment_notice.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.email_receipt_user_notebook_comment_notice.id_for_label }}">
+            {{ form.email_receipt_user_notebook_comment_notice.label }}
+            </label>
+
+            {% if form.email_receipt_user_notebook_comment_notice.errors %}
+                {% for error in form.email_receipt_user_notebook_comment_notice.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.email_receipt_user_notebook_comment_notice.help_text %}
+        <small class="form-text text-muted">{{ form.email_receipt_user_notebook_comment_notice.help_text }}</small>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <hr>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-primary" type="submit">save</button>
+    </div>
+
+</form>
+<script src="{% static 'templates/include/radio-check-control/radio-single-check.js' %}"></script>

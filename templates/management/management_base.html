@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% if user.is_superuser or user.is_staff %}
+
+    <!-- TITLE -->
+    {% block title %}
+    サイト管理{% block management_title %}{% endblock %}
+    {% endblock %}
+
+    <!-- SCRIPT previous -->
+    {% block js_previous %}
+    {% block management_js_previous %}{% endblock %}
+    {% endblock %}
+
+    <!-- CONTENT -->
+    {% block content %}
+
+    <h5 class="mb-2 mt-0 p-0">Site Management</h5>
+    <div class="row d-flex justify-content-center">
+            <!-- management SIDEBAR -->
+            {% block management_sidebar %}{% endblock %}
+        <div class="col-md-8 col-sm-12">
+            <!-- management CONTENT -->
+            {% block management_content %}{% endblock %}
+        </div>
+    </div>
+
+    {% endblock %}
+
+    <!-- SCRIPT rear -->
+    {% block js_rear %}
+    {% block management_js_rear %}{% endblock %}
+    {% endblock %}
+
+    <!-- FOOTER -->
+    {% block footer %}
+    {% include 'footer.html' %}
+    {% endblock %}
+
+{% endif %}

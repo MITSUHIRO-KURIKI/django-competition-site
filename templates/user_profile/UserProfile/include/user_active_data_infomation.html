@@ -1,0 +1,41 @@
+<!-- infomation area -->
+<a name="competitions"></a>
+<a name="notebooks"></a>
+<a name="discussions"></a>
+<a name="comments"></a>
+<a name="bookmarks"></a>
+
+<!-- navs -->
+{% include 'user_profile/UserProfile/include/navs/navs.html' %}
+
+<!-- infomation area -->
+{% if activate_page == 'discussion' %}
+    {% if DISCUSSIONS_DATA %}
+    <!-- Discussions -->
+    {% include 'discussions_and_notebooks/discussions/DiscussionsList/include/discussions_list.html' with TOP_EXCLUDE=True %}
+    {% else %}
+        作成したDiscussionはありません
+    {% endif %}
+{% elif activate_page == 'notebook' %}
+    {% if NOTEBOOKS_DATA %}
+        <!-- Notebooks -->
+        {% include 'discussions_and_notebooks/notebooks/NotebooksList/include/notebooks_list.html' with TOP_EXCLUDE=True %}
+    {% else %}
+        作成したNotebookはありません
+    {% endif %}
+{% elif activate_page == 'comment' %}
+    {% if COMMTNTS_DATA %}
+        <!-- Comments -->
+        {% with COMMENTS_DATA=COMMTNTS_DATA %}
+            {% include 'comments/include/comment_list.html' %}
+        {% endwith %}
+    {% else %}
+        投稿したCommentはありません
+    {% endif %}
+{% elif 'bookmark' in activate_page %}
+    <!-- Bookmarks navs -->
+    {% include 'user_profile/UserProfile/include/navs/bookmarks_navs.html' %}
+{% else %}
+    <!-- Competitions -->
+    {% include 'user_profile/UserProfile/include/item/user_competitions_list.html' %}
+{% endif %}

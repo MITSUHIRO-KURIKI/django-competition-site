@@ -1,0 +1,61 @@
+{% extends "user_inquiry/user_inquiry_base.html" %}
+{% load static %}
+
+
+<!-- META -->
+{% block user_inquiry_meta %}
+    <!-- Custom styles for summernote -->
+    <link rel="stylesheet" href="{% static 'templates/include/summernote/custom.css' %}" />
+{% endblock %}
+
+<!-- TITLE -->
+{% block user_inquiry_title %} - Inquiry{% endblock %}
+
+<!-- SCRIPT previous -->
+{% block user_inquiry_js_previous %}
+    {% if USE_RECAPTCHA %}
+      {% include 'include/grecaptcha/grecaptcha_script.html' %}
+    {% endif %}
+{% endblock %}
+
+
+<!-- CONTENT -->
+{% block user_inquiry_content %}
+
+
+{% if comment_pk or discussion_pk or notebook_pk %}
+    <div class="border border-info rounded">
+        <p class="fs-2 m-1">以下の内容に関する問い合わせを行います</p>
+        <div class="px-3 py-1">
+            <!-- Comment -->
+            {% if comment_pk %}
+            <span class="badge rounded-pill bg-primary text-white mb-1">Comment</span>
+                {% with object=SUBJECT_DATA %}
+                    {% include 'comments/include/comment_item.html' with edit_area=False %}
+                {% endwith %}
+            {% endif %}
+            <!-- Discussion -->
+            {% if discussion_pk %}
+            <span class="badge rounded-pill bg-primary text-white mb-1">Discussion</span>
+                {% with object=SUBJECT_DATA %}
+                    {% include 'discussions_and_notebooks/include/discussion_notebook_item.html' with OBJECT_TYPE='discussions' %}
+                {% endwith %}
+            {% endif %}
+            <!-- Notebook -->
+            {% if notebook_pk %}
+            <span class="badge rounded-pill bg-primary text-white mb-1">Notebook</span>
+                {% with object=SUBJECT_DATA.0 %}
+                    {% include 'discussions_and_notebooks/include/discussion_notebook_item.html' with OBJECT_TYPE='notebooks' %}
+                {% endwith %}
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+<!-- form -->
+<div class="my-2 p-4">
+    {% include 'user_inquiry/Inquiry/form/user_inquiry_form.html' %}
+</div>
+
+
+{% endblock %}

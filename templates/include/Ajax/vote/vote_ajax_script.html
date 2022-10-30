@@ -1,0 +1,39 @@
+<script>
+    $('.{{ ajax_click_class_name }}').on('click', function(e) {
+        e.preventDefault();
+        const object_type = $(this).attr('object_type');
+        const id = $(this).attr('object_id');
+        $.ajax({
+            'type': 'POST',
+            'url': "{% url 'vote:vote_post' %}",
+            'data': {
+                'object_type': $(this).attr('object_type'),
+                'object_id': $(this).attr('object_id'),
+                'vote_action': $(this).attr('vote_action'),
+                'votes_sum': $('.vote-sum[object_type$="'+object_type+'"][data-id$="'+id+'"]').text(),
+            },
+            'dataType': 'json',
+        })
+        .done(function(response){
+            const object_type = response.object_type
+            const object_id = response.object_id
+            const votes_sum = response.votes_sum
+            if(response.situation == 'up'){
+                $('.{{ ajax_click_class_name }}[object_type$="'+object_type+'"][data-id$="'+object_id+'"][vote_action="up_vote"]').addClass('btn-secondary text-white');
+                $('.{{ ajax_click_class_name }}[object_type$="'+object_type+'"][data-id$="'+object_id+'"][vote_action="down_vote"]').removeClass('btn-secondary text-white');
+                $('.vote-sum[object_type$="'+object_type+'"][data-id$="'+object_id+'"]').html(votes_sum);
+            } else if (response.situation == 'down'){
+                $('.{{ ajax_click_class_name }}[object_type$="'+object_type+'"][data-id$="'+object_id+'"][vote_action="up_vote"]').removeClass('btn-secondary text-white');
+                $('.{{ ajax_click_class_name }}[object_type$="'+object_type+'"][data-id$="'+object_id+'"][vote_action="down_vote"]').addClass('btn-secondary text-white');
+                $('.vote-sum[object_type$="'+object_type+'"][data-id$="'+object_id+'"]').html(votes_sum);
+            } else {
+                $('.{{ ajax_click_class_name }}[object_type$="'+object_type+'"][data-id$="'+object_id+'"][vote_action="up_vote"]').removeClass('btn-secondary text-white');
+                $('.{{ ajax_click_class_name }}[object_type$="'+object_type+'"][data-id$="'+object_id+'"][vote_action="down_vote"]').removeClass('btn-secondary text-white');
+                $('.vote-sum[object_type$="'+object_type+'"][data-id$="'+object_id+'"]').html(votes_sum);
+            }
+        })
+        .fail(function(){
+            // 通信失敗時の処理
+        })
+    });
+</script>

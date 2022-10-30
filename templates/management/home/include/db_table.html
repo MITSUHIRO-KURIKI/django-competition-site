@@ -1,0 +1,86 @@
+<table class="col-11 table table-sm table-hover">
+    <thead>
+        <tr>
+            <th class="text-center" scope="col">DB Name</th>
+            <th class="text-center" scope="col">Explanation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th colspan="2" class="text-center bg-info text-white">ユーザ</th>
+        </tr>
+        <tr>
+            <th scope="row"><a class="" href="{% url 'admin:accounts_customuser_changelist' %}">ユーザ基本情報</a></th>
+            <td>ユーザの基本情報</td>
+        </tr>
+        <tr>
+            <th scope="row"><a class=""
+                    href="{% url 'admin:user_profile_customuserprofile_changelist' %}">ユーザ詳細プロフィール</a></th>
+            <td>ユーザのプロフィール情報</td>
+        </tr>
+        <tr>
+            <th scope="row"><a class=""
+                    href="{% url 'admin:user_settings_customuserprofilepublicsettings_changelist' %}">ユーザプロフィール公開範囲設定</a>
+            </th>
+            <td>ユーザのプロフィール情報の公開範囲</td>
+        </tr>
+        <tr>
+            <th scope="row"><a class=""
+                    href="{% url 'admin:user_settings_customusermailsettings_changelist' %}">ユーザメール受信設定</a></th>
+            <td>ユーザのメール受信設定</td>
+        </tr>
+        <tr>
+            <th colspan="2" class="text-center bg-info text-white">ユーザ管理</th>
+        </tr>
+        <tr>
+            <th scope="row"><a class="" href="{% url 'admin:axes_accessattempt_changelist' %}">アカウントロック状況</a></th>
+            <td>規定回数以上パスワードを間違えてロックされたアカウント一覧</td>
+        </tr>
+        <tr>
+            <th colspan="2" class="text-center bg-info text-white">Competition</th>
+        </tr>
+        <tr>
+            <th scope="row"><a class="" href="{% url 'admin:competitions_competitions_changelist' %}">Competitionデータ</a>
+            </th>
+            <td>Competitionの一覧データ</td>
+        </tr>
+        <tr>
+            <th scope="row"><a class=""
+                    href="{% url 'admin:competitions_joincompetitionusers_changelist' %}">Competition参加ユーザ一覧</a></th>
+            <td>Competitionに参加しているユーザの一覧データ</td>
+        </tr>
+        <tr>
+            <th scope="row"><a class="" href="{% url 'admin:submission_submissionuser_changelist' %}">Submission一覧</a>
+            </th>
+            <td>ユーザのSubmittionデータの一覧</td>
+        </tr>
+        <tr>
+            <th colspan="2" class="text-center bg-info text-white">Discussion/Notebook/Comment</th>
+        </tr>
+        <tr>
+            <th scope="row"><a class=""
+                    href="{% url 'admin:discussions_and_notebooks_discussionthemes_changelist' %}">Discussion一覧</a></th>
+            <td>Discussionの一覧</td>
+        </tr>
+        <tr>
+            <th scope="row"><a class=""
+                    href="{% url 'admin:discussions_and_notebooks_notebookthemes_changelist' %}">Notebook一覧</a></th>
+            <td>Notebookの一覧</td>
+        </tr>
+        <tr>
+            <th scope="row"><a class="" href="{% url 'admin:comments_comments_changelist' %}">Comment一覧</a></th>
+            <td>Discussion/NotebookへのCommentの一覧</td>
+        </tr>
+        <tr>
+            <th colspan="2" class="text-center bg-info text-white">Bookmark/Vote</th>
+        </tr>
+        <tr>
+            <th scope="row"><a class="" href="{% url 'admin:app_list' 'bookmark' %}">Bookmark一覧</a></th>
+            <td>Discussion/Notebook/CommentへのBookmark状況一覧</td>
+        </tr>
+        <tr>
+            <th scope="row"><a class="" href="{% url 'admin:app_list' 'vote' %}">Vote一覧</a></th>
+            <td>Discussion/Notebook/CommentへのVote状況一覧</td>
+        </tr>
+    </tbody>
+</table>

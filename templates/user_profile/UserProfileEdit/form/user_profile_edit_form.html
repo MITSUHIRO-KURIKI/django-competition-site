@@ -1,0 +1,418 @@
+<form method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    <!-- form field -->
+    {{ form.non_field_errors }}
+
+    {% comment '@mentionの遷移先URLが変更されないように unique_account_id は変更不可' %}
+    <div class="form-group">
+        <label for="{{ form.unique_account_id.id_for_label }}">{{ form.unique_account_id.label }}</label>
+        
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">{{ FRONTEND_URL }}accounts/profile/</div>
+            </div>
+            <input type="{{ form.unique_account_id.field.widget.input_type }}"
+            class="form-control {% if form.unique_account_id.errors %}is-invalid{% endif %}" 
+            name="{{ form.unique_account_id.html_name }}" 
+            id="{{ form.unique_account_id.id_for_label }}"
+            {% if custom_user.unique_account_id %}
+                value="{{ custom_user.unique_account_id }}"
+            {% else %}
+                placeholder="{{ custom_user.unique_account_id }}"
+            {% endif %}
+            {% if form.unique_account_id.field.required %}required{% endif %} />
+        
+            {% if form.unique_account_id.errors %}
+                {% for error in form.unique_account_id.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.unique_account_id.help_text %}
+        <small class="form-text text-muted">{{ form.unique_account_id.help_text }}</small>
+        {% endif %}
+    </div>
+    {% endcomment %}
+
+    <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+        
+        <div class="input-group">
+            <input type="{{ form.username.field.widget.input_type }}"
+            class="form-control {% if form.username.errors %}is-invalid{% endif %}" 
+            name="{{ form.username.html_name }}" 
+            id="{{ form.username.id_for_label }}"
+            {% if custom_user.username %}
+                value="{{ custom_user.username }}"
+            {% else %}
+                placeholder="{{ custom_user.username }}"
+            {% endif %}
+            {% if form.username.field.required %}required{% endif %} />
+
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.username.help_text %}
+        <small class="form-text text-muted">{{ form.username.help_text }}</small>
+        {% endif %}
+    </div>
+
+    
+    <!-- inline form field -->
+    {% for formset in inlines %}
+    {{ formset.management_form }}
+
+        {% for form in formset %}
+            {{ form.non_field_errors }}
+
+            <div class="form-group">
+                <label for="{{ form.user_icon.id_for_label }}">{{ form.user_icon.label }}</label>
+                <p><img src="{{ custom_user_profile.user_icon.url }}" class="rounded" id="preview_img" alt="user_icon" style="width:184px;height:184px;" /></p>
+                
+
+                <!-- SELECT FILE TYPE -->
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="{{ form.user_icon.field.widget.input_type }}"
+                        class="custom-file-input {% if form.user_icon.errors %}is-invalid{% endif %}"
+                        name="{{ form.user_icon.html_name }}" 
+                        id="inputFile"
+                        {# {% if form.user_icon.field.required %}required{% endif %} #} />
+                        <label class="custom-file-label text-nowrap" for="inputFile" data-browse="browse">choose a icon image file( or drop it here )</label>
+                    </div>
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-secondary input-group-text" id="inputFileReset">clear</button>
+                    </div>
+
+                    {% if form.user_icon.errors %}
+                        {% for error in form.user_icon.errors %}
+                            <div class="input-group-append invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.user_icon.help_text %}
+                <small class="form-text text-muted">{{ form.user_icon.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.comment.id_for_label }}">{{ form.comment.label }}</label>
+                
+                <div class="input-group">
+                    <input type="{{ form.comment.field.widget.input_type }}"
+                    class="form-control {% if form.comment.errors %}is-invalid{% endif %}" 
+                    name="{{ form.comment.html_name }}" 
+                    id="{{ form.comment.id_for_label }}"
+                    {% if custom_user_profile.comment %}
+                        value="{{ custom_user_profile.comment }}"
+                    {% else %}
+                        placeholder="{{ custom_user_profile.comment }}"
+                    {% endif %}
+                    {% if form.comment.field.required %}required{% endif %} />
+
+                    {% if form.comment.errors %}
+                        {% for error in form.comment.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.comment.help_text %}
+                <small class="form-text text-muted">{{ form.comment.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.locate.id_for_label }}">{{ form.locate.label }}</label>
+                
+                <!-- SELECT TAG TYPE -->
+                <div class="input-group">
+                    <select type="{{ form.locate.field.widget.input_type }}"
+                    class="form-control {% if form.locate.errors %}is-invalid{% endif %}" 
+                    name="{{ form.locate.html_name }}" 
+                    id="{{ form.locate.id_for_label }}"
+                    {% if form.locate.field.required %}required{% endif %}>
+                    {% for choice in form.locate.field.widget.choices %}
+                        <option value="{{ choice.0 }}"
+                            {% if choice.0 == form.locate.value %}selected{% endif %}>
+                            {{ choice.1 }}
+                        </option>
+                    {% endfor %}
+                    </select>
+
+                    {% if form.locate.errors %}
+                        {% for error in form.locate.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.locate.help_text %}
+                <small class="form-text text-muted">{{ form.locate.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.birth_day.id_for_label }}">{{ form.birth_day.label }}</label>
+                
+                <div class="input-group date" id="flatpickr_date" data-target-input="nearest">
+                    <input type="{{ form.birth_day.field.widget.input_type }}"
+                    data-input
+                    class="form-control {% if form.birth_day.errors %}is-invalid{% endif %}" 
+                    data-target="#flatpickr_date"
+                    name="{{ form.birth_day.html_name }}" 
+                    id="{{ form.birth_day.id_for_label }}"
+                    {% if custom_user_profile.birth_day %}
+                        value="{{ custom_user_profile.birth_day }}"
+                    {% else %}
+                        placeholder="{{ custom_user_profile.birth_day }}"
+                    {% endif %}
+                    {% if form.birth_day.field.required %}required{% endif %} />
+                    <span class="input-group-text" data-toggle>
+                        <i class="far fa-calendar-alt"></i>
+                    </span>
+
+                    {% if form.birth_day.errors %}
+                        {% for error in form.birth_day.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.birth_day.help_text %}
+                <small class="form-text text-muted">{{ form.birth_day.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.gender.id_for_label }}">{{ form.gender.label }}</label>
+                
+                <!-- SELECT TAG TYPE -->
+                <div class="input-group">
+                    <select type="{{ form.gender.field.widget.input_type }}"
+                    class="form-control {% if form.gender.errors %}is-invalid{% endif %}" 
+                    name="{{ form.gender.html_name }}" 
+                    id="{{ form.gender.id_for_label }}"
+                    {% if form.gender.field.required %}required{% endif %}>
+                    {% for choice in form.gender.field.widget.choices %}
+                        <option value="{{ choice.0 }}"
+                            {% if choice.0 == form.gender.value %}selected{% endif %}>
+                            {{ choice.1 }}
+                        </option>
+                    {% endfor %}
+                    </select>
+
+                    {% if form.gender.errors %}
+                        {% for error in form.gender.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.gender.help_text %}
+                <small class="form-text text-muted">{{ form.gender.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.sns_id_twitter.id_for_label }}">{{ form.sns_id_twitter.label }}</label>
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">https://twitter.com/</div>
+                    </div>
+                    <input type="{{ form.sns_id_twitter.field.widget.input_type }}"
+                    class="form-control {% if form.sns_id_twitter.errors %}is-invalid{% endif %}" 
+                    name="{{ form.sns_id_twitter.html_name }}" 
+                    id="{{ form.sns_id_twitter.id_for_label }}"
+                    {% if custom_user_profile.sns_id_twitter %}
+                        value="{{ custom_user_profile.sns_id_twitter }}"
+                    {% else %}
+                        placeholder="{{ custom_user_profile.sns_id_twitter }}"
+                    {% endif %}
+                    {% if form.sns_id_twitter.field.required %}required{% endif %} />
+
+                    {% if form.sns_id_twitter.errors %}
+                        {% for error in form.sns_id_twitter.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.sns_id_twitter.help_text %}
+                <small class="form-text text-muted">{{ form.sns_id_twitter.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.sns_id_facebook.id_for_label }}">{{ form.sns_id_facebook.label }}</label>
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">https://www.facebook.com/</div>
+                    </div>
+                    <input type="{{ form.sns_id_facebook.field.widget.input_type }}"
+                    class="form-control {% if form.sns_id_facebook.errors %}is-invalid{% endif %}" 
+                    name="{{ form.sns_id_facebook.html_name }}" 
+                    id="{{ form.sns_id_facebook.id_for_label }}"
+                    {% if custom_user_profile.sns_id_facebook %}
+                        value="{{ custom_user_profile.sns_id_facebook }}"
+                    {% else %}
+                        placeholder="{{ custom_user_profile.sns_id_facebook }}"
+                    {% endif %}
+                    {% if form.sns_id_facebook.field.required %}required{% endif %} />
+                    
+                    {% if form.sns_id_facebook.errors %}
+                        {% for error in form.sns_id_facebook.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.sns_id_facebook.help_text %}
+                <small class="form-text text-muted">{{ form.sns_id_facebook.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.sns_id_instagram.id_for_label }}">{{ form.sns_id_instagram.label }}</label>
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">https://www.instagram.com/</div>
+                    </div>
+                    <input type="{{ form.sns_id_instagram.field.widget.input_type }}"
+                    class="form-control {% if form.sns_id_instagram.errors %}is-invalid{% endif %}" 
+                    name="{{ form.sns_id_instagram.html_name }}" 
+                    id="{{ form.sns_id_instagram.id_for_label }}"
+                    {% if custom_user_profile.sns_id_instagram %}
+                        value="{{ custom_user_profile.sns_id_instagram }}"
+                    {% else %}
+                        placeholder="{{ custom_user_profile.sns_id_instagram }}"
+                    {% endif %}
+                    {% if form.sns_id_instagram.field.required %}required{% endif %} />
+                    
+                    {% if form.sns_id_instagram.errors %}
+                        {% for error in form.sns_id_instagram.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.sns_id_instagram.help_text %}
+                <small class="form-text text-muted">{{ form.sns_id_instagram.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.sns_id_linkedin.id_for_label }}">{{ form.sns_id_linkedin.label }}</label>
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">https://www.linkedin.com/in/</div>
+                    </div>
+                    <input type="{{ form.sns_id_linkedin.field.widget.input_type }}"
+                    class="form-control {% if form.sns_id_linkedin.errors %}is-invalid{% endif %}" 
+                    name="{{ form.sns_id_linkedin.html_name }}" 
+                    id="{{ form.sns_id_linkedin.id_for_label }}"
+                    {% if custom_user_profile.sns_id_linkedin %}
+                        value="{{ custom_user_profile.sns_id_linkedin }}"
+                    {% else %}
+                        placeholder="{{ custom_user_profile.sns_id_linkedin }}"
+                    {% endif %}
+                    {% if form.sns_id_linkedin.field.required %}required{% endif %} />
+                    
+                    {% if form.sns_id_linkedin.errors %}
+                        {% for error in form.sns_id_linkedin.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.sns_id_linkedin.help_text %}
+                <small class="form-text text-muted">{{ form.sns_id_linkedin.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.sns_id_github.id_for_label }}">{{ form.sns_id_github.label }}</label>
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">https://github.com/</div>
+                    </div>
+                    <input type="{{ form.sns_id_github.field.widget.input_type }}"
+                    class="form-control {% if form.sns_id_github.errors %}is-invalid{% endif %}" 
+                    name="{{ form.sns_id_github.html_name }}" 
+                    id="{{ form.sns_id_github.id_for_label }}"
+                    {% if custom_user_profile.sns_id_github %}
+                        value="{{ custom_user_profile.sns_id_github }}"
+                    {% else %}
+                        placeholder="{{ custom_user_profile.sns_id_github }}"
+                    {% endif %}
+                    {% if form.sns_id_github.field.required %}required{% endif %} />
+                    
+                    {% if form.sns_id_github.errors %}
+                        {% for error in form.sns_id_github.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.sns_id_github.help_text %}
+                <small class="form-text text-muted">{{ form.sns_id_github.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.sns_id_kaggle.id_for_label }}">{{ form.sns_id_kaggle.label }}</label>
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">https://www.kaggle.com/</div>
+                    </div>
+                    <input type="{{ form.sns_id_kaggle.field.widget.input_type }}"
+                    class="form-control {% if form.sns_id_kaggle.errors %}is-invalid{% endif %}" 
+                    name="{{ form.sns_id_kaggle.html_name }}" 
+                    id="{{ form.sns_id_kaggle.id_for_label }}"
+                    {% if custom_user_profile.sns_id_kaggle %}
+                        value="{{ custom_user_profile.sns_id_kaggle }}"
+                    {% else %}
+                        placeholder="{{ custom_user_profile.sns_id_kaggle }}"
+                    {% endif %}
+                    {% if form.sns_id_kaggle.field.required %}required{% endif %} />
+                    
+                    {% if form.sns_id_kaggle.errors %}
+                        {% for error in form.sns_id_kaggle.errors %}
+                            <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                {% if form.sns_id_kaggle.help_text %}
+                <small class="form-text text-muted">{{ form.sns_id_kaggle.help_text }}</small>
+                {% endif %}
+            </div>
+
+
+            <!-- This field contains the ID -->
+            {% for field in form.hidden_fields %}
+                {{ field }}
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+
+    <hr>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-primary" type="submit">save</button>
+    </div>
+    
+</form>

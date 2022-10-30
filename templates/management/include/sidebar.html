@@ -1,0 +1,20 @@
+<div class="col-md-3 col-sm-12">
+    <div class="sticky-top container-fluid pt-3 bg-white">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action list-group-item-light" href="{% url 'admin:index' %}">Django Admin Index</a>
+            <a class="list-group-item list-group-item-action list-group-item-light {{ home_active }}" href="{% url 'management:home' %}">Home</a>
+            <a class="list-group-item list-group-item-action list-group-item-light"
+                href="{% url 'competitions:create_competitions' %}?redirect=management">Create Competition</a>
+            <a class="list-group-item list-group-item-action list-group-item-light {{ management_tags_active }}"
+                href="{% url 'management:tags_list' %}">Management Tags</a>
+            <a class="list-group-item list-group-item-action list-group-item-light {{ management_inquiry_active }}"
+                href="{% url 'management:inquiry_list' %}">Management Inquiry</a>
+            <a class="list-group-item list-group-item-action list-group-item-light {{ mass_mailing_active }}"
+                href="">Mass Mailing</a>
+            {% if IS_DEBUG %}
+            <a class="mt-3 list-group-item list-group-item-action list-group-item-light border border-3 border-danger text-danger"
+                href="{% url 'management:create_dummy_data' %}">Create Dummy Data</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

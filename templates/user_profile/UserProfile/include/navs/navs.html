@@ -1,0 +1,21 @@
+<div class="sticky-top container-fluid m-0 p-0 bg-white">
+    <div class="col-md-10 col-sm-11 my-0 p-2">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link {% if activate_page == 'competition' or activate_page is None %}border-bottom border-4 border-primary{% endif %}" href="?activate_page=competition#competitions">Competition</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if activate_page == 'discussion' %}border-bottom border-4 border-primary{% endif %}" href="?activate_page=discussion#discussions">Discussion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if activate_page == 'notebook' %}border-bottom border-4 border-primary{% endif %}" href="?activate_page=notebook#notebooks">Notebook</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if activate_page == 'comment' %}border-bottom border-4 border-primary{% endif %}" href="?activate_page=comment#comments">Comment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if 'bookmark' in activate_page %}border-bottom border-4 border-primary{% endif %}" href="?activate_page=bookmark#bookmarks">Bookmark</a>
+            </li>
+        </ul>
+    </div>
+</div>

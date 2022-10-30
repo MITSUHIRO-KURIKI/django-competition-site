@@ -1,0 +1,26 @@
+<script>
+    $('.{{ ajax_click_class_name }}').on('click', function(e) {
+        e.preventDefault();
+        $.ajax({
+            'type': 'POST',
+            'url': "{% url 'bookmark:bookmark_post' %}",
+            'data': {
+                'object_type': $(this).attr('object_type'),
+                'object_id': $(this).attr('object_id'),
+            },
+            'dataType': 'json',
+        })
+        .done(function(response){
+            const object_type = response.object_type
+            const object_id = response.object_id
+            if(response.process == 'create'){
+                $('.{{ ajax_click_class_name }}[object_type$="'+object_type+'"][data-id$="'+object_id+'"]').html('<i class="bi bi-bookmark-check-fill"></i>');
+            } else {
+                $('.{{ ajax_click_class_name }}[object_type$="'+object_type+'"][data-id$="'+object_id+'"]').html('<i class="bi bi-bookmark-check"></i>');
+            }
+        })
+        .fail(function(){
+            // 通信失敗時の処理
+        })
+    });
+</script>

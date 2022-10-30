@@ -1,0 +1,38 @@
+{% extends "submission/submission_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block submission_title %} - {{ COMPETITION_DATA.title }} - Submission{% endblock %}
+
+
+<!-- SCRIPT rear -->
+{% block submission_js_rear %}
+    <!-- USE bs-custom-file-input -->
+    <script src="{% static 'templates/include/bs-custom-file-input/bs-custom-file-input.js' %}"></script>
+    <script src="{% static 'templates/include/bs-custom-file-input/file-input-and-preview.js' %}"></script>
+{% endblock %}
+
+<!-- CONTENT -->
+{% block submission_content %}
+
+
+<!-- Overall -->
+{% include 'competitions/CompetitionPage/include/overall.html' %}
+
+<!-- Navs -->
+{% include 'competitions/CompetitionPage/include/navs.html' with submission_active='active'%}
+
+<!-- Submit -->
+{% if IS_USER_COMPETITION_JOINED %}
+    <div class="col-md-8 col-sm-11 mx-auto my-0 p-2">
+        {% include 'submission/Submission/form/submit.html' %}
+    </div>
+{% else %}
+    <div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+        <p class="fs-2 m-0 p-0">提出するにはコンペティションへの参加が必要です</p>
+    </div>
+{% endif %}
+
+
+{% endblock %}

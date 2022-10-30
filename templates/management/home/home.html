@@ -1,0 +1,17 @@
+{% extends 'management/management_base.html' %}
+
+<!-- TITLE -->
+{% block management_title %}{% endblock %}
+
+<!-- SIDEVER -->
+{% block management_sidebar %}
+    {% include 'management/include/sidebar.html' with home_active='active' %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block management_content %}
+
+<p class="fs-2 lead m-0 p-0">Main database</p>
+{% include 'management/home/include/db_table.html' %}
+
+{% endblock %}

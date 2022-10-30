@@ -1,0 +1,20 @@
+<div class="sticky-top container-fluid m-0 p-0 bg-white">
+    <div class="col-md-10 col-sm-11 my-0 p-2">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link {% if activate_page == 'discussion_bookmarks' or activate_page == 'bookmark' %}active{% endif %} border" href="?activate_page=discussion_bookmarks#bookmarks">Discussion</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if activate_page == 'notebook_bookmarks' %}active{% endif %} border" href="?activate_page=notebook_bookmarks#bookmarks">Notebook</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if activate_page == 'comment_bookmarks' %}active{% endif %} border" href="?activate_page=comment_bookmarks#bookmarks">Comment</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Bookmarks -->
+<div class="py-2">
+    {% include 'user_profile/UserProfile/include/item/user_bookmarks_list.html' %}
+</div>

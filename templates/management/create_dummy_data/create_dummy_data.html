@@ -1,0 +1,32 @@
+{% extends 'management/management_base.html' %}
+
+<!-- TITLE -->
+{% block management_title %} - ダミーデータの作成{% endblock %}
+
+<!-- SIDEVER -->
+{% block management_sidebar %}
+    {% include 'management/include/sidebar.html' with create_dummy_data_active='active' %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block management_content %}
+
+
+{% if user.is_superuser %}
+    <h3>ダミーデータの作成</h3>
+    <p class="fs-2 mt-5 mb-0 p-0 text-danger font-weight-bold">ダミーデータが大量に生成されます、本番運用中に実行しないでください</p>
+    <p class="fs-2 mx-0 mt-0 mb-5 p-0">一度だけ押して処理の終了(homeにリダイレクトします)までお待ち下さい</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="d-flex justify-content-center">
+            <button class="process-btn btn btn-danger" type="submit">Create Dummy Data</button>
+        </div>
+    </form>
+    <!-- USE Spinner -->
+    {% include 'include/spinners/process.html' %}
+{% elif user.is_staff %}
+    ダミーデータ作成は SuperUser のみが実行できます
+{% endif %}
+
+
+{% endblock %}

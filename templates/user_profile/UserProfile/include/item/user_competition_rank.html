@@ -1,0 +1,23 @@
+{% load humanize %}
+
+
+<table class="table table-striped table-hover table-sm">
+    <thead class="">
+        <tr>
+        <th scope="col" class="text-center">Competition Title</th>
+        <th scope="col" class="text-center">Public Score Ranking</th>
+        <th scope="col" class="text-center">Private Score Ranking</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key, value in User_Competitions_Rank.items %}
+            {% if value.1 %}
+                <tr>
+                    <td><a href="{% url 'competitions:competition_detail' unique_competition_id=key %}">{{ value.0 | truncatechars:30 }}</a></td>
+                    <td class="text-center">{{ value.1 | intcomma }}</td>
+                    <td class="text-center">{{ value.2 | intcomma }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>

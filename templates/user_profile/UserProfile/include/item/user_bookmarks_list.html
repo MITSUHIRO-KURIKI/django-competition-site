@@ -1,0 +1,28 @@
+{% if activate_page == 'notebook_bookmarks' %}
+    {% if USER_BOOKMARKS_NOTEBOOK_DATA %}
+        {% with NOTEBOOKS_DATA=USER_BOOKMARKS_NOTEBOOK_DATA %}
+            <!-- Notebooks -->
+            {% include 'discussions_and_notebooks/notebooks/NotebooksList/include/notebooks_list.html' with TOP_EXCLUDE=True %}
+        {% endwith %}
+    {% else %}
+        BookmarkしたNotebookはありません
+    {% endif %}
+{% elif activate_page == 'comment_bookmarks' %}
+    {% if USER_BOOKMARKS_COMMENT_DATA %}
+        <!-- Comments -->
+        {% with COMMENTS_DATA=USER_BOOKMARKS_COMMENT_DATA %}
+            {% include 'comments/include/comment_list.html' %}
+        {% endwith %}
+    {% else %}
+        BookmarkしたCommentはありません
+    {% endif %}
+{% else %}
+    {% if USER_BOOKMARKS_DISCUSSION_DATA %}
+        {% with DISCUSSIONS_DATA=USER_BOOKMARKS_DISCUSSION_DATA %}
+            <!-- Discussions -->
+            {% include 'discussions_and_notebooks/discussions/DiscussionsList/include/discussions_list.html' with TOP_EXCLUDE=True %}
+        {% endwith %}
+    {% else %}
+        BookmarkしたDiscussionはありません
+    {% endif %}
+{% endif %}

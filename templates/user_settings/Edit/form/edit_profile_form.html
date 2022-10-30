@@ -1,0 +1,292 @@
+
+<form method="post">
+    {% csrf_token %}
+
+    {{ form.non_field_errors }}
+
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.user_profile_is_authenticated_only.field.widget.input_type }}"
+            class="form-check-input" 
+            name="{{ form.user_profile_is_authenticated_only.html_name }}" 
+            id="{{ form.user_profile_is_authenticated_only.id_for_label }}"
+            {% if custom_user_settings.user_profile_is_authenticated_only %}
+            checked="checked"
+            {% endif %}
+            {% if form.user_profile_is_authenticated_only.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.user_profile_is_authenticated_only.id_for_label }}">
+            {{ form.user_profile_is_authenticated_only.label }}
+            </label>
+
+            {% if form.user_profile_is_authenticated_only.errors %}
+                {% for error in form.user_profile_is_authenticated_only.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.user_profile_is_authenticated_only.help_text %}
+        <small class="form-text text-muted">{{ form.user_profile_is_authenticated_only.help_text }}</small>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.user_profile_is_all_public.field.widget.input_type }}"
+            class="form-check-input" 
+            name="{{ form.user_profile_is_all_public.html_name }}" 
+            id="{{ form.user_profile_is_all_public.id_for_label }}"
+            {% if custom_user_settings.user_profile_is_all_public %}
+            checked="checked"
+            {% endif %}
+            {% if form.user_profile_is_all_public.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.user_profile_is_all_public.id_for_label }}">
+            {{ form.user_profile_is_all_public.label }}
+            </label>
+
+            {% if form.user_profile_is_all_public.errors %}
+                {% for error in form.user_profile_is_all_public.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.user_profile_is_all_public.help_text %}
+        <small class="form-text text-muted">{{ form.user_profile_is_all_public.help_text }}</small>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.search_robot_public.field.widget.input_type }}"
+            class="form-check-input" 
+            name="{{ form.search_robot_public.html_name }}" 
+            id="{{ form.search_robot_public.id_for_label }}"
+            {% if custom_user_settings.search_robot_public %}
+            checked="checked"
+            {% endif %}
+            {% if form.search_robot_public.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.search_robot_public.id_for_label }}">
+            {{ form.search_robot_public.label }}
+            </label>
+
+            {% if form.search_robot_public.errors %}
+                {% for error in form.search_robot_public.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.search_robot_public.help_text %}
+        <small class="form-text text-muted">{{ form.search_robot_public.help_text }}</small>
+        {% endif %}
+    </div>
+
+
+    <!-- Select / Cancel All btn -->
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-primary check-all-control-btn" type="button">Select / Cancel All</button>
+    </div>
+
+    {% comment '本アプリ不要' %}
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.username_public.field.widget.input_type }}"
+            class="form-check-input check-all-control" 
+            name="{{ form.username_public.html_name }}" 
+            id="{{ form.username_public.id_for_label }}"
+            {% if custom_user_settings.username_public %}
+            checked="checked"
+            {% endif %}
+            {% if form.username_public.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.username_public.id_for_label }}">
+            {{ form.username_public.label }}
+            </label>
+
+            {% if form.username_public.errors %}
+                {% for error in form.username_public.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.username_public.help_text %}
+        <small class="form-text text-muted">{{ form.username_public.help_text }}</small>
+        {% endif %}
+    </div>
+    {% endcomment %}
+
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.comment_public.field.widget.input_type }}"
+            class="form-check-input check-all-control" 
+            name="{{ form.comment_public.html_name }}" 
+            id="{{ form.comment_public.id_for_label }}"
+            {% if custom_user_settings.comment_public %}
+            checked="checked"
+            {% endif %}
+            {% if form.comment_public.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.comment_public.id_for_label }}">
+            {{ form.comment_public.label }}
+            </label>
+
+            {% if form.comment_public.errors %}
+                {% for error in form.comment_public.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.comment_public.help_text %}
+        <small class="form-text text-muted">{{ form.comment_public.help_text }}</small>
+        {% endif %}
+    </div>
+
+    {% comment '本アプリ不要' %}
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.user_icon_public.field.widget.input_type }}"
+            class="form-check-input check-all-control" 
+            name="{{ form.user_icon_public.html_name }}" 
+            id="{{ form.user_icon_public.id_for_label }}"
+            {% if custom_user_settings.user_icon_public %}
+            checked="checked"
+            {% endif %}
+            {% if form.user_icon_public.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.user_icon_public.id_for_label }}">
+            {{ form.user_icon_public.label }}
+            </label>
+
+            {% if form.user_icon_public.errors %}
+                {% for error in form.user_icon_public.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.user_icon_public.help_text %}
+        <small class="form-text text-muted">{{ form.user_icon_public.help_text }}</small>
+        {% endif %}
+    </div>
+    {% endcomment %}
+
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.locate_public.field.widget.input_type }}"
+            class="form-check-input check-all-control" 
+            name="{{ form.locate_public.html_name }}" 
+            id="{{ form.locate_public.id_for_label }}"
+            {% if custom_user_settings.locate_public %}
+            checked="checked"
+            {% endif %}
+            {% if form.locate_public.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.locate_public.id_for_label }}">
+            {{ form.locate_public.label }}
+            </label>
+
+            {% if form.locate_public.errors %}
+                {% for error in form.locate_public.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.locate_public.help_text %}
+        <small class="form-text text-muted">{{ form.locate_public.help_text }}</small>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.birth_day_public.field.widget.input_type }}"
+            class="form-check-input check-all-control" 
+            name="{{ form.birth_day_public.html_name }}" 
+            id="{{ form.birth_day_public.id_for_label }}"
+            {% if custom_user_settings.birth_day_public %}
+            checked="checked"
+            {% endif %}
+            {% if form.birth_day_public.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.birth_day_public.id_for_label }}">
+            {{ form.birth_day_public.label }}
+            </label>
+
+            {% if form.birth_day_public.errors %}
+                {% for error in form.birth_day_public.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.birth_day_public.help_text %}
+        <small class="form-text text-muted">{{ form.birth_day_public.help_text }}</small>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.gender_public.field.widget.input_type }}"
+            class="form-check-input check-all-control" 
+            name="{{ form.gender_public.html_name }}" 
+            id="{{ form.gender_public.id_for_label }}"
+            {% if custom_user_settings.gender_public %}
+            checked="checked"
+            {% endif %}
+            {% if form.gender_public.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.gender_public.id_for_label }}">
+            {{ form.gender_public.label }}
+            </label>
+
+            {% if form.gender_public.errors %}
+                {% for error in form.gender_public.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.gender_public.help_text %}
+        <small class="form-text text-muted">{{ form.gender_public.help_text }}</small>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <!--  CHECK TYPE -->
+        <div class="form-check">
+            <input type="{{ form.sns_id_public.field.widget.input_type }}"
+            class="form-check-input check-all-control" 
+            name="{{ form.sns_id_public.html_name }}" 
+            id="{{ form.sns_id_public.id_for_label }}"
+            {% if custom_user_settings.sns_id_public %}
+            checked="checked"
+            {% endif %}
+            {% if form.sns_id_public.field.required %}required{% endif %} />
+            <label class="form-check-label" for="{{ form.sns_id_public.id_for_label }}">
+            {{ form.sns_id_public.label }}
+            </label>
+
+            {% if form.sns_id_public.errors %}
+                {% for error in form.sns_id_public.errors %}
+                    <div class="invalid-feedback">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        {% if form.sns_id_public.help_text %}
+        <small class="form-text text-muted">{{ form.sns_id_public.help_text }}</small>
+        {% endif %}
+    </div>
+
+    <hr>
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-primary" type="submit">save</button>
+    </div>
+    
+</form>

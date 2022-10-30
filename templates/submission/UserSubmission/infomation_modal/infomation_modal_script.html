@@ -1,0 +1,119 @@
+<script>
+    function SCROLL_TOP() {
+        var speed = 400; var position = 0;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function SCROLL_ATTENTION_POINT(a_name) {
+        var speed = 400; var adjust = 200;
+        var position = $('a[name="'+a_name+'"]').offset().top - adjust;
+        $('html, body').animate({scrollTop: position}, speed, 'swing');
+    };
+    function GET_INITIAL(USE_NEXT_BTN=false) {
+        // 初回表示 Context
+        const init_html = 'ここでは提出したSubmissionの結果を一覧で確認できます';
+        // 初回表示
+        $('#InfoModal-Submission').addClass('infomation_modal_attention');
+        // 初回表示 Scroll
+        SCROLL_ATTENTION_POINT('navs');
+        // 初回表示 Attention Hover
+        $('#InfoModal-SubmissionUseForFinalScoreContent .form-check-input').removeClass('attention-hover-form-check');
+        if (USE_NEXT_BTN) {
+            // 複数ページ表示の場合使用
+            $('#InfoModal_NEXT').css('display', '');
+        };
+        page = 1;
+        $('#InfoModalBody').html(init_html);
+        return page;
+    };
+    function GET_PAGE_2() {
+        $('#InfoModal-Submission').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionFileAndDescriptionTitle').addClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPublicScoreTitle').addClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPrivateScoreTitle').addClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionSubmitDateTitle').addClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionFileAndDescriptionContent').addClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPublicScoreContent').addClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPrivateScoreContent').addClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionSubmitDateContent').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('提出物の概要が確認できます<br>Privateスコアはコンペティション終了後に公開されます');
+    };
+    function GET_PAGE_3() {
+        $('#InfoModal-SubmissionFileAndDescriptionContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPublicScoreContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPrivateScoreContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionSubmitDateContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionFileAndDescriptionTitle').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPublicScoreTitle').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPrivateScoreTitle').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionSubmitDateTitle').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionUseForFinalScoreTitle').addClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionUseForFinalScoreContent').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('最終評価対象とする提出物をここから選択します<br>選択しない場合にはPrivateスコアは算定されないので必ずチェックしてください');
+    };
+    function GET_PAGE_4() {
+        $('#InfoModal-SubmissionUseForFinalScoreTitle').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionUseForFinalScoreContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionFinalEvaluationLimit').addClass('infomation_modal_attention');
+        $('#InfoModalBody').html('最終評価対象とする提出物には上限があります<br>コンペティション終了までに自信のあるSubmissionを選択しましょう');
+    };
+    function GET_PAGE_5() {
+        $('#InfoModal-SubmissionFinalEvaluationLimit').removeClass('infomation_modal_attention');
+        $('#InfoModalBody').html('コンペティションに関するチュートリアルは以上です<br>たのしんでください！');
+    };
+    function MODAL_END() {
+        // 変更したものを初期化
+        $('#InfoModal-Submission').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionFileAndDescriptionTitle').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPublicScoreTitle').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPrivateScoreTitle').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionSubmitDateTitle').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionUseForFinalScoreTitle').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionFileAndDescriptionContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPublicScoreContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionPrivateScoreContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionSubmitDateContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionUseForFinalScoreContent').removeClass('infomation_modal_attention');
+        $('#InfoModal-SubmissionFinalEvaluationLimit').removeClass('infomation_modal_attention');
+        // Attention Hover
+        $('#InfoModal-SubmissionUseForFinalScoreContent .form-check-input').addClass('attention-hover-form-check');
+    };
+    $(window).on('load', function(){
+        let page = 1;
+        let final_page = 5;
+
+        {% if IS_TUTORIAL %}
+        $('#InfoModal').modal('show'); // ON-OFF
+        page = GET_INITIAL(true);
+        {% endif %}
+
+        document.getElementById("InfoModalBtn").addEventListener("click", function () {
+            page = GET_INITIAL(true);
+        });
+        // 複数ページ表示の場合
+        document.getElementById("InfoModal_NEXT").addEventListener("click", function () {
+            page += 1
+            if (page == 2) {
+                GET_PAGE_2();
+            } else if (page == 3) {
+                GET_PAGE_3();
+            } else if (page == 4) {
+                GET_PAGE_4();
+            } else {
+                GET_PAGE_5();
+            };
+            if (page == final_page) {
+                $(this).css('display', 'none');
+            };
+        });
+        if (page == final_page) {
+                $('#InfoModal_NEXT').css('display', 'none');
+        };
+        document.getElementById("InfoModalClose").addEventListener("click", function () {
+            $('#InfoModal').modal('hide');
+        });
+        $('#InfoModal').on('hidden.bs.modal', function (e) {
+            MODAL_END();
+            SCROLL_TOP();
+        });
+    });
+</script>

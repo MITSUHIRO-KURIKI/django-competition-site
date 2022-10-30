@@ -1,0 +1,104 @@
+{% load static %}
+{% load num2locate %}
+{% load num2gender %}
+
+
+<!-- ITEM FIELD -->
+<div class="container-fluid m-0 p-0">
+    <div class="row m-0 p-0 mt-4 p-1 border border-secondary">
+        <div class="mx-md-0 mx-sm-auto">
+            {% if custom_user_profile_public_settings.user_icon_public or object_list.email == user.email %}
+            <img src="{{ custom_user_profile.user_icon.url }}" alt="user_icon"
+                style="width:184px;height:184px;" class="rounded" />
+            {% else %}
+            <img src="{% static 'user_profile/user_icon/default/default.png' %}" alt="user_icon"
+                style="width:184px;height:184px;" class="rounded" />
+            {% endif %}
+        </div>
+
+        <div class="col-md-6 col-sm-12 m-0 p-0 pl-3 text-md-left text-sm-center">
+
+            <div class="row m-0 p-0">
+                <div class="col-12 m-0 p-0 pt-4 font-weight-bold">
+                    {% if custom_user_profile_public_settings.username_public or object_list.email == user.email %}
+                        {{ object_list.username }}
+                    {% else %}
+                        匿名ユーザー
+                    {% endif %}
+                </div>
+
+                <div class="col-12 m-0 p-0 pt-2 small text-muted">
+                    {% if custom_user_profile_public_settings.locate_public or object_list.email == user.email %}
+                        {% if custom_user_profile.locate != 0 %}
+                            {{ custom_user_profile.locate | num2locate }}
+                        {% else %}
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="col-12 m-0 p-0 small text-muted">
+                    {% if custom_user_profile_public_settings.gender_public or object_list.email == user.email %}
+                        {{ custom_user_profile.gender | num2gender }}
+                    {% endif %}
+                    {% if custom_user_profile_public_settings.birth_day_public or object_list.email == user.email %}
+                        {{ custom_user_profile.birth_day|date:'Y年m月d日' }}
+                    {% endif %}
+                </div>
+
+                <div class="col-12 m-0 p-0 pt-4 font-weight-light small">
+                    <div>This Service Joind: {{ object_list.date_joined|date:'Y/m/d' }}</div>
+                </div>
+                <div class="col-12 m-0 p-0">
+                    {% if custom_user_profile_public_settings.sns_id_public or object_list.email == user.email %}
+                    {% if custom_user_profile.sns_id_twitter %}
+                    <a href="https://twitter.com/{{ custom_user_profile.sns_id_twitter }}" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bi bi-twitter"></i></a>
+                    {% endif %}
+                    {% if custom_user_profile.sns_id_facebook %}
+                    <a href="https://www.facebook.com/{{ custom_user_profile.sns_id_facebook }}" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bi bi-facebook"></i></a>
+                    {% endif %}
+                    {% if custom_user_profile.sns_id_instagram %}
+                    <a href="https://www.instagram.com/{{ custom_user_profile.sns_id_instagram }}" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bi bi-instagram"></i></a>
+                    {% endif %}
+                    {% if custom_user_profile.sns_id_linkedin %}
+                    <a href="https://www.linkedin.com/in/{{ custom_user_profile.sns_id_linkedin }}" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bi bi-linkedin"></i></a>
+                    {% endif %}
+                    {% if custom_user_profile.sns_id_github %}
+                    <a href="https://github.com/{{ custom_user_profile.sns_id_github }}" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="bi bi-github"></i></a>
+                    {% endif %}
+                    {% if custom_user_profile.sns_id_kaggle %}
+                    <a href="https://www.kaggle.com/{{ custom_user_profile.sns_id_kaggle }}" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="fab fa-kaggle"></i></a>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid m-0 p-0">
+    <div class="row m-0 p-0 mt-2 p-1">
+        <div class="col-12">
+            <div class="text-left">
+                {% if custom_user_profile_public_settings.comment_public %}
+                    {% if custom_user_profile.comment %}
+                        <i class="fas fa-comment fa-lg align-top" style="width:20px; height:20px;color:#3c8f50;"></i>
+                        <div class="pop-comment-left">
+                            <p class="m-0 pr-4 pl-3 py-1 text-left text-break">{{ custom_user_profile.comment }}</p>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div> 
+    </div>
+</div>

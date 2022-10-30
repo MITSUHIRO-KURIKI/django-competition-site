@@ -1,0 +1,12 @@
+<script>
+    /*@cc_on _d=document;eval('var document=_d')@*/
+
+    // Display filename
+    bsCustomFileInput.init();
+    // Clear File Selection
+    document.getElementById('inputFileReset_{{NUM}}').addEventListener('click', function (e) {
+        var elem = document.getElementById('inputFile_{{NUM}}');
+        elem.value = '';
+        elem.dispatchEvent(new Event('change'));
+    });
+</script>

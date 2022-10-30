@@ -1,0 +1,46 @@
+{% extends "user_profile/user_profile_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block user_profile_title %} - Personal Info Edit{% endblock %}
+
+<!-- CSS PREVIOUS -->
+{% block user_profile_css_previous %}
+<!-- USE flatpickr -->
+<link rel="stylesheet" href="{% static 'templates/include/flatpickr/flatpickr.min.css' %}" />
+<link rel="stylesheet" href="{% static 'templates/include/flatpickr/EX_flatpickr.css' %}" />
+{% endblock %}
+
+<!-- SCRIPT previous -->
+{% block user_profile_js_previous %}
+<!-- USE flatpickr -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js'></script>
+{% endblock %}
+
+<!-- SCRIPT rear -->
+{% block user_profile_js_rear %}
+<!-- USE flatpickr -->
+<script src="{% static 'templates/include/flatpickr/flatpickr.min.js' %}"></script>
+<script src="{% static 'templates/include/flatpickr/ja.js' %}"></script>
+<script src="{% static 'templates/include/flatpickr/EX_flatpickr.js' %}"></script>
+<script src="{% static 'templates/include/popper/popper.min.js' %}"></script>
+
+<!-- USE bs-custom-file-input -->
+<script src="{% static 'templates/include/bs-custom-file-input/bs-custom-file-input.js' %}"></script>
+<script src="{% static 'templates/include/bs-custom-file-input/file-input-and-preview.js' %}"></script>
+{% endblock %}
+
+<!-- SIDEBAR -->
+{% block user_profile_sidebar %}
+{% include 'user_profile/include/user_profile_base_sidebar.html' with user_profile_edit_active='active' %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block user_profile_content %}
+
+
+{% include 'user_profile/UserProfileEdit/form/user_profile_edit_form.html' %}
+
+
+{% endblock %}

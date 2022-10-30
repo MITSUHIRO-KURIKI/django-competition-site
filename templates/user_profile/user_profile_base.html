@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+<!-- META -->
+{% block meta %}
+{% block user_profile_meta %}{% endblock %}
+{% endblock %}
+
+<!-- TITLE -->
+{% block title %}
+{% block user_profile_title %}{% endblock %}
+{% endblock %}
+
+<!-- CSS PREVIOUS -->
+{% block css_previous %}
+{% block user_profile_css_previous %}{% endblock %}
+{% endblock %}
+
+<!-- SCRIPT previous -->
+{% block js_previous %}
+{% block user_profile_js_previous %}{% endblock %}
+{% endblock %}
+
+
+<!-- CONTENT -->
+{% block content %}
+
+
+<div class="row d-flex justify-content-center">
+    <!-- user_profile SIDEBAR -->
+    {% block user_profile_sidebar %}{% endblock %}
+    <div class="col-md-8 col-sm-12">
+        <!-- user_profile CONTENT -->
+        {% block user_profile_content %}{% endblock %}
+    </div>
+</div>
+
+<!-- CONTENT NO SIDEBAR -->
+{% block user_profile_content_nosidebar %}{% endblock %}
+
+
+{% endblock %}
+
+<!-- SCRIPT rear -->
+{% block js_rear %}
+{% block user_profile_js_rear %}{% endblock %}
+{% endblock %}
+
+<!-- FOOTER -->
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

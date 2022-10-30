@@ -1,0 +1,36 @@
+<!-- load summernote script and css -->
+{% with LOAD_SUMMERNOTE_CSS_AND_BASE_SCRIPT=True %}
+    {% include 'include/summernote/summernote_script.html' %}
+{% endwith %}
+
+<form method="post" enctype="multipart/form-data" onSubmit="is_note_msg=false;">
+
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div id="SummernoteText">
+        <textarea name="{{ form_field_name.html_name }}" id="{{ form_field_name.id_for_label }}" hidden="true">{% if form_field_name.value %}{{ form_field_name.value }}{% endif %}</textarea>
+        <script>initSummernote_{{ form_field_name.id_for_label }}();</script>
+    </div>
+    
+    <div class="d-flex flex-nowrap justify-content-between mx-4 my-2 p-0">
+        <h5 class="text-left flex-grow-1">
+            {% if form_field_name.help_text %}
+                {% autoescape off %}
+                    <small class="text-muted">{{ form_field_name.help_text }}</small>
+                {% endautoescape %}
+            {% endif %}
+        </h5>
+        <div class="text-right">
+            <button class="process-btn btn btn-primary" type="submit">{{ submit_button_name }}</button>
+        </div>
+    </div>
+
+    <!-- This field contains the ID -->
+    {% for field in form.hidden_fields %}
+        {{ field }}
+    {% endfor %}
+
+</form>
+<!-- USE Spinner -->
+{% include 'include/spinners/process.html' %}

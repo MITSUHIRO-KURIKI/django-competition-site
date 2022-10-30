@@ -1,0 +1,69 @@
+<ul class="nav nav-tabs mb-4" id="CompetitionsTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link {% if request.GET.close_competition_page %}{%else%}active{% endif %}" id="joined-competitions-tab" data-bs-toggle="tab"
+            data-bs-target="#joined-competitions" type="button" role="tab" aria-controls="joined-competitions"
+            {% if request.GET.close_competition_page %}
+                aria-selected="false"
+            {% else %}
+                aria-selected="true"
+            {% endif %}
+            >
+            Active
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link {% if request.GET.close_competition_page %}active{%else%}{% endif %}" id="closed-competitions-tab" data-bs-toggle="tab" data-bs-target="#closed-competitions"
+            type="button" role="tab" aria-controls="closed-competitions"
+            {% if request.GET.close_competition_page %}
+                aria-selected="true"
+            {% else %}
+                aria-selected="false"
+            {% endif %}
+            >
+            Closed
+        </a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="result-competitions-tab" data-bs-toggle="tab" data-bs-target="#result-competitions"
+            type="button" role="tab" aria-controls="result-competitions" aria-selected="false">
+            Result
+        </a>
+    </li>
+</ul>
+<div class="tab-content" id="CompetitionsTabContent">
+    <div class="tab-pane fade {% if request.GET.close_competition_page %}{%else%}show active{% endif %}" id="joined-competitions" role="tabpanel"
+        aria-labelledby="joined-competitions-tab">
+        {% if User_JOINED_ACTIVE_COMPETITIONS %}
+            <div class="row">
+                {% for object in User_JOINED_ACTIVE_COMPETITIONS %}
+                    {% include 'competitions/CompetitionsList/include/competition_item.html' %}
+                {% endfor %}
+            </div>
+            <!-- Pagination -->
+            {% with pages=User_JOINED_ACTIVE_COMPETITIONS page_tag='active_competition_page' use_page_tags=use_page_tags add_a_name='competitions' %}
+                {% include 'include/pagination/pagination.html' %}
+            {% endwith %}
+        {% else %}
+            参加中のコンペティションはありません
+        {% endif %}
+    </div>
+    <div class="tab-pane fade {% if request.GET.close_competition_page %}show active{%else%}{% endif %}" id="closed-competitions" role="tabpanel" aria-labelledby="closed-competitions-tab">
+        {% if User_JOINED_CLOSE_COMPETITIONS %}
+            <div class="row">
+                {% for object in User_JOINED_CLOSE_COMPETITIONS %}
+                    {% include 'competitions/CompetitionsList/include/competition_item.html' %}
+                {% endfor %}
+            </div>
+            <!-- Pagination -->
+            {% with pages=User_JOINED_CLOSE_COMPETITIONS page_tag='close_competition_page' use_page_tags=use_page_tags add_a_name='competitions' %}
+                {% include 'include/pagination/pagination.html' %}
+            {% endwith %}
+        {% else %}
+            終了したコンペティションはありません
+        {% endif %}
+    </div>
+    <div class="tab-pane fade" id="result-competitions" role="tabpanel" aria-labelledby="result-competitions-tab">
+        <!-- コンペティションランキング情報 -->
+        {% include 'user_profile/UserProfile/include/item/user_competition_rank.html' %}
+    </div>
+</div>

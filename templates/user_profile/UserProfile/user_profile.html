@@ -1,0 +1,59 @@
+{% extends "user_profile/user_profile_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block user_profile_title %} - {{ object_list.unique_account_id }}{% endblock %}
+
+<!-- META -->
+{% block user_profile_meta %}
+    {% if custom_user_profile_public_settings.search_robot_public %}
+        <meta name="robots" content="noindex" />
+    {% endif %}
+{% endblock %}
+
+<!-- CSS -->
+{% block user_profile_css_previous %}
+    <!-- POP COMMENT -->
+    <link rel="stylesheet" href="{% static 'templates/include/pop-comment/pop-comment.css' %}" />
+    <!-- Custom styles for summernote -->
+    <link rel="stylesheet" href="{% static 'templates/include/summernote/custom.css' %}" />
+{% endblock %}
+
+<!-- SCRIPT rear -->
+{% block user_profile_js_rear %}
+    <!-- bookmark and vote ajax script -->
+    {% include 'include/Ajax/Ajax_script.html' %}
+    {% include 'include/Ajax/bookmark/bookmark_ajax_script.html' with ajax_click_class_name='bookmark' %}
+    {% include 'include/Ajax/vote/vote_ajax_script.html' with ajax_click_class_name='vote' %}
+{% endblock %}
+
+<!-- CONTENT NO SIDEBAR -->
+{% block user_profile_content_nosidebar %}
+
+
+<!-- ユーザ情報 -->
+{% if object_list.email == user.email or custom_user_profile_public_settings.user_profile_is_all_public %}
+    <!-- Overall -->
+    {% include 'user_profile/UserProfile/include/user_profile_overall.html' %}
+    <!-- user active data infomation -->
+    {% include 'user_profile/UserProfile/include/user_active_data_infomation.html' %}
+{% else %}
+    {% if custom_user_profile_public_settings.user_profile_is_authenticated_only %}
+        {% if user.is_authenticated %}
+            <!-- Overall -->
+            {% include 'user_profile/UserProfile/include/user_profile_overall.html' %}
+            <!-- user active data infomation -->
+            {% include 'user_profile/UserProfile/include/user_active_data_infomation.html' %}
+        {% else %}
+            <p>匿名ユーザー</p>
+            <p>This Service Joind: {{object_list.date_joined|date:'Y/m'}}</p>
+        {% endif %}
+    {% else %}
+        <p>匿名ユーザー</p>
+        <p>This Service Joind: {{object_list.date_joined|date:'Y/m'}}</p>
+    {% endif %}
+{% endif %}
+
+
+{% endblock %}

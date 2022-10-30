@@ -1,0 +1,30 @@
+{% extends "submission/submission_base.html" %}
+{% load static %}
+
+
+<!-- TITLE -->
+{% block submission_title %} - {{ COMPETITION_DATA.title }} - UserSubmissions{% endblock %}
+
+<!-- CONTENT -->
+{% block submission_content %}
+
+<!-- InfoModal -->
+{% include 'include/imfomation_modal/btn.html' %}
+{% include 'include/imfomation_modal/object.html' %}
+{% include 'submission/UserSubmission/infomation_modal/infomation_modal_script.html' %}
+<!-- Overall -->
+{% include 'competitions/CompetitionPage/include/overall.html' %}
+<!-- Navs -->
+{% include 'competitions/CompetitionPage/include/navs.html' with user_submissions_active='active'%}
+<!-- User Submissions -->
+{% if IS_USER_COMPETITION_JOINED %}
+    <div class="col-md-10 col-sm-11 mx-auto my-0 p-2" id="InfoModal-Submission">
+        {% include 'submission/UserSubmission/include/submissions.html' %}
+    </div>
+{% else %}
+    <div class="col-md-10 col-sm-11 mx-auto my-0 p-2">
+        <p class="fs-2 m-0 p-0">提出を編集するにはコンペティションへの参加が必要です</p>
+    </div>
+{% endif %}
+
+{% endblock %}

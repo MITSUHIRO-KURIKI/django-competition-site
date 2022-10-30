@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!-- META -->
+{% block meta %}
+{% block user_inquiry_meta %}{% endblock %}
+{% endblock %}
+
+<!-- TITLE -->
+{% block title %}
+{% block user_inquiry_title %}{% endblock %}
+{% endblock %}
+
+<!-- SCRIPT previous -->
+{% block js_previous %}
+{% block user_inquiry_js_previous %}{% endblock %}
+{% endblock %}
+
+<!-- CONTENT -->
+{% block content %}
+
+<!-- user_settings CONTENT -->
+{% block user_inquiry_content %}{% endblock %}
+
+{% endblock %}
+
+<!-- SCRIPT rear -->
+{% block js_rear %}
+{% block user_inquiry_js_rear %}{% endblock %}
+{% endblock %}
+
+<!-- FOOTER -->
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}
