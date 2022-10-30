@@ -3,7 +3,7 @@
 ## What is this?
 世界には優れた予測モデリングや分析手法のプラットフォーム(ex.kaggle, etc.)があり、多くのコンペティションが開催されています。また、それらの優れたアプリケーション上でプライベートなコンペティションを開催することができます。  
 一方で、クローズドな環境でそうしたコンペティションを開催したいニーズ(外部への公開が禁止されている社内データを用いたコンペティションの開催など)があると考え、本アプリケーションを作成しました。  
-**（アプリケーションは主要な機能は持ちますが、現時点で未完成です。）**
+**（アプリケーションは主要な機能を持ちますが、現時点で未完成です。）**
 <small><blockquote>There are many excellent predictive modeling and analysis method platforms (ex.kaggle, etc.) in the world and many competitions are held on them. You can also hold private competitions on those excellent applications.  
 On the other hand, we believe that there is a need to hold such competitions in a closed environment (e.g., competitions using internal company data that are not allowed to be disclosed to the outside world), so we created this application.  
 **(The application has key features but is incomplete at this time.)**
