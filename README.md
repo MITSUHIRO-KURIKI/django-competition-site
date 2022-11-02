@@ -30,6 +30,22 @@ See static/SampleData/Competition/ and static/SampleData/Submission/ for samples
 * Discussion/Notebook/Comment has voting and bookmarking functions.  
 </blockquote></small>
 
+## Site Image
+* main page
+<img src="https://raw.githubusercontent.com/MITSUHIRO-KURIKI/django-competition-site/main/README_img/main.jpg" />
+
+* competition page
+<img src="https://raw.githubusercontent.com/MITSUHIRO-KURIKI/django-competition-site/main/README_img/competition.jpg" />
+
+* discussion page
+<img src="https://raw.githubusercontent.com/MITSUHIRO-KURIKI/django-competition-site/main/README_img/discussion.jpg" />
+
+* notebook page
+<img src="https://raw.githubusercontent.com/MITSUHIRO-KURIKI/django-competition-site/main/README_img/notebook.jpg" />
+
+* site management page(is_superuser or is_stuff only use)
+<img src="https://raw.githubusercontent.com/MITSUHIRO-KURIKI/django-competition-site/main/README_img/site_mamagement.jpg" />
+
 ## way to use
 使用には一般的なDjangoの経験が必要です。  
 * リポジトリをクローンし、仮想環境上でrequirements.txt をインストールします。
