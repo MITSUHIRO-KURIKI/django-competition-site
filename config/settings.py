@@ -5,14 +5,14 @@ from unidecode import unidecode
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-USE_SOCIAL_LOGIN = True
+DEBUG = True
+USE_SOCIAL_LOGIN = False
 USE_EMAIL_CERTIFICATION = False
 USE_EMAIL_NOTIFICATION = False
 USE_EMAIL_INQUIRY_NOTIFICATION_ADMIN = False
-USE_RECAPTCHA = True
-USE_GCS = True
-USE_CloudSQL = True
+USE_RECAPTCHA = False
+USE_GCS = False
+USE_CloudSQL = False
 if USE_GCS:
     from google.oauth2 import service_account
 USE_DJANGO_TOOLBAR = False
